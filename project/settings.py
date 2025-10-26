@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     # Project apps
     "source",
     "data",
+    "dashboard",
     # Project commands
     "project_commands",
 ]
@@ -131,7 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+
+# Static files configuration for development
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -201,3 +208,65 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Unfold Configuration
+UNFOLD = {
+    "SITE_TITLE": "NBA Data Manager",
+    "SITE_HEADER": "NBA Data Manager",
+    "SITE_SUBHEADER": "Panel de Administración",
+    "SITE_URL": "/",
+    "SITE_ICON": {
+        "light": lambda request: "/static/ico.png",
+        "dark": lambda request: "/static/ico.png",
+    },
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/png",
+            "href": lambda request: "/static/ico.png",
+        },
+    ],
+    "SHOW_HISTORY": True,
+    "SHOW_VIEW_ON_SITE": True,
+    "SHOW_BACK_BUTTON": False,
+    "BORDER_RADIUS": "8px",
+    "THEME": None,  # Permite cambio de tema (claro/oscuro)
+    "COLORS": {
+        "base": {
+            "50": "oklch(98.5% .002 247.839)",
+            "100": "oklch(96.7% .003 264.542)",
+            "200": "oklch(92.8% .006 264.531)",
+            "300": "oklch(87.2% .01 258.338)",
+            "400": "oklch(70.7% .022 261.325)",
+            "500": "oklch(55.1% .027 264.364)",
+            "600": "oklch(44.6% .03 256.802)",
+            "700": "oklch(37.3% .034 259.733)",
+            "800": "oklch(27.8% .033 256.848)",
+            "900": "oklch(21% .034 264.665)",
+            "950": "oklch(13% .028 261.692)",
+        },
+        "primary": {
+            # Colores azules más vibrantes
+            "50": "oklch(98% .02 240)",     # Azul muy claro
+            "100": "oklch(95% .04 240)",    # Azul claro
+            "200": "oklch(90% .08 240)",    # Azul medio-claro
+            "300": "oklch(82% .15 240)",    # Azul medio
+            "400": "oklch(70% .25 240)",    # Azul
+            "500": "oklch(60% .3 240)",     # Azul principal
+            "600": "oklch(50% .3 240)",     # Azul oscuro
+            "700": "oklch(42% .25 240)",    # Azul más oscuro
+            "800": "oklch(35% .2 240)",     # Azul muy oscuro
+            "900": "oklch(28% .15 240)",    # Azul casi negro
+            "950": "oklch(20% .1 240)",     # Azul negro
+        },
+        "font": {
+            "subtle-light": "var(--color-base-500)",
+            "subtle-dark": "var(--color-base-400)",
+            "default-light": "var(--color-base-600)",
+            "default-dark": "var(--color-base-300)",
+            "important-light": "var(--color-base-900)",
+            "important-dark": "var(--color-base-100)",
+        },
+    },
+}
