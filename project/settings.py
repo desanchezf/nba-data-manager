@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
     "source",
     "data",
     "dashboard",
+    "scrapper",
     # Project commands
     "project_commands",
 ]
@@ -72,7 +72,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -248,17 +248,17 @@ UNFOLD = {
         },
         "primary": {
             # Colores azules más vibrantes
-            "50": "oklch(98% .02 240)",     # Azul muy claro
-            "100": "oklch(95% .04 240)",    # Azul claro
-            "200": "oklch(90% .08 240)",    # Azul medio-claro
-            "300": "oklch(82% .15 240)",    # Azul medio
-            "400": "oklch(70% .25 240)",    # Azul
-            "500": "oklch(60% .3 240)",     # Azul principal
-            "600": "oklch(50% .3 240)",     # Azul oscuro
-            "700": "oklch(42% .25 240)",    # Azul más oscuro
-            "800": "oklch(35% .2 240)",     # Azul muy oscuro
-            "900": "oklch(28% .15 240)",    # Azul casi negro
-            "950": "oklch(20% .1 240)",     # Azul negro
+            "50": "oklch(98% .02 240)",  # Azul muy claro
+            "100": "oklch(95% .04 240)",  # Azul claro
+            "200": "oklch(90% .08 240)",  # Azul medio-claro
+            "300": "oklch(82% .15 240)",  # Azul medio
+            "400": "oklch(70% .25 240)",  # Azul
+            "500": "oklch(60% .3 240)",  # Azul principal
+            "600": "oklch(50% .3 240)",  # Azul oscuro
+            "700": "oklch(42% .25 240)",  # Azul más oscuro
+            "800": "oklch(35% .2 240)",  # Azul muy oscuro
+            "900": "oklch(28% .15 240)",  # Azul casi negro
+            "950": "oklch(20% .1 240)",  # Azul negro
         },
         "font": {
             "subtle-light": "var(--color-base-500)",
