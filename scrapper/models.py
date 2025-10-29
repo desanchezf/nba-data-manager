@@ -1,5 +1,7 @@
 from django.db import models
 
+from scrapper.enums import ScrapperName
+
 
 # Create your models here.
 class ScrapperLogs(models.Model):
@@ -23,8 +25,16 @@ class ScrapperLogs(models.Model):
         verbose_name_plural = "Scrapper Logs"
 
 
-class ScrapperStatus(models.TextChoices):
-    scrapper_name = models.CharField(max_length=100, help_text="Nombre del scraper")
+class ScrapperStatus(models.Model):
+    """
+    Modelo para almacenar el estado del scraper
+    """
+
+    scrapper_name = models.CharField(
+        max_length=100,
+        help_text="Nombre del scraper",
+        choices=ScrapperName.choices(),
+    )
     last_execution = models.DateTimeField(auto_now_add=True)
     last_link_scraped = models.URLField(
         max_length=500, help_text="Último enlace scrapeado", null=True, blank=True
@@ -32,8 +42,10 @@ class ScrapperStatus(models.TextChoices):
     is_running = models.BooleanField(
         default=False, help_text="Indica si el scraper está en ejecución"
     )
-    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Scrapper Status"
         verbose_name_plural = "Scrapper Status"
+
+    def __str__(self):
+        return f"{self.scrapper_name} - {'Running' if self.is_running else 'Stopped'}"

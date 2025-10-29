@@ -270,3 +270,32 @@ UNFOLD = {
         },
     },
 }
+
+# Scrapper
+
+SCRAPPER_NAMES = [
+    "Advanced Boxscore Scraper",
+    "Box Outs Scraper",
+    "Boxscore Scraper",
+    "Catch & Shoot Scraper",
+    "Clutch Scraper",
+    "Defense Dashboard Scraper",
+    "Defensive Impact Scraper",
+    "Defensive Rebounding Scraper",
+    "Drives Scraper",
+    "Elbow Touch Scraper",
+    "Hustle Scraper",
+    "Offensive Rebounding Scraper",
+    "Opponent Shooting Scraper",
+    "Paint Touch Scraper",
+    "Passing Scraper",
+    "Playtipe Scraper",
+    "Post Ups Scraper",
+    "Pull Up Shooting Scraper",
+    "Rebounding Scraper",
+    "Shooting Efficiency Scraper",
+    "Shooting Scraper",
+    "Shot Dashboard Scraper",
+    "Speed & Distance Scraper",
+    "Touches Scraper",
+]

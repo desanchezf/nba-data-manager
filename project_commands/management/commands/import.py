@@ -2,9 +2,11 @@ import os
 import logging
 
 from django.core.management.base import BaseCommand
-
 from source.models import Links
 from urllib.parse import urlparse, parse_qs
+from django.conf import settings
+from scrapper.models import ScrapperStatus
+from scrapper.enums import ScrapperName
 
 logger = logging.getLogger(__name__)
 
@@ -14,10 +16,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Importar links
-        if self.import_links():
-            self.stdout.write(self.style.SUCCESS("Links importados correctamente"))
+        # if self.import_links():
+        #     self.stdout.write(self.style.SUCCESS("Links imported correctly"))
+        # else:
+        #     self.stdout.write(self.style.ERROR("Error importing links"))
+
+        # Importar estado del scraper
+        if self.import_scrapper_status():
+            self.stdout.write(self.style.SUCCESS("Scrapper status imported correctly"))
         else:
-            self.stdout.write(self.style.ERROR("Error al importar links"))
+            self.stdout.write(self.style.ERROR("Error importing scrapper status"))
 
     # Importar links
     def import_links(self):
@@ -29,7 +37,7 @@ class Command(BaseCommand):
             if not os.path.isdir(links_dir):
                 raise ValueError(f"No existe el directorio de links: {links_dir}")
 
-            self.stdout.write(f"Procesando directorio: {links_dir}")
+            self.stdout.write(f"Processing directory: {links_dir}")
             total_links = 0
             created_links = 0
             existing_links = 0
@@ -39,7 +47,7 @@ class Command(BaseCommand):
                 if not os.path.isfile(file_path):
                     continue  # skip subdirs etc
 
-                self.stdout.write(f"Procesando archivo: {file_name}")
+                self.stdout.write(f"Processing file: {file_name}")
                 file_links = 0
 
                 with open(file_path, "r", encoding="utf-8") as f:
@@ -75,12 +83,12 @@ class Command(BaseCommand):
                         if created:
                             created_links += 1
                             self.stdout.write(
-                                f"  ✓ Creado: {category} - {season} - {season_type}"
+                                f"  ✓ Created: {category} - {season} - {season_type}"
                             )
                         else:
                             existing_links += 1
                             self.stdout.write(
-                                f"  - Ya existía: {category} - {season} - {season_type}"
+                                f"  - Already exists: {category} - {season} - {season_type}"
                             )
 
                 self.stdout.write(
@@ -89,13 +97,46 @@ class Command(BaseCommand):
 
             # Resumen final
             self.stdout.write("\n" + "=" * 50)
-            self.stdout.write("RESUMEN DE IMPORTACIÓN:")
-            self.stdout.write(f"Total de links procesados: {total_links}")
-            self.stdout.write(f"Links creados: {created_links}")
-            self.stdout.write(f"Links ya existentes: {existing_links}")
+            self.stdout.write("SUMMARY OF IMPORTATION:")
+            self.stdout.write(f"Total links processed: {total_links}")
+            self.stdout.write(f"Links created: {created_links}")
+            self.stdout.write(f"Links already exist: {existing_links}")
             self.stdout.write("=" * 50)
 
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"Error al importar links: {e}"))
+            self.stdout.write(self.style.ERROR(f"Error importing links: {e}"))
             return False
+        return True
+
+    def import_scrapper_status(self):
+        """
+        Importar estado del scraper
+        """
+        # Mapear nombres bonitos a valores del enum
+        name_mapping = {display: value for value, display in ScrapperName.choices()}
+
+        for scrapper_display_name in settings.SCRAPPER_NAMES:
+            # Obtener el valor del enum correspondiente
+            scrapper_value = name_mapping.get(scrapper_display_name)
+
+            if not scrapper_value:
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"  ⚠️  No se encontró valor del enum para: {scrapper_display_name}"
+                    )
+                )
+                continue
+
+            _, created = ScrapperStatus.objects.get_or_create(
+                scrapper_name=scrapper_value,
+                defaults={
+                    "last_execution": None,
+                    "last_link_scraped": None,
+                    "is_running": False,
+                },
+            )
+            if created:
+                self.stdout.write(f"  ✓ Created: {scrapper_display_name}")
+            else:
+                self.stdout.write(f"  - Already exists: {scrapper_display_name}")
         return True
