@@ -41,3 +41,6 @@ ENV PYTHONHASHSEED=random
 ENV PYTHONGC=1
 
 COPY . /code/
+
+# Dar permisos de ejecución al entrypoint
+RUN chmod +x /code/entrypoint.sh

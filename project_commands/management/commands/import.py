@@ -16,10 +16,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Importar links
-        # if self.import_links():
-        #     self.stdout.write(self.style.SUCCESS("Links imported correctly"))
-        # else:
-        #     self.stdout.write(self.style.ERROR("Error importing links"))
+        if self.import_links():
+            self.stdout.write(self.style.SUCCESS("Links imported correctly"))
+        else:
+            self.stdout.write(self.style.ERROR("Error importing links"))
 
         # Importar estado del scraper
         if self.import_scrapper_status():
