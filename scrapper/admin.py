@@ -1,13 +1,11 @@
 from django.contrib import admin
-from django.core.management import call_command
-import time
-from django.db.models import QuerySet
 from django.http import HttpRequest
-from django.contrib import messages
 from unfold.admin import ModelAdmin
 from unfold.decorators import action
-
 from scrapper.models import ScrapperLogs, ScrapperStatus
+from django.utils.translation import gettext_lazy as _
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 
 @admin.register(ScrapperLogs)
@@ -44,26 +42,56 @@ class ScrapperStatusAdmin(ModelAdmin):
     get_scrapper_name_display.admin_order_field = "scrapper_name"
 
     # Lista de acciones disponibles
+    # actions_list = [
+    #     "execute_scrapper",
+    # ]
+
     actions_list = [
         "execute_scrapper",
+        {
+            "title": "Dropdown action",
+            "icon": "person",  # Optional, will display icon in the dropdown title
+            "items": [
+                "action3",
+                "action4",
+            ],
+        },
     ]
 
-    @action(description="🚀 Ejecutar Scrapper", icon="play_arrow")
-    def execute_scrapper(self, request: HttpRequest, queryset: QuerySet):
-        """Ejecutar scraper para URLs seleccionadas"""
-        urls = list(queryset.values_list("url", flat=True))
+    @action(
+        description=_("Start all scrapers 🚀 "),
+        url_path="changelist-action",
+        permissions=["execute_scrapper"],
+        icon="play_arrow",  # Ahora usando un emoji de cohete
+    )
+    def execute_scrapper(self, request: HttpRequest):
+        # Se ejecuta el scrapper en segundo plano
+        print("Scrapper executed")
+        return redirect(reverse_lazy("admin:scrapper_scrapperstatus_changelist"))
 
-        try:
-            time.sleep(11200)
+    def has_execute_scrapper_permission(self, request: HttpRequest):
+        # Write your own bussiness logic. Code below will always display an action.
+        return True
 
-            call_command("run_scraper", urls=urls, verbosity=2)
+    # Accion para el dropdown de actions
+    @action(
+        description=_("Start all scrapers 🚀 "),
+        url_path="changelist-action",
+        permissions=["execute_scrapper"],
+        icon="play_arrow",  # Ahora usando un emoji de cohete
+    )
+    def action3(self, request: HttpRequest):
+        # Se ejecuta el scrapper en segundo plano
+        print("Scrapper executed")
+        pass
 
-            self.message_user(
-                request,
-                f"✅ Se ejecutó el scraper para {len(urls)} URLs.",
-                messages.SUCCESS,
-            )
-        except Exception as e:
-            self.message_user(
-                request, f"❌ Error executing scraper: {str(e)}", messages.ERROR
-            )
+    @action(
+        description=_("Start all scrapers 🚀 "),
+        url_path="changelist-action",
+        permissions=["execute_scrapper"],
+        icon="play_arrow",  # Ahora usando un emoji de cohete
+    )
+    def action4(self, request: HttpRequest):
+        # Se ejecuta el scrapper en segundo plano
+        print("Scrapper executed")
+        pass
