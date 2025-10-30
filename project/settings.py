@@ -272,7 +272,40 @@ UNFOLD = {
 }
 
 # Scrapper
-
+CATEGORIES = [
+    "advanced-boxscore",
+    "box-outs",
+    "boxscore",
+    "catch-shoot",
+    "clutch",
+    "defense-dashboard",
+    "defensive-impact",
+    "defensive-rebounding",
+    "drives",
+    "elbow-touch",
+    "hustle",
+    "offensive-rebounding",
+    "opponent-shooting",
+    "paint-touch",
+    "passing",
+    "playtipe",
+    "post-ups",
+    "pull-up-shooting",
+    "rebounding",
+    "shooting-efficiency",
+    "shooting",
+    "shot-dashboard",
+    "speed-distance",
+    "touches",
+]
+SEASON_TYPES = [
+    "Pre+Season",
+    "Regular+Season",
+    "Playoffs",
+    "All+Star",
+    "PlayIn",
+    "IST",
+]
 SCRAPPER_NAMES = [
     "Advanced Boxscore Scraper",
     "Box Outs Scraper",
@@ -299,3 +332,4 @@ SCRAPPER_NAMES = [
     "Speed & Distance Scraper",
     "Touches Scraper",
 ]
+
