@@ -5,6 +5,8 @@ Scraper especializado para datos de Boxscore de NBA
 
 import logging
 import time
+from datetime import datetime
+from urllib.parse import urlparse, parse_qs
 
 import polars as pl
 from django.db import transaction
@@ -12,11 +14,11 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-
-from scrapper.services.base_scrapper import BaseScraper
-
 from data.models import BoxScore
 from scrapper.models import ScrapperLogs
+from source.models import Links
+
+from .base_scrapper import BaseScraper
 
 logger = logging.getLogger(__name__)
 
@@ -550,12 +552,12 @@ class BoxscoreScraper(BaseScraper):
             logger.error(f"Error guardando datos en la base de datos: {e}")
             return False, 0
 
-    def process_links(self, links):
+    def process_links(self, urls):
         """
-        Procesa una lista de objetos Links, scrapea los datos y los guarda en la base de datos
+        Procesa una lista de URLs, scrapea los datos y los guarda en la base de datos
 
         Args:
-            links: QuerySet o lista de objetos Links
+            urls: Lista de URLs (strings)
 
         Returns:
             dict: Estadísticas del procesamiento
@@ -570,11 +572,11 @@ class BoxscoreScraper(BaseScraper):
         }
 
         try:
-            # Convertir a lista si es QuerySet
-            if hasattr(links, "__iter__") and not isinstance(links, list):
-                links = list(links)
+            # Convertir a lista si no lo es
+            if not isinstance(urls, list):
+                urls = list(urls)
 
-            stats["total"] = len(links)
+            stats["total"] = len(urls)
 
             logger.info(f"Iniciando procesamiento de {stats['total']} links")
 
@@ -583,33 +585,44 @@ class BoxscoreScraper(BaseScraper):
                 logger.error("No se pudo conectar el driver")
                 return stats
 
-            for i, link in enumerate(links, 1):
+            for i, url in enumerate(urls, 1):
                 stats["processed"] += 1
-                logger.info(
-                    f"Procesando link {i}/{stats['total']}: {link.category} - {link.season} - {link.season_type}"
-                )
 
                 try:
-                    # Verificar si ya fue scrapeado
-                    if link.scraped:
-                        logger.info(f"Link ya scrapeado, saltando: {link.url}")
-                        stats["skipped"] += 1
-                        continue
+                    # Extraer información de la URL
+                    season, season_type = self._extract_url_params(url)
+                    parsed = urlparse(url)
+                    category = parsed.path.split("/")[-1]
+
+                    logger.info(
+                        f"Procesando link {i}/{stats['total']}: {category} - {season} - {season_type}"
+                    )
+
+                    # Buscar el objeto Links para verificar si ya fue scrapeado
+                    try:
+                        link_obj = Links.objects.get(url=url)
+                        if link_obj.scraped:
+                            logger.info(f"Link ya scrapeado, saltando: {url}")
+                            stats["skipped"] += 1
+                            continue
+                    except Links.DoesNotExist:
+                        # Si no existe el objeto, continuar de todas formas
+                        logger.warning(f"Link no encontrado en BD: {url}")
 
                     # Registrar inicio del scraping
                     log_entry = ScrapperLogs.objects.create(
-                        url=link.url,
-                        category=link.category,
-                        season=link.season,
-                        season_type=link.season_type,
+                        url=url,
+                        category=category,
+                        season=season or "",
+                        season_type=season_type or "",
                         status="processing",
                     )
 
                     # Extraer datos de la URL
-                    data = self.extract_table_data(link.url)
+                    data = self.extract_table_data(url)
 
                     if data.empty:
-                        logger.warning(f"No se extrajeron datos de: {link.url}")
+                        logger.warning(f"No se extrajeron datos de: {url}")
                         log_entry.status = "failed"
                         log_entry.error = "No se extrajeron datos"
                         log_entry.save()
@@ -618,13 +631,17 @@ class BoxscoreScraper(BaseScraper):
 
                     # Guardar en la base de datos
                     success, count = self.save_to_database(
-                        data, link.url, link.season, link.season_type
+                        data, url, season, season_type
                     )
 
                     if success:
-                        # Marcar link como scrapeado
-                        link.scraped = True
-                        link.save()
+                        # Marcar link como scrapeado si existe
+                        try:
+                            link_obj = Links.objects.get(url=url)
+                            link_obj.scraped = True
+                            link_obj.save()
+                        except Links.DoesNotExist:
+                            pass
 
                         # Actualizar log
                         log_entry.status = "success"
@@ -641,26 +658,29 @@ class BoxscoreScraper(BaseScraper):
                         log_entry.error = "Error guardando en base de datos"
                         log_entry.save()
                         stats["failed"] += 1
-                        logger.error(f"❌ Error guardando datos de: {link.url}")
+                        logger.error(f"❌ Error guardando datos de: {url}")
 
                     # Pausa entre requests
                     time.sleep(2)
 
                 except Exception as e:
-                    logger.error(f"Error procesando link {link.url}: {e}")
+                    logger.error(f"Error procesando link {url}: {e}")
                     stats["failed"] += 1
 
                     # Registrar error en log
                     try:
+                        parsed = urlparse(url)
+                        category = parsed.path.split("/")[-1]
+                        season, season_type = self._extract_url_params(url)
                         log_entry = ScrapperLogs.objects.create(
-                            url=link.url,
-                            category=link.category,
-                            season=link.season,
-                            season_type=link.season_type,
+                            url=url,
+                            category=category,
+                            season=season or "",
+                            season_type=season_type or "",
                             status="failed",
                             error=str(e),
                         )
-                    except:
+                    except Exception:
                         pass
 
             # Desconectar el driver

@@ -89,7 +89,8 @@ class ScrapperStatusAdmin(ModelAdmin):
     def boxscore_scraper(self, request: HttpRequest):
         # Obtener enlace
         # Ejecutar scraper (enlaces)
-        links = LinksService("boxscore").get_urls()
+        # La categoría en la BD es "boxscores" (del path /stats/teams/boxscores)
+        links = LinksService("boxscores").get_links()
         scrapper = BoxscoreScraper()
         stats = scrapper.process_links(links)
         print(stats)
