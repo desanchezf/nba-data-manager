@@ -20,6 +20,7 @@ import polars as pl
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -91,9 +92,9 @@ class BaseScraper(ABC):
             chrome_options.add_argument(
                 "--disable-images"
             )  # Opcional: acelera la carga
-            chrome_options.add_argument(
-                "--disable-javascript"
-            )  # Opcional: si no necesitas JS
+            # chrome_options.add_argument(
+            #     "--disable-javascript"
+            # )  # Opcional: si no necesitas JS
 
             # Configuraciones de red para Docker
             chrome_options.add_argument("--disable-web-security")
@@ -104,7 +105,45 @@ class BaseScraper(ABC):
             chrome_options.add_argument("--timeout=30000")
             chrome_options.add_argument("--page-load-strategy=normal")
 
-            self.driver = webdriver.Chrome(options=chrome_options)
+            # Configurar ruta de Chromium y ChromeDriver
+            # Intentar diferentes rutas comunes para Chromium
+            chromium_paths = [
+                "/usr/bin/chromium",
+                "/usr/bin/chromium-browser",
+                "/usr/lib/chromium/chromium",
+            ]
+
+            chromium_binary = None
+            for path in chromium_paths:
+                if os.path.exists(path):
+                    chromium_binary = path
+                    break
+
+            if chromium_binary:
+                chrome_options.binary_location = chromium_binary
+                logger.info(f"Usando Chromium en: {chromium_binary}")
+
+            # Intentar diferentes rutas comunes para ChromeDriver
+            chromedriver_paths = [
+                "/usr/bin/chromedriver",
+                "/usr/lib/chromium/chromedriver",
+            ]
+
+            chromedriver_binary = None
+            for path in chromedriver_paths:
+                if os.path.exists(path):
+                    chromedriver_binary = path
+                    break
+
+            # Configurar Service para Selenium 4
+            if chromedriver_binary:
+                service = Service(executable_path=chromedriver_binary)
+                logger.info(f"Usando ChromeDriver en: {chromedriver_binary}")
+                self.driver = webdriver.Chrome(service=service, options=chrome_options)
+            else:
+                # Intentar sin especificar service, Selenium 4 puede usar selenium-manager
+                logger.warning("ChromeDriver no encontrado, usando selenium-manager")
+                self.driver = webdriver.Chrome(options=chrome_options)
 
             # Configurar timeouts específicos para Docker
             self.driver.set_page_load_timeout(30)

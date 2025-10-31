@@ -1,6 +1,6 @@
 # Versión de linux que se va a utilizar dentro del container
 FROM python:3.12-bookworm
-# FROM python:3.12-bookworm -> Por ahora incomplatible con el tema
+# FROM python:3.14-bookworm -> Por ahora incomplatible con el tema
 
 # Evita la generación de archivos de bytecode (.pyc)
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -13,7 +13,25 @@ RUN apt-get update && apt-get install -y \
     gcc \
     gettext \
     curl \
+    wget \
+    gnupg \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
+
+# Instalar Chromium y ChromeDriver para Selenium
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    && rm -rf /var/lib/apt/lists/*
+
+# Verificar rutas de Chromium y ChromeDriver
+RUN which chromium || echo "Chromium no encontrado en PATH" && \
+    which chromedriver || echo "ChromeDriver no encontrado en PATH" && \
+    ls -la /usr/bin/chromium* /usr/bin/chromedriver* 2>/dev/null || true && \
+    ls -la /usr/lib/chromium* 2>/dev/null || true
+
+# Configurar variables de entorno para Chrome/Chromium
+ENV CHROMIUM_FLAGS="--no-sandbox --disable-dev-shm-usage"
 
 # Instalar UV usando pip (más confiable en contenedores)
 RUN pip install uv
@@ -32,7 +50,7 @@ RUN uv pip install --system --no-cache -r requirements.txt
 # Instalar herramientas adicionales
 RUN apt-get update && apt-get install -y htop && rm -rf /var/lib/apt/lists/*
 
-# Memory management
+# Memory management
 ENV PYTHONMALLOC=malloc
 ENV MALLOC_ARENA_MAX=2
 ENV PYTHONHASHSEED=random

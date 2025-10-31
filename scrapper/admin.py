@@ -6,6 +6,8 @@ from scrapper.models import ScrapperLogs, ScrapperStatus
 from django.utils.translation import gettext_lazy as _
 from scrapper.services.links_service import LinksService
 from scrapper.services.boxscore_scrapper import BoxscoreScraper
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 
 @admin.register(ScrapperLogs)
@@ -85,13 +87,13 @@ class ScrapperStatusAdmin(ModelAdmin):
         icon="play_arrow",
     )
     def boxscore_scraper(self, request: HttpRequest):
-        # Obtener enlace 
+        # Obtener enlace
         # Ejecutar scraper (enlaces)
-        links = LinksService("boxscore").get_links()
+        links = LinksService("boxscore").get_urls()
         scrapper = BoxscoreScraper()
-        
-
-
+        stats = scrapper.process_links(links)
+        print(stats)
+        return redirect(reverse_lazy("admin:scrapper_scrapperstatus_changelist"))
 
     @action(
         description=_("Start all scrappers 🚀"),
@@ -102,7 +104,6 @@ class ScrapperStatusAdmin(ModelAdmin):
         print("Advanced Boxscore Scraper executed")
         # return redirect(reverse_lazy("admin:scrapper_scrapperstatus_changelist"))
         pass
-
 
     @action(
         description=_("Advanced Boxscore Scraper"),
@@ -122,8 +123,6 @@ class ScrapperStatusAdmin(ModelAdmin):
     def box_outs_scraper(self, request: HttpRequest):
         print("Box Outs Scraper executed")
         pass
-
-
 
     @action(
         description=_("Catch & Shoot Scraper"),
