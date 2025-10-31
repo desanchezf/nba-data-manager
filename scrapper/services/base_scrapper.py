@@ -18,7 +18,7 @@ from abc import ABC, abstractmethod
 
 import polars as pl
 from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -235,6 +235,11 @@ class BaseScraper(ABC):
             if not self.navigate_to_url(url):
                 return pl.DataFrame()
 
+            # Verificar si la página muestra "No data available"
+            if self._has_no_data():
+                logger.warning(f"No hay datos disponibles en: {url}")
+                return pl.DataFrame()
+
             # Obtener el selector específico de la categoría
             table_selector = self.get_table_selector()
             if not table_selector:
@@ -336,6 +341,24 @@ class BaseScraper(ABC):
 
         except Exception as e:
             logger.error(f"Error guardando datos: {e}")
+            return False
+
+    def _has_no_data(self):
+        """
+        Verifica si la página muestra el mensaje "No data available"
+
+        Returns:
+            bool: True si no hay datos disponibles
+        """
+        try:
+            no_data_element = self.driver.find_element(
+                By.CSS_SELECTOR, ".NoDataMessage_base__xUA61"
+            )
+            return no_data_element.is_displayed()
+        except NoSuchElementException:
+            return False
+        except Exception as e:
+            logger.warning(f"Error verificando si hay datos: {e}")
             return False
 
     @abstractmethod
