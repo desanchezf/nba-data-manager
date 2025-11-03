@@ -63,7 +63,7 @@ class BaseScraper(ABC):
             chrome_options = Options()
 
             # Configuraciones obligatorias para Docker
-            chrome_options.add_argument("--headless")  # Siempre headless en Docker
+            chrome_options.add_argument("--headless=new")  # Nuevo modo headless
             chrome_options.add_argument("--no-sandbox")  # Requerido para Docker
             chrome_options.add_argument(
                 "--disable-dev-shm-usage"
@@ -75,10 +75,12 @@ class BaseScraper(ABC):
             chrome_options.add_argument("--disable-renderer-backgrounding")
             chrome_options.add_argument("--disable-features=TranslateUI")
             chrome_options.add_argument("--disable-ipc-flooding-protection")
+            chrome_options.add_argument("--single-process")  # Crítico para Docker
+            chrome_options.add_argument("--disable-setuid-sandbox")
+            chrome_options.add_argument("--remote-debugging-port=9222")  # Para depuración
 
             # Configuraciones de ventana para Docker
             chrome_options.add_argument("--window-size=1920,1080")
-            chrome_options.add_argument("--start-maximized")
 
             # User agent para evitar detección
             chrome_options.add_argument(
@@ -89,21 +91,25 @@ class BaseScraper(ABC):
             # Configuraciones adicionales para estabilidad en Docker
             chrome_options.add_argument("--disable-extensions")
             chrome_options.add_argument("--disable-plugins")
-            chrome_options.add_argument(
-                "--disable-images"
-            )  # Opcional: acelera la carga
-            # chrome_options.add_argument(
-            #     "--disable-javascript"
-            # )  # Opcional: si no necesitas JS
-
+            # NO desactivar imágenes ni JavaScript, son necesarios para scraping
+            
             # Configuraciones de red para Docker
             chrome_options.add_argument("--disable-web-security")
             chrome_options.add_argument("--allow-running-insecure-content")
             chrome_options.add_argument("--disable-features=VizDisplayCompositor")
-
-            # Configurar timeouts para entornos Docker
-            chrome_options.add_argument("--timeout=30000")
-            chrome_options.add_argument("--page-load-strategy=normal")
+            
+            # Configuraciones adicionales críticas
+            chrome_options.add_argument("--ignore-certificate-errors")
+            chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+            
+            # Preferencias para evitar popups y diálogos
+            prefs = {
+                "profile.default_content_setting_values.notifications": 2,
+                "profile.managed_default_content_settings.images": 1,
+            }
+            chrome_options.add_experimental_option("prefs", prefs)
+            chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+            chrome_options.add_experimental_option("useAutomationExtension", False)
 
             # Configurar ruta de Chromium y ChromeDriver
             # Intentar diferentes rutas comunes para Chromium
