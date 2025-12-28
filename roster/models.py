@@ -1,5 +1,5 @@
 from django.db import models
-from data.enums import SeasonChoices, TeamChoices
+from data.enums import SeasonChoices
 
 
 # Create your models here.
@@ -16,17 +16,16 @@ class Teams(models.Model):
     )
     team_abb = models.CharField(
         max_length=10,
-        choices=TeamChoices.choices(),
         verbose_name="Abreviación del Equipo",
         help_text="Abreviación del equipo",
     )
     team_conference = models.CharField(
-        max_length=10,
+        max_length=20,
         verbose_name="Conferencia del Equipo",
         help_text="Conferencia del equipo",
     )
     team_division = models.CharField(
-        max_length=10,
+        max_length=20,
         verbose_name="División del Equipo",
         help_text="División del equipo",
     )
@@ -52,7 +51,7 @@ class Players(models.Model):
         help_text="Nombre completo del jugador",
     )
     player_abb = models.CharField(
-        max_length=10,
+        max_length=50,
         verbose_name="Abreviación del Jugador",
         help_text="Abreviación del jugador",
     )

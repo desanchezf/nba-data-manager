@@ -19,8 +19,13 @@ class PlayersAdmin(admin.ModelAdmin):
     list_display = (
         "player_name",
         "player_abb",
-        "team",
+        "team_name",
         "season",
     )
     search_fields = ("player_name", "player_abb", "team__team_name", "season")
     list_filter = ("season", "team", "team__team_conference")
+
+    def team_name(self, obj):
+        return obj.team.team_abb + " - " + obj.team.team_name
+
+

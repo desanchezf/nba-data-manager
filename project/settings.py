@@ -48,9 +48,9 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     # Project apps
-    "source",
     "data",
     "dashboard",
+    "roster",
     # Project commands
     "project_commands",
 ]

@@ -1,6 +1,6 @@
 celery==5.5.3
-Django==5.1.5
-django-celery-beat==2.7.0
+Django==5.2
+django-celery-beat==2.8.1
 django-celery-results==2.5.1
 django-cors-headers==4.3.1
 django-crispy-forms==2.4
@@ -10,4 +10,3 @@ djangorestframework==3.16.1
 psycopg2-binary==2.9.10
 redis==7.0.0
 polars==1.36.1
-selenium==4.38.0
