@@ -4,9 +4,7 @@ import logging
 from django.core.management.base import BaseCommand
 from source.models import Links
 from urllib.parse import urlparse, parse_qs
-from django.conf import settings
-from scrapper.models import ScrapperStatus
-from scrapper.enums import ScrapperName
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,12 +18,6 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS("Links imported correctly"))
         else:
             self.stdout.write(self.style.ERROR("Error importing links"))
-
-        # Importar estado del scraper
-        if self.import_scrapper_status():
-            self.stdout.write(self.style.SUCCESS("Scrapper status imported correctly"))
-        else:
-            self.stdout.write(self.style.ERROR("Error importing scrapper status"))
 
     # Importar links
     def import_links(self):
@@ -106,37 +98,4 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(self.style.ERROR(f"Error importing links: {e}"))
             return False
-        return True
-
-    def import_scrapper_status(self):
-        """
-        Importar estado del scraper
-        """
-        # Mapear nombres bonitos a valores del enum
-        name_mapping = {display: value for value, display in ScrapperName.choices()}
-
-        for scrapper_display_name in settings.SCRAPPER_NAMES:
-            # Obtener el valor del enum correspondiente
-            scrapper_value = name_mapping.get(scrapper_display_name)
-
-            if not scrapper_value:
-                self.stdout.write(
-                    self.style.WARNING(
-                        f"  ⚠️  No se encontró valor del enum para: {scrapper_display_name}"
-                    )
-                )
-                continue
-
-            _, created = ScrapperStatus.objects.get_or_create(
-                scrapper_name=scrapper_value,
-                defaults={
-                    "last_execution": None,
-                    "last_link_scraped": None,
-                    "is_running": False,
-                },
-            )
-            if created:
-                self.stdout.write(f"  ✓ Created: {scrapper_display_name}")
-            else:
-                self.stdout.write(f"  - Already exists: {scrapper_display_name}")
         return True

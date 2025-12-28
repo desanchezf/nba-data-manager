@@ -35,13 +35,6 @@ def dashboard_home(request):
                 "color": "warning",
             },
             {
-                "name": "Ejecutar Scraper",
-                "description": "Ejecutar el scraper para obtener datos actualizados",
-                "url": "dashboard:run_scraper",
-                "icon": "🕷️",
-                "color": "info",
-            },
-            {
                 "name": "Panel de Admin",
                 "description": "Acceder al panel de administración de Django",
                 "url": "/admin/",
@@ -114,21 +107,4 @@ def clean_cache_action(request):
     except Exception as e:
         return JsonResponse(
             {"status": "error", "message": f"Error al limpiar cache: {str(e)}"}
-        )
-
-
-@require_POST
-@csrf_exempt
-def run_scraper_action(request):
-    """Acción para ejecutar scraper"""
-    try:
-        # Aquí puedes ejecutar el scraper específico
-        # Por ejemplo, ejecutar uno de los scrapers del directorio scrapper/
-        return JsonResponse(
-            {"status": "success", "message": "Scraper ejecutado correctamente"}
-        )
-
-    except Exception as e:
-        return JsonResponse(
-            {"status": "error", "message": f"Error al ejecutar scraper: {str(e)}"}
         )

@@ -19,12 +19,11 @@ Sistema completo de gestión y análisis de datos de la NBA construido con Djang
 ## ✨ Características
 
 ### 🎯 Funcionalidades Principales
-- **Scraping Automatizado**: Extracción automática de datos estadísticos de la NBA
 - **Dashboard Interactivo**: Panel de administración moderno con tema Unfold
 - **API REST**: Endpoints para integración con aplicaciones externas
 - **Gestión de Datos**: Almacenamiento y organización de múltiples tipos de estadísticas
 - **Tareas Asíncronas**: Procesamiento en background con Celery
-- **Monitoreo**: Sistema de logs y seguimiento de scraping
+- **Monitoreo**: Sistema de logs y seguimiento
 
 ### 📊 Tipos de Datos Soportados
 - **Box Scores**: Estadísticas básicas y avanzadas de partidos
@@ -59,14 +58,13 @@ Sistema completo de gestión y análisis de datos de la NBA construido con Djang
 nba-data-manager/
 ├── 📁 dashboard/              # App del dashboard principal
 ├── 📁 data/                   # Modelos de datos NBA
-├── 📁 scrapper/               # Sistema de scraping
 ├── 📁 source/                 # Fuentes de datos
 ├── 📁 project/                # Configuración principal
 ├── 📁 project_commands/        # Comandos de management
 │   └── 📁 management/commands/
 │       ├── import.py          # Importar datos
-│       ├── initsetup.py       # Configuración inicial
-│       └── run_scraper.py     # Ejecutar scraper
+│       ├── import_data.py     # Importar datos desde CSV
+│       └── initsetup.py       # Configuración inicial
 ├── 📁 templates/              # Plantillas personalizadas
 ├── 📁 static/                 # Archivos estáticos
 ├── 📄 docker-compose.yml      # Configuración Docker
@@ -165,17 +163,14 @@ El proyecto incluye configuración personalizada de Unfold con:
 - **URL**: `http://localhost:8000/dashboard/`
 - Vista general de estadísticas y métricas
 
-### Ejecutar Scraping
+### Importar Datos
 
 ```bash
-# Scraping completo
-python manage.py run_scraper
+# Importar datos desde CSV
+python manage.py import_data
 
-# Scraping específico
-python manage.py run_scraper --category=boxscore --season=2024-25
-
-# Importar datos existentes
-python manage.py import --file=data.csv
+# Importar links desde directorio
+python manage.py import
 ```
 
 ## 🔌 API
@@ -218,26 +213,11 @@ Authorization: Token your-token-here
 # Configuración inicial
 python manage.py initsetup
 
-# Ejecutar scraper
-python manage.py run_scraper [opciones]
+# Importar datos desde CSV
+python manage.py import_data
 
-# Importar datos
-python manage.py import --file=path/to/file.csv
-
-# Limpiar datos antiguos
-python manage.py cleanup --days=30
-```
-
-### Opciones del Scraper
-
-```bash
-python manage.py run_scraper \
-  --category=boxscore \
-  --season=2024-25 \
-  --season_type=Regular+Season \
-  --teams=Lakers,Warriors \
-  --date_from=2024-01-01 \
-  --date_to=2024-12-31
+# Importar links desde directorio
+python manage.py import
 ```
 
 ## 🐳 Docker
@@ -269,12 +249,10 @@ docker-compose exec postgres pg_dump -U postgres nba_data > backup.sql
 ## 📊 Monitoreo y Logs
 
 ### Sistema de Logs
-- **ScrapperLogs**: Registro de todas las operaciones de scraping
 - **Status Tracking**: Seguimiento del estado de ejecución
 - **Error Handling**: Manejo robusto de errores
 
 ### Métricas Disponibles
-- Tasa de éxito de scraping
 - Tiempo de procesamiento
 - Volumen de datos procesados
 - Errores y excepciones
@@ -292,9 +270,8 @@ Cada modelo de datos incluye:
 ### Agregar Nuevos Tipos de Datos
 
 1. Crear modelo en `data/models.py`
-2. Agregar scraper en `scrapper/`
-3. Configurar admin en `data/admin.py`
-4. Crear comandos de importación
+2. Configurar admin en `data/admin.py`
+3. Crear comandos de importación en `project_commands/management/commands/`
 
 ## 🤝 Contribución
 
@@ -345,10 +322,10 @@ docker-compose ps postgres
 docker-compose restart celery celery-beat
 ```
 
-**Errores de scraping**
+**Errores de importación**
 ```bash
 # Verificar logs
-docker-compose logs scrapper
+docker-compose logs backend
 ```
 
 ## 📄 Licencia
