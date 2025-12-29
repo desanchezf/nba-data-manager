@@ -27,7 +27,7 @@ class SeasonTypeChoices(str):
         ("regular-season", _("Temporada Regular")),
         ("playoffs", _("Playoffs")),
         ("all-star", _("All-Star")),
-        ("play-in", _("Play-In")),
+        ("playin", _("Play-In")),
         ("ist", _("IST")),
     )
 

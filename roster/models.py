@@ -30,6 +30,9 @@ class Teams(models.Model):
         help_text="División del equipo",
     )
 
+    def __str__(self):
+        return f"{self.team_abb} - {self.team_name}"
+
     class Meta:
         verbose_name = "Team"
         verbose_name_plural = "Teams"

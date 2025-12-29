@@ -27,5 +27,7 @@ class PlayersAdmin(admin.ModelAdmin):
 
     def team_name(self, obj):
         return obj.team.team_abb + " - " + obj.team.team_name
+    
+    team_name.short_description = "Team name"
 
 
