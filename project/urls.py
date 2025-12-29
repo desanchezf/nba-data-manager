@@ -30,6 +30,7 @@ urlpatterns = [
     path("", redirect_to_dashboard, name="home"),
     path("admin/", admin.site.urls),
     path("dashboard/", include("dashboard.urls")),
+    path("", include("django_prometheus.urls")),
 ]
 
 # Serve static files in development
