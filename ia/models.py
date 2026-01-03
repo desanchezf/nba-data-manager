@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 import os
+from ia.enums import AlgorithmChoices, ProblemTypeChoices
 
 
 def model_file_path(instance, filename):
@@ -10,46 +11,13 @@ def model_file_path(instance, filename):
 
 
 class PredictionModel(models.Model):
-    ALGORITHM_CHOICES = [
-        ("logistic_regression", "Logistic Regression"),
-        ("random_forest", "Random Forest"),
-        ("xgboost", "XGBoost"),
-        ("lightgbm", "LightGBM"),
-        ("svm", "SVM"),
-        ("naive_bayes", "Naive Bayes"),
-        ("gradient_boosting", "Gradient Boosting"),
-        ("linear_regression", "Linear Regression"),
-        ("ridge_regression", "Ridge Regression"),
-        ("lasso_regression", "Lasso Regression"),
-        ("mlp", "MLP (Neural Network)"),
-        ("cnn", "CNN"),
-        ("rnn", "RNN"),
-        ("lstm", "LSTM"),
-        ("gru", "GRU"),
-        ("voting_classifier", "Voting Classifier"),
-        ("stacking_classifier", "Stacking Classifier"),
-        ("bagging_classifier", "Bagging Classifier"),
-        ("adaboost", "AdaBoost"),
-        ("elo", "ELO Rating"),
-        ("glicko", "Glicko Rating"),
-        ("trueskill", "TrueSkill Rating"),
-    ]
-
-    PROBLEM_TYPE_CHOICES = [
-        ("classification", "Classification"),
-        ("binary_classification", "Binary Classification"),
-        ("multiclass_classification", "Multiclass Classification"),
-        ("regression", "Regression"),
-        ("rating", "Rating System"),
-    ]
-
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True)
     algorithm_type = models.CharField(
-        max_length=50, choices=ALGORITHM_CHOICES, blank=True
+        max_length=50, choices=AlgorithmChoices.choices(), blank=True
     )
     problem_type = models.CharField(
-        max_length=50, choices=PROBLEM_TYPE_CHOICES, blank=True
+        max_length=50, choices=ProblemTypeChoices.choices(), blank=True
     )
     model_file = models.FileField(
         upload_to=model_file_path,
@@ -65,12 +33,14 @@ class PredictionModel(models.Model):
     metrics = models.JSONField(
         default=dict,
         blank=True,
-        help_text="Métricas de evaluación del modelo (accuracy, mse, r2, etc.)",
+        help_text=("Métricas de evaluación del modelo (accuracy, mse, r2, etc.)"),
     )
     training_data_info = models.JSONField(
         default=dict,
         blank=True,
-        help_text="Información sobre los datos de entrenamiento (tamaño, features, etc.)",
+        help_text=(
+            "Información sobre los datos de entrenamiento (tamaño, features, etc.)"
+        ),
     )
     hyperparameters = models.JSONField(
         default=dict,

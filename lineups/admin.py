@@ -1,13 +1,14 @@
-"""
-Utilidades para exportar e importar modelos en CSV desde Django Admin
-"""
-
-import csv
-from io import StringIO
+from django.contrib import admin
 from django.http import HttpResponse
+from django.urls import path
 from django.contrib import messages
 from django.db import transaction, models
-from django.utils.dateparse import parse_datetime, parse_date
+import csv
+from io import StringIO
+from lineups.models import (
+    LineupsTraditional, LineupsAdvanced, LineupsMisc, LineupsFourFactors,
+    LineupsScoring, LineupsOpponent
+)
 
 
 def export_as_csv(modeladmin, request, queryset):
@@ -43,27 +44,11 @@ def export_as_csv(modeladmin, request, queryset):
 
 export_as_csv.short_description = "Exportar seleccionados a CSV"
 
-
-def import_from_csv(modeladmin, request, queryset):
-    """
-    Acción de admin para importar registros desde CSV
-    Nota: Esta acción requiere que el usuario suba un archivo CSV.
-    Para una implementación completa, se recomienda crear una vista personalizada.
-    """
-    messages.warning(
-        request,
-        "Para importar desde CSV, por favor use la funcionalidad de importación "
-        "desde el comando de management o cree una vista personalizada.",
-    )
-
-
-import_from_csv.short_description = "Importar desde CSV (requiere vista personalizada)"
-
-
 def get_csv_import_view(model_class):
     """
     Crea una función de vista para importar CSV para un modelo específico
     """
+    from django.utils.dateparse import parse_datetime, parse_date
 
     def csv_import_view(request):
         if request.method == "POST" and request.FILES.get("csv_file"):
@@ -107,7 +92,6 @@ def get_csv_import_view(model_class):
                                             )
                                         else:
                                             # Intentar buscar por el primer campo único o por __str__
-                                            # Esto es genérico, puede necesitar ajustes específicos
                                             related_obj = related_model.objects.filter(
                                                 **{related_model._meta.pk.name: value}
                                             ).first()
@@ -215,3 +199,164 @@ def get_csv_import_view(model_class):
         return HttpResponse("Por favor, suba un archivo CSV válido.", status=400)
 
     return csv_import_view
+
+@admin.register(LineupsTraditional)
+class LineupsTraditionalAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(LineupsAdvanced)
+class LineupsAdvancedAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(LineupsMisc)
+class LineupsMiscAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(LineupsFourFactors)
+class LineupsFourFactorsAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(LineupsScoring)
+class LineupsScoringAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(LineupsOpponent)
+class LineupsOpponentAdmin(admin.ModelAdmin):
+    list_display = ['season', 'season_type', 'lineup', 'team_abb']
+    search_fields = ['lineup', 'team_abb']
+    list_filter = ['season', 'season_type', 'team_abb']
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)

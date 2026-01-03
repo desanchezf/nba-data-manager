@@ -1,0 +1,9509 @@
+"""
+Modelos para estadísticas de jugadores por categoría
+"""
+
+from django.db import models
+from data.enums import SeasonChoices, SeasonTypeChoices
+from roster.enums import TeamChoices
+
+
+class PlayersGeneralTraditional(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ftm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fta = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    nba_fantasy_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dd2 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    td3 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ftm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fta_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ft_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    stl_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pf_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    nba_fantasy_pts_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dd2_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    td3_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Traditional"
+        verbose_name_plural = "Players General Traditional"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralAdvanced(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Advanced"
+        verbose_name_plural = "Players General Advanced"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralMisc(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Misc"
+        verbose_name_plural = "Players General Misc"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralScoring(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Scoring"
+        verbose_name_plural = "Players General Scoring"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralUsage(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Usage"
+        verbose_name_plural = "Players General Usage"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralOpponent(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    vs_player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador Oponente",
+        null=True,
+        blank=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    opp_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_ftm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fta = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_oreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_blka = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pfd = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fgm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fga_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3m_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3a_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fg3_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_ftm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_fta_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_ft_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_oreb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_dreb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_reb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_ast_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_stl_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_blk_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_blka_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pf_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pfd_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Opponent"
+        verbose_name_plural = "Players General Opponent"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"Player {getattr(self, 'player_id', 'N/A')} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralDefense(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_dreb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_stl = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_blk = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_2nd_chance = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_fb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_paint = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_ws = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_dreb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    stl_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_stl_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    blk_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_blk_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_2nd_chance_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_fb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_paint_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_ws_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Defense"
+        verbose_name_plural = "Players General Defense"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralViolations(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    travel = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    double_dribble = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    discontinued_dribble = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_three_sec = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    inbound = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    backcourt = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_goaltending = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    palming = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_foul = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_three_sec = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    charge = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_goaltending = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lane = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    jump_ball = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    kicked_ball = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    travel_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    double_dribble_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    discontinued_dribble_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_three_sec_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    inbound_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    backcourt_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_goaltending_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    palming_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_foul_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_three_sec_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    charge_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_goaltending_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lane_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    jump_ball_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    kicked_ball_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Violations"
+        verbose_name_plural = "Players General Violations"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersGeneralEstimatedAdvanced(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    e_off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    e_off_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_ast_ratio_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_oreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_reb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_tov_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_pace_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players General Estimated Advanced"
+        verbose_name_plural = "Players General Estimated Advanced"
+        unique_together = [["season", "season_type", "player_id"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersClutchTraditional(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    e_off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    e_off_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_ast_ratio_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_oreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_reb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_tov_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    e_pace_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Clutch Traditional"
+        verbose_name_plural = "Players Clutch Traditional"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersClutchAdvanced(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_pg_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Clutch Advanced"
+        verbose_name_plural = "Players Clutch Advanced"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersClutchMisc(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_2nd_chance = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_fb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_paint = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_2nd_chance = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_fb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_paint = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blka = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pfd = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_2nd_chance_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_fb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_paint_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_2nd_chance_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_fb_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_paint_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blka_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pf_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pfd_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Clutch Misc"
+        verbose_name_plural = "Players Clutch Misc"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersClutchScoring(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Clutch Scoring"
+        verbose_name_plural = "Players Clutch Scoring"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersClutchUsage(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3m = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3a = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ftm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fta = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_oreb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_dreb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_reb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_stl = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blk = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blka = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pf = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pfd = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    gp_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    l_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min_rank = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    usg_pct_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fgm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3m_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3a_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ftm_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fta_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_oreb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_dreb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_reb_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_tov_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_stl_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blk_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blka_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pf_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pfd_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_rank = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Clutch Usage"
+        verbose_name_plural = "Players Clutch Usage"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeIsolation(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Isolation"
+        verbose_name_plural = "Players Playtype Isolation"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeTransition(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Transition"
+        verbose_name_plural = "Players Playtype Transition"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeBallHandler(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Ball Handler"
+        verbose_name_plural = "Players Playtype Ball Handler"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeRollMan(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Roll Man"
+        verbose_name_plural = "Players Playtype Roll Man"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypePostUp(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Post Up"
+        verbose_name_plural = "Players Playtype Post Up"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeSpotUp(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Spot Up"
+        verbose_name_plural = "Players Playtype Spot Up"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeHandOff(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Hand Off"
+        verbose_name_plural = "Players Playtype Hand Off"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeCut(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Cut"
+        verbose_name_plural = "Players Playtype Cut"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeOffScreen(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Off Screen"
+        verbose_name_plural = "Players Playtype Off Screen"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypePutbacks(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Putbacks"
+        verbose_name_plural = "Players Playtype Putbacks"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersPlaytypeMisc(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ppp = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ft_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tov_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    sf_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusone_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    score_poss_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    percentile = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Playtype Misc"
+        verbose_name_plural = "Players Playtype Misc"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingDrives(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    drives = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_ftm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_fta = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_pts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_passes = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_passes_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    drive_pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_pf_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Drives"
+        verbose_name_plural = "Players Tracking Drives"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingDefensiveImpact(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_rim_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_rim_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_rim_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Defensive Impact"
+        verbose_name_plural = "Players Tracking Defensive Impact"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingCatchShoot(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    catch_shoot_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Catch Shoot"
+        verbose_name_plural = "Players Tracking Catch Shoot"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingPassing(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    passes_made = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    passes_received = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    secondary_ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    potential_ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast_pts_created = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast_points_created = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast_adj = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast_to_pass_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to_pass_pct_adj = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Passing"
+        verbose_name_plural = "Players Tracking Passing"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingTouches(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    points = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    front_ct_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    time_of_poss = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    avg_sec_per_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_drib_per_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_per_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_per_elbow_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_per_post_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_per_paint_touch = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Touches"
+        verbose_name_plural = "Players Tracking Touches"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingPullup(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pull_up_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pull_up_efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Pullup"
+        verbose_name_plural = "Players Tracking Pullup"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingRebounding(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb_contest = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb_contest_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_chances = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb_chance_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_chance_defer = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb_chance_pct_adj = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_reb_dist = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Rebounding"
+        verbose_name_plural = "Players Tracking Rebounding"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingOffensiveRebounding(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    oreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    oreb_contest = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    oreb_contest_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_chances = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    oreb_chance_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_chance_defer = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    oreb_chance_pct_adj = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_oreb_dist = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Offensive Rebounding"
+        verbose_name_plural = "Players Tracking Offensive Rebounding"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingDefensiveRebounding(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_contest = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_contest_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_chances = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_chance_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_chance_defer = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb_chance_pct_adj = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_dreb_dist = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Defensive Rebounding"
+        verbose_name_plural = "Players Tracking Defensive Rebounding"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingShootingEfficiency(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    points = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    drive_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    catch_shoot_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pull_up_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pull_up_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    eff_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Shooting Efficiency"
+        verbose_name_plural = "Players Tracking Shooting Efficiency"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingSpeedDistance(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    dist_feet = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dist_miles = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dist_miles_off = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dist_miles_def = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_speed = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_speed_off = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    avg_speed_def = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Speed Distance"
+        verbose_name_plural = "Players Tracking Speed Distance"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingElbowTouch(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fga = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_ftm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fta = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_pts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_passes = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_passes_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_ast = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fouls = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    elbow_touch_fouls_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Elbow Touch"
+        verbose_name_plural = "Players Tracking Elbow Touch"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingPostUps(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fga = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_ftm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fta = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_pts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_passes = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_passes_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_ast = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fouls = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    post_touch_fouls_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Post Ups"
+        verbose_name_plural = "Players Tracking Post Ups"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersTrackingPaintTouch(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    w = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lose = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fga = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_ftm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fta = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_pts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_passes = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_passes_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_ast = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fouls = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    paint_touch_fouls_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Tracking Paint Touch"
+        verbose_name_plural = "Players Tracking Paint Touch"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboardOverall(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    d_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    d_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    d_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    normal_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard Overall"
+        verbose_name_plural = "Players Defense Dashboard Overall"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboard3pt(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ns_fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard 3Pt"
+        verbose_name_plural = "Players Defense Dashboard 3Pt"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboard2pt(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ns_fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard 2Pt"
+        verbose_name_plural = "Players Defense Dashboard 2Pt"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboardLt6(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_lt_06 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_lt_06 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lt_06_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ns_lt_06_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard Lt6"
+        verbose_name_plural = "Players Defense Dashboard Lt6"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboardLt10(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_lt_10 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_lt_10 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    lt_10_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ns_lt_10_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard Lt10"
+        verbose_name_plural = "Players Defense Dashboard Lt10"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDefenseDashboardGt15(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_position = models.CharField(
+        max_length=10,
+        null=True,
+        blank=True,
+        verbose_name="Posición",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    freq = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm_gt_15 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_gt_15 = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    gt_15_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ns_gt_15_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    plusminus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Defense Dashboard Gt15"
+        verbose_name_plural = "Players Defense Dashboard Gt15"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardGeneral(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard General"
+        verbose_name_plural = "Players Shot Dashboard General"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardShotClock(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard Shot Clock"
+        verbose_name_plural = "Players Shot Dashboard Shot Clock"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardDribbles(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard Dribbles"
+        verbose_name_plural = "Players Shot Dashboard Dribbles"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardTouchTime(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard Touch Time"
+        verbose_name_plural = "Players Shot Dashboard Touch Time"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardClosestDefender(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard Closest Defender"
+        verbose_name_plural = "Players Shot Dashboard Closest Defender"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShotDashboardClosestDefender10(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg2m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg2_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3a_frequency = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Shot Dashboard Closest Defender 10"
+        verbose_name_plural = "Players Shot Dashboard Closest Defender 10"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersBoxScores(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ftm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fta = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fantasy_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Box Scores"
+        verbose_name_plural = "Players Box Scores"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersAdvancedBoxScoresTraditional(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fgperc = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fg3m = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3a = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    fg3_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ftmperc = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    fta = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ft_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    dreb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    stl = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    plus_minus = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Advanced Box Scores Traditional"
+        verbose_name_plural = "Players Advanced Box Scores Traditional"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersAdvancedBoxScoresAdvanced(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    off_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    def_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_to = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_ratio = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    reb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    tm_tov_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    efg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pace = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pie = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Advanced Box Scores Advanced"
+        verbose_name_plural = "Players Advanced Box Scores Advanced"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersAdvancedBoxScoresMisc(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pts_2nd_chance = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_fb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts_paint = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_2nd_chance = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_fb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    opp_pts_paint = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blk = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    blka = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pfd = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Advanced Box Scores Misc"
+        verbose_name_plural = "Players Advanced Box Scores Misc"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersAdvancedBoxScoresScoring(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pct_fga_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_2pt_mr = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_3pt = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_fb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_ft = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_off_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts_paint = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_2pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_3pm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_uast_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Advanced Box Scores Scoring"
+        verbose_name_plural = "Players Advanced Box Scores Scoring"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersAdvancedBoxScoresUsage(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fgm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fga = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3m = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fg3a = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ftm = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_fta = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_oreb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_dreb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_reb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_ast = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_tov = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_stl = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blk = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_blka = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pf = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pfd = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_pts = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Advanced Box Scores Usage"
+        verbose_name_plural = "Players Advanced Box Scores Usage"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersShooting(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    ft_less_than_5_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fgm",
+    )
+    ft_less_than_5_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fga",
+    )
+    ft_less_than_5_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fg_pct",
+    )
+    ft_5_9_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fgm",
+    )
+    ft_5_9_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fga",
+    )
+    ft_5_9_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fg_pct",
+    )
+    ft_10_14_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fgm",
+    )
+    ft_10_14_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fga",
+    )
+    ft_10_14_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fg_pct",
+    )
+    ft_15_19_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fgm",
+    )
+    ft_15_19_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fga",
+    )
+    ft_15_19_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fg_pct",
+    )
+    ft_20_24_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fgm",
+    )
+    ft_20_24_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fga",
+    )
+    ft_20_24_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fg_pct",
+    )
+    ft_25_29_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fgm",
+    )
+    ft_25_29_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fga",
+    )
+    ft_25_29_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fg_pct",
+    )
+
+    class Meta:
+        verbose_name = "Players Shooting"
+        verbose_name_plural = "Players Shooting"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersDunkScores(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    playername = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    dunkscore = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    jumpsubscore = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    powersubscore = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    stylesubscore = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    defensivecontestsubscore = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    playervertical = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    hangtime = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    takeoffdistance = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dunkinghand = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    maxballheight = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ballspeedthroughrim = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ballreachback = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    tipintext = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    alleyooptext = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Dunk Scores"
+        verbose_name_plural = "Players Dunk Scores"
+        unique_together = [
+            ["season", "season_type", "player_id", "team_abb", "matchup", "gdate"]
+        ]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersOpponentShootingOverall(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    ft_less_than_5_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fgm",
+    )
+    ft_less_than_5_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fga",
+    )
+    ft_less_than_5_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="less_than_5_ft__fg_pct",
+    )
+    ft_5_9_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fgm",
+    )
+    ft_5_9_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fga",
+    )
+    ft_5_9_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="5_9_ft__fg_pct",
+    )
+    ft_10_14_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fgm",
+    )
+    ft_10_14_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fga",
+    )
+    ft_10_14_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="10_14_ft__fg_pct",
+    )
+    ft_15_19_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fgm",
+    )
+    ft_15_19_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fga",
+    )
+    ft_15_19_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="15_19_ft__fg_pct",
+    )
+    ft_20_24_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fgm",
+    )
+    ft_20_24_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fga",
+    )
+    ft_20_24_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="20_24_ft__fg_pct",
+    )
+    ft_25_29_fgm = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fgm",
+    )
+    ft_25_29_fga = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fga",
+    )
+    ft_25_29_fg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+        db_column="25_29_ft__fg_pct",
+    )
+
+    class Meta:
+        verbose_name = "Players Opponent Shooting Overall"
+        verbose_name_plural = "Players Opponent Shooting Overall"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersHustle(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    screen_assists = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    screen_ast_pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    deflections = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_loose_balls_recovered_off = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_loose_balls_recovered_def = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    charges_drawn = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    contested_shots_2pt = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    contested_shots_3pt = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    contested_shots = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Hustle"
+        verbose_name_plural = "Players Hustle"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersBoxOuts(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    g = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    box_outs = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_boxouts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_boxouts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    box_out_player_team_rebs = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    box_out_player_rebs = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_box_outs_off = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_box_outs_def = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_box_outs_team_reb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    pct_box_outs_reb = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Box Outs"
+        verbose_name_plural = "Players Box Outs"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"
+
+
+class PlayersBios(models.Model):
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
+    )
+    player_id = models.IntegerField(
+        verbose_name="ID del Jugador",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=10,
+        choices=TeamChoices.choices(),
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+    )
+    player_height_inches = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    player_weight = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    college = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    country = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    draft_year = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    draft_round = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    draft_number = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    gp = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    reb = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    ast = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    net_rating = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    oreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    dreb_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    usg_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ts_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+    ast_pct = models.FloatField(
+        default=0.0,
+        null=True,
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Players Bios"
+        verbose_name_plural = "Players Bios"
+        unique_together = [["season", "season_type", "player_id", "team_abb"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["player_id"]),
+            models.Index(fields=["team_abb"]),
+        ]
+
+    def __str__(self):
+        return f"{getattr(self, 'player_name', getattr(self, 'playername', 'N/A'))} - {self.season} ({self.season_type})"

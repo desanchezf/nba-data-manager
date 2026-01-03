@@ -11,11 +11,14 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
+    g++ \
+    build-essential \
     gettext \
     curl \
     wget \
     gnupg \
     unzip \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -31,7 +34,8 @@ COPY requirements.txt /code/
 # Usar UV para instalar dependencias (mucho más rápido que pip)
 # --system: instala en el sistema Python
 # --no-cache: evita cache local para builds más limpios
-RUN uv pip install --system --no-cache -r requirements.txt
+# --prefer-binary: prefiere wheels precompilados pero permite compilar si es necesario
+RUN uv pip install --system --no-cache --prefer-binary -r requirements.txt
 
 # Instalar herramientas adicionales
 RUN apt-get update && apt-get install -y htop && rm -rf /var/lib/apt/lists/*
