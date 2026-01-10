@@ -154,6 +154,12 @@ class TeamsGeneralTraditional(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -213,6 +219,12 @@ class TeamsGeneralAdvanced(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -265,6 +277,12 @@ class TeamsGeneralFourFactors(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -311,6 +329,12 @@ class TeamsGeneralMisc(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -355,6 +379,12 @@ class TeamsGeneralScoring(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
@@ -407,6 +437,12 @@ class TeamsGeneralOpponent(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
@@ -466,6 +502,12 @@ class TeamsGeneralDefense(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -511,6 +553,12 @@ class TeamsGeneralViolations(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
@@ -568,6 +616,12 @@ class TeamsGeneralEstimatedAdvanced(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(default=0, null=True, blank=True)
     win = models.IntegerField(default=0, null=True, blank=True)
     lose = models.IntegerField(default=0, null=True, blank=True)
@@ -613,6 +667,12 @@ class TeamsClutchTraditional(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -778,6 +838,12 @@ class TeamsClutchAdvanced(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -902,6 +968,12 @@ class TeamsClutchFourFactors(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -1001,6 +1073,12 @@ class TeamsClutchMisc(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -1094,6 +1172,12 @@ class TeamsClutchScoring(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -1223,6 +1307,12 @@ class TeamsClutchOpponent(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -1383,6 +1473,12 @@ class TeamsPlaytypeIsolation(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -1490,6 +1586,12 @@ class TeamsPlaytypeTransition(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -1599,6 +1701,12 @@ class TeamsPlaytypeBallHandler(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -1706,6 +1814,12 @@ class TeamsPlaytypeRollMan(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -1815,6 +1929,12 @@ class TeamsPlaytypePostUp(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -1922,6 +2042,12 @@ class TeamsPlaytypeSpotUp(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -2031,6 +2157,12 @@ class TeamsPlaytypeHandOff(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -2138,6 +2270,12 @@ class TeamsPlaytypeCut(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -2247,6 +2385,12 @@ class TeamsPlaytypeOffScreen(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -2354,6 +2498,12 @@ class TeamsPlaytypePutbacks(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -2463,6 +2613,12 @@ class TeamsPlaytypeMisc(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -2571,6 +2727,12 @@ class TeamsTrackingDrives(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -2669,17 +2831,13 @@ class TeamsTrackingDefensiveImpact(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    lose = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -2690,87 +2848,42 @@ class TeamsTrackingDefensiveImpact(models.Model):
         null=True,
         blank=True,
     )
-    drives = models.IntegerField(
+    w = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_fgm = models.IntegerField(
+    l = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_fga = models.IntegerField(
+    stl = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_fg_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_ftm = models.IntegerField(
+    blk = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_fta = models.IntegerField(
+    dreb = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_ft_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_pts = models.IntegerField(
+    def_rim_fgm = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_pts_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_pass = models.IntegerField(
+    def_rim_fga = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    drive_pass_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_ast = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    drive_ast_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_to = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_tov_perc = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    drive_pf = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    drive_pf_perc = models.FloatField(
+    def_rim_fg_pct = models.FloatField(
         default=0.0,
         null=True,
         blank=True,
@@ -2807,6 +2920,12 @@ class TeamsTrackingCatchShoot(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -2891,6 +3010,12 @@ class TeamsTrackingPassing(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -2991,6 +3116,12 @@ class TeamsTrackingTouches(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -3001,7 +3132,7 @@ class TeamsTrackingTouches(models.Model):
         null=True,
         blank=True,
     )
-    lose = models.IntegerField(
+    l = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -3012,10 +3143,11 @@ class TeamsTrackingTouches(models.Model):
         null=True,
         blank=True,
     )
-    pts = models.IntegerField(
+    points = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        db_column='POINTS',
     )
     touches = models.FloatField(
         default=0.0,
@@ -3026,6 +3158,7 @@ class TeamsTrackingTouches(models.Model):
         default=0.0,
         null=True,
         blank=True,
+        db_column='FRONT_CT_TOUCHES',
     )
     time_of_poss = models.IntegerField(
         default=0,
@@ -3109,6 +3242,12 @@ class TeamsTrackingPullup(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -3204,6 +3343,12 @@ class TeamsTrackingRebounding(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -3292,6 +3437,12 @@ class TeamsTrackingOffensiveRebounding(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -3382,6 +3533,12 @@ class TeamsTrackingDefensiveRebounding(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -3470,6 +3627,12 @@ class TeamsTrackingShootingEfficiency(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -3595,6 +3758,12 @@ class TeamsTrackingSpeedDistance(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -3683,6 +3852,12 @@ class TeamsTrackingElbowTouch(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -3828,6 +4003,12 @@ class TeamsTrackingPostUps(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -3971,6 +4152,12 @@ class TeamsTrackingPaintTouch(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -4116,6 +4303,12 @@ class TeamsDefenseDashboardOverall(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4188,6 +4381,12 @@ class TeamsDefenseDashboard3pt(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -4262,6 +4461,12 @@ class TeamsDefenseDashboard2pt(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4334,6 +4539,12 @@ class TeamsDefenseDashboardLt6(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -4408,6 +4619,12 @@ class TeamsDefenseDashboardLt10(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4481,6 +4698,12 @@ class TeamsDefenseDashboardGt15(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4553,6 +4776,12 @@ class TeamsShotDashboardGeneral(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -4662,6 +4891,12 @@ class TeamsShotDashboardShotClock(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4769,6 +5004,12 @@ class TeamsShotDashboardDribbles(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -4878,6 +5119,12 @@ class TeamsShotDashboardTouchTime(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -4985,6 +5232,12 @@ class TeamsShotDashboardClosestDefender(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -5094,6 +5347,12 @@ class TeamsShotDashboardClosestDefender10(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -5202,7 +5461,13 @@ class TeamsAdvancedBoxScores(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    matchup = models.CharField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5354,7 +5619,13 @@ class TeamsAdvancedBoxScoresAdvanced(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    matchup = models.CharField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5481,7 +5752,13 @@ class TeamsAdvancedBoxScoresFourFactors(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    matchup = models.CharField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5578,7 +5855,13 @@ class TeamsAdvancedBoxScoresMisc(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    matchup = models.CharField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5675,7 +5958,13 @@ class TeamsAdvancedBoxScoresScoring(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    matchup = models.CharField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5807,7 +6096,13 @@ class TeamsShooting(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    fgm_lt5 = models.IntegerField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+fgm_lt5 = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -5930,7 +6225,13 @@ class TeamsOpponentShootingOverall(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    fgm_lt5 = models.IntegerField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+fgm_lt5 = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -6053,6 +6354,12 @@ class TeamsOpponentShotsGeneral(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -6160,6 +6467,12 @@ class TeamsOpponentShotsShotclock(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -6269,6 +6582,12 @@ class TeamsOpponentShotsDribbles(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -6376,6 +6695,12 @@ class TeamsOpponentShotsTouchTime(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -6485,6 +6810,12 @@ class TeamsOpponentShotsClosestDefender(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
@@ -6592,6 +6923,12 @@ class TeamsOpponentShotsClosestDefender10(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,
@@ -6701,78 +7038,81 @@ class TeamsHustle(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
-    gp = models.IntegerField(
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    screen_assists = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    g = models.IntegerField(
+    screen_ast_pts = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    fga_frequency = models.FloatField(
+    deflections = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    off_loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    def_loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    loose_balls_recovered = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
+    pct_loose_balls_recovered_off = models.FloatField(
         default=0.0,
         null=True,
         blank=True,
     )
-    fgm = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg_pct = models.FloatField(
+    pct_loose_balls_recovered_def = models.FloatField(
         default=0.0,
         null=True,
         blank=True,
     )
-    efg_pct = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fg2a_frequency = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fg2m = models.IntegerField(
+    charges_drawn = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    fg2a = models.IntegerField(
+    contested_shots_2pt = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    fg2_pct = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fg3a_frequency = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fg3m = models.IntegerField(
+    contested_shots_3pt = models.IntegerField(
         default=0,
         null=True,
         blank=True,
     )
-    fg3a = models.IntegerField(
+    contested_shots = models.IntegerField(
         default=0,
-        null=True,
-        blank=True,
-    )
-    fg3_pct = models.FloatField(
-        default=0.0,
         null=True,
         blank=True,
     )
@@ -6808,6 +7148,18 @@ class TeamsBoxOuts(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
+team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
     )
     min = models.IntegerField(
         default=0,
