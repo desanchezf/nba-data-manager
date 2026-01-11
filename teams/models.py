@@ -5467,7 +5467,7 @@ class TeamsAdvancedBoxScores(models.Model):
         null=True,
         blank=True,
     )
-matchup = models.CharField(
+    matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5625,7 +5625,7 @@ class TeamsAdvancedBoxScoresAdvanced(models.Model):
         null=True,
         blank=True,
     )
-matchup = models.CharField(
+    matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5758,7 +5758,7 @@ class TeamsAdvancedBoxScoresFourFactors(models.Model):
         null=True,
         blank=True,
     )
-matchup = models.CharField(
+    matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5861,7 +5861,7 @@ class TeamsAdvancedBoxScoresMisc(models.Model):
         null=True,
         blank=True,
     )
-matchup = models.CharField(
+    matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -5964,7 +5964,7 @@ class TeamsAdvancedBoxScoresScoring(models.Model):
         null=True,
         blank=True,
     )
-matchup = models.CharField(
+    matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
         null=True,
@@ -6102,7 +6102,7 @@ class TeamsShooting(models.Model):
         null=True,
         blank=True,
     )
-fgm_lt5 = models.IntegerField(
+    fgm_lt5 = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -6231,7 +6231,7 @@ class TeamsOpponentShootingOverall(models.Model):
         null=True,
         blank=True,
     )
-fgm_lt5 = models.IntegerField(
+    fgm_lt5 = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -7044,12 +7044,6 @@ class TeamsHustle(models.Model):
         null=True,
         blank=True,
     )
-team_name = models.CharField(
-        max_length=100,
-        verbose_name="Nombre del Equipo",
-        null=True,
-        blank=True,
-    )
     min = models.IntegerField(
         default=0,
         verbose_name="Minutos",
@@ -7150,12 +7144,6 @@ class TeamsBoxOuts(models.Model):
         db_index=True,
     )
     team_name = models.CharField(
-        max_length=100,
-        verbose_name="Nombre del Equipo",
-        null=True,
-        blank=True,
-    )
-team_name = models.CharField(
         max_length=100,
         verbose_name="Nombre del Equipo",
         null=True,

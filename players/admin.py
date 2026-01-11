@@ -6,32 +6,69 @@ from django.db import transaction, models
 import csv
 from io import StringIO
 from players.models import (
-    PlayersGeneralTraditional, PlayersGeneralAdvanced, PlayersGeneralMisc,
-    PlayersGeneralScoring, PlayersGeneralUsage, PlayersGeneralOpponent,
-    PlayersGeneralDefense, PlayersGeneralViolations,
-    PlayersGeneralEstimatedAdvanced, PlayersClutchTraditional,
-    PlayersClutchAdvanced, PlayersClutchMisc, PlayersClutchScoring,
-    PlayersClutchUsage, PlayersPlaytypeIsolation, PlayersPlaytypeTransition,
-    PlayersPlaytypeBallHandler, PlayersPlaytypeRollMan, PlayersPlaytypePostUp,
-    PlayersPlaytypeSpotUp, PlayersPlaytypeHandOff, PlayersPlaytypeCut,
-    PlayersPlaytypeOffScreen, PlayersPlaytypePutbacks, PlayersPlaytypeMisc,
-    PlayersTrackingDrives, PlayersTrackingDefensiveImpact,
-    PlayersTrackingCatchShoot, PlayersTrackingPassing, PlayersTrackingTouches,
-    PlayersTrackingPullup, PlayersTrackingRebounding,
-    PlayersTrackingOffensiveRebounding, PlayersTrackingDefensiveRebounding,
-    PlayersTrackingShootingEfficiency, PlayersTrackingSpeedDistance,
-    PlayersTrackingElbowTouch, PlayersTrackingPostUps,
-    PlayersTrackingPaintTouch, PlayersDefenseDashboardOverall,
-    PlayersDefenseDashboard3pt, PlayersDefenseDashboard2pt,
-    PlayersDefenseDashboardLt6, PlayersDefenseDashboardLt10,
-    PlayersDefenseDashboardGt15, PlayersShotDashboardGeneral,
-    PlayersShotDashboardShotClock, PlayersShotDashboardDribbles,
-    PlayersShotDashboardTouchTime, PlayersShotDashboardClosestDefender,
-    PlayersShotDashboardClosestDefender10, PlayersBoxScores,
-    PlayersAdvancedBoxScoresTraditional, PlayersAdvancedBoxScoresAdvanced,
-    PlayersAdvancedBoxScoresMisc, PlayersAdvancedBoxScoresScoring,
-    PlayersAdvancedBoxScoresUsage, PlayersShooting, PlayersDunkScores,
-    PlayersOpponentShootingOverall, PlayersHustle, PlayersBoxOuts, PlayersBios
+    PlayersGeneralTraditional,
+    PlayersGeneralAdvanced,
+    PlayersGeneralMisc,
+    PlayersGeneralScoring,
+    PlayersGeneralUsage,
+    PlayersGeneralOpponent,
+    PlayersGeneralDefense,
+    PlayersGeneralViolations,
+    PlayersGeneralEstimatedAdvanced,
+    PlayersClutchTraditional,
+    PlayersClutchAdvanced,
+    PlayersClutchMisc,
+    PlayersClutchScoring,
+    PlayersClutchUsage,
+    PlayersPlaytypeIsolation,
+    PlayersPlaytypeTransition,
+    PlayersPlaytypeBallHandler,
+    PlayersPlaytypeRollMan,
+    PlayersPlaytypePostUp,
+    PlayersPlaytypeSpotUp,
+    PlayersPlaytypeHandOff,
+    PlayersPlaytypeCut,
+    PlayersPlaytypeOffScreen,
+    PlayersPlaytypePutbacks,
+    PlayersPlaytypeMisc,
+    PlayersTrackingDrives,
+    PlayersTrackingDefensiveImpact,
+    PlayersTrackingCatchShoot,
+    PlayersTrackingPassing,
+    PlayersTrackingTouches,
+    PlayersTrackingPullup,
+    PlayersTrackingRebounding,
+    PlayersTrackingOffensiveRebounding,
+    PlayersTrackingDefensiveRebounding,
+    PlayersTrackingShootingEfficiency,
+    PlayersTrackingSpeedDistance,
+    PlayersTrackingElbowTouch,
+    PlayersTrackingPostUps,
+    PlayersTrackingPaintTouch,
+    PlayersDefenseDashboardOverall,
+    PlayersDefenseDashboard3pt,
+    PlayersDefenseDashboard2pt,
+    PlayersDefenseDashboardLt6,
+    PlayersDefenseDashboardLt10,
+    PlayersDefenseDashboardGt15,
+    PlayersShotDashboardGeneral,
+    PlayersShotDashboardShotClock,
+    PlayersShotDashboardDribbles,
+    PlayersShotDashboardTouchTime,
+    PlayersShotDashboardClosestDefender,
+    PlayersShotDashboardClosestDefender10,
+    PlayersBoxScores,
+    PlayersAdvancedBoxScoresTraditional,
+    PlayersAdvancedBoxScoresAdvanced,
+    PlayersAdvancedBoxScoresMisc,
+    PlayersAdvancedBoxScoresScoring,
+    PlayersAdvancedBoxScoresUsage,
+    PlayersShooting,
+    PlayersDunkScores,
+    PlayersOpponentShootingOverall,
+    PlayersHustle,
+    PlayersBoxOuts,
+    PlayersBios,
 )
 
 
@@ -68,6 +105,7 @@ def export_as_csv(modeladmin, request, queryset):
 
 export_as_csv.short_description = "Exportar seleccionados a CSV"
 
+
 def get_csv_import_view(model_class):
     """
     Crea una función de vista para importar CSV para un modelo específico
@@ -95,11 +133,19 @@ def get_csv_import_view(model_class):
                     reader, start=2
                 ):  # start=2 porque la fila 1 es el header
                     try:
+                        # Normalizar las columnas del CSV a minúsculas para coincidir con los campos del modelo
+                        # Los CSVs tienen columnas en mayúsculas (SEASON, TEAM_ABB) pero los modelos en minúsculas (season, team_abb)
+                        row_normalized = {k.lower(): v for k, v in row.items()}
+
                         # Preparar datos para crear/actualizar
                         data = {}
                         for field_name in field_names:
-                            if field_name in row:
-                                value = row[field_name].strip()
+                            if field_name in row_normalized:
+                                value = (
+                                    row_normalized[field_name].strip()
+                                    if row_normalized[field_name]
+                                    else ""
+                                )
 
                                 # Obtener el campo del modelo
                                 field = meta.get_field(field_name)
@@ -224,11 +270,12 @@ def get_csv_import_view(model_class):
 
     return csv_import_view
 
+
 @admin.register(PlayersGeneralTraditional)
 class PlayersGeneralTraditionalAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -253,9 +300,9 @@ class PlayersGeneralTraditionalAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralAdvanced)
 class PlayersGeneralAdvancedAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -280,9 +327,9 @@ class PlayersGeneralAdvancedAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralMisc)
 class PlayersGeneralMiscAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -307,9 +354,9 @@ class PlayersGeneralMiscAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralScoring)
 class PlayersGeneralScoringAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -334,9 +381,9 @@ class PlayersGeneralScoringAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralUsage)
 class PlayersGeneralUsageAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -361,9 +408,9 @@ class PlayersGeneralUsageAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralOpponent)
 class PlayersGeneralOpponentAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'vs_player_name', 'player_id', 'team_abb']
-    search_fields = ['vs_player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "vs_player_name", "player_id", "team_abb"]
+    search_fields = ["vs_player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -388,9 +435,9 @@ class PlayersGeneralOpponentAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralDefense)
 class PlayersGeneralDefenseAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -415,9 +462,9 @@ class PlayersGeneralDefenseAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralViolations)
 class PlayersGeneralViolationsAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -442,9 +489,9 @@ class PlayersGeneralViolationsAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersGeneralEstimatedAdvanced)
 class PlayersGeneralEstimatedAdvancedAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id']
-    search_fields = ['player_name', 'player_id']
-    list_filter = ['season', 'season_type']
+    list_display = ["season", "season_type", "player_name", "player_id"]
+    search_fields = ["player_name", "player_id"]
+    list_filter = ["season", "season_type"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -469,9 +516,9 @@ class PlayersGeneralEstimatedAdvancedAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersClutchTraditional)
 class PlayersClutchTraditionalAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -496,9 +543,9 @@ class PlayersClutchTraditionalAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersClutchAdvanced)
 class PlayersClutchAdvancedAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -523,9 +570,9 @@ class PlayersClutchAdvancedAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersClutchMisc)
 class PlayersClutchMiscAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -550,9 +597,9 @@ class PlayersClutchMiscAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersClutchScoring)
 class PlayersClutchScoringAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -577,9 +624,9 @@ class PlayersClutchScoringAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersClutchUsage)
 class PlayersClutchUsageAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -604,9 +651,9 @@ class PlayersClutchUsageAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeIsolation)
 class PlayersPlaytypeIsolationAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -631,9 +678,9 @@ class PlayersPlaytypeIsolationAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeTransition)
 class PlayersPlaytypeTransitionAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -658,9 +705,9 @@ class PlayersPlaytypeTransitionAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeBallHandler)
 class PlayersPlaytypeBallHandlerAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -685,9 +732,9 @@ class PlayersPlaytypeBallHandlerAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeRollMan)
 class PlayersPlaytypeRollManAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -712,9 +759,9 @@ class PlayersPlaytypeRollManAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypePostUp)
 class PlayersPlaytypePostUpAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -739,9 +786,9 @@ class PlayersPlaytypePostUpAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeSpotUp)
 class PlayersPlaytypeSpotUpAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -766,9 +813,9 @@ class PlayersPlaytypeSpotUpAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeHandOff)
 class PlayersPlaytypeHandOffAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -793,9 +840,9 @@ class PlayersPlaytypeHandOffAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeCut)
 class PlayersPlaytypeCutAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -820,9 +867,9 @@ class PlayersPlaytypeCutAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeOffScreen)
 class PlayersPlaytypeOffScreenAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -847,9 +894,9 @@ class PlayersPlaytypeOffScreenAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypePutbacks)
 class PlayersPlaytypePutbacksAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -874,9 +921,9 @@ class PlayersPlaytypePutbacksAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersPlaytypeMisc)
 class PlayersPlaytypeMiscAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -901,9 +948,9 @@ class PlayersPlaytypeMiscAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingDrives)
 class PlayersTrackingDrivesAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -928,9 +975,9 @@ class PlayersTrackingDrivesAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingDefensiveImpact)
 class PlayersTrackingDefensiveImpactAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -955,9 +1002,9 @@ class PlayersTrackingDefensiveImpactAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingCatchShoot)
 class PlayersTrackingCatchShootAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -982,9 +1029,9 @@ class PlayersTrackingCatchShootAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingPassing)
 class PlayersTrackingPassingAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1009,9 +1056,9 @@ class PlayersTrackingPassingAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingTouches)
 class PlayersTrackingTouchesAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1036,9 +1083,9 @@ class PlayersTrackingTouchesAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingPullup)
 class PlayersTrackingPullupAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1063,9 +1110,9 @@ class PlayersTrackingPullupAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingRebounding)
 class PlayersTrackingReboundingAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1090,9 +1137,9 @@ class PlayersTrackingReboundingAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingOffensiveRebounding)
 class PlayersTrackingOffensiveReboundingAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1117,9 +1164,9 @@ class PlayersTrackingOffensiveReboundingAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingDefensiveRebounding)
 class PlayersTrackingDefensiveReboundingAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1144,9 +1191,9 @@ class PlayersTrackingDefensiveReboundingAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingShootingEfficiency)
 class PlayersTrackingShootingEfficiencyAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1171,9 +1218,9 @@ class PlayersTrackingShootingEfficiencyAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingSpeedDistance)
 class PlayersTrackingSpeedDistanceAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1198,9 +1245,9 @@ class PlayersTrackingSpeedDistanceAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingElbowTouch)
 class PlayersTrackingElbowTouchAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1225,9 +1272,9 @@ class PlayersTrackingElbowTouchAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingPostUps)
 class PlayersTrackingPostUpsAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1252,9 +1299,9 @@ class PlayersTrackingPostUpsAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersTrackingPaintTouch)
 class PlayersTrackingPaintTouchAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1279,9 +1326,9 @@ class PlayersTrackingPaintTouchAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboardOverall)
 class PlayersDefenseDashboardOverallAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1306,9 +1353,9 @@ class PlayersDefenseDashboardOverallAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboard3pt)
 class PlayersDefenseDashboard3ptAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1333,9 +1380,9 @@ class PlayersDefenseDashboard3ptAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboard2pt)
 class PlayersDefenseDashboard2ptAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1360,9 +1407,9 @@ class PlayersDefenseDashboard2ptAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboardLt6)
 class PlayersDefenseDashboardLt6Admin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1387,9 +1434,9 @@ class PlayersDefenseDashboardLt6Admin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboardLt10)
 class PlayersDefenseDashboardLt10Admin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1414,9 +1461,9 @@ class PlayersDefenseDashboardLt10Admin(admin.ModelAdmin):
 
 @admin.register(PlayersDefenseDashboardGt15)
 class PlayersDefenseDashboardGt15Admin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1441,9 +1488,9 @@ class PlayersDefenseDashboardGt15Admin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardGeneral)
 class PlayersShotDashboardGeneralAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1468,9 +1515,9 @@ class PlayersShotDashboardGeneralAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardShotClock)
 class PlayersShotDashboardShotClockAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1495,9 +1542,9 @@ class PlayersShotDashboardShotClockAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardDribbles)
 class PlayersShotDashboardDribblesAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1522,9 +1569,9 @@ class PlayersShotDashboardDribblesAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardTouchTime)
 class PlayersShotDashboardTouchTimeAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1549,9 +1596,9 @@ class PlayersShotDashboardTouchTimeAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardClosestDefender)
 class PlayersShotDashboardClosestDefenderAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1576,9 +1623,9 @@ class PlayersShotDashboardClosestDefenderAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShotDashboardClosestDefender10)
 class PlayersShotDashboardClosestDefender10Admin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1603,9 +1650,9 @@ class PlayersShotDashboardClosestDefender10Admin(admin.ModelAdmin):
 
 @admin.register(PlayersBoxScores)
 class PlayersBoxScoresAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1630,9 +1677,9 @@ class PlayersBoxScoresAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersAdvancedBoxScoresTraditional)
 class PlayersAdvancedBoxScoresTraditionalAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1657,9 +1704,9 @@ class PlayersAdvancedBoxScoresTraditionalAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersAdvancedBoxScoresAdvanced)
 class PlayersAdvancedBoxScoresAdvancedAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1684,9 +1731,9 @@ class PlayersAdvancedBoxScoresAdvancedAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersAdvancedBoxScoresMisc)
 class PlayersAdvancedBoxScoresMiscAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1711,9 +1758,9 @@ class PlayersAdvancedBoxScoresMiscAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersAdvancedBoxScoresScoring)
 class PlayersAdvancedBoxScoresScoringAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1738,9 +1785,9 @@ class PlayersAdvancedBoxScoresScoringAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersAdvancedBoxScoresUsage)
 class PlayersAdvancedBoxScoresUsageAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1765,9 +1812,9 @@ class PlayersAdvancedBoxScoresUsageAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersShooting)
 class PlayersShootingAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1792,9 +1839,9 @@ class PlayersShootingAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersDunkScores)
 class PlayersDunkScoresAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'playername', 'player_id', 'team_abb']
-    search_fields = ['playername', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "playername", "player_id", "team_abb"]
+    search_fields = ["playername", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1819,9 +1866,9 @@ class PlayersDunkScoresAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersOpponentShootingOverall)
 class PlayersOpponentShootingOverallAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1846,9 +1893,9 @@ class PlayersOpponentShootingOverallAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersHustle)
 class PlayersHustleAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1873,9 +1920,9 @@ class PlayersHustleAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersBoxOuts)
 class PlayersBoxOutsAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):
@@ -1900,9 +1947,9 @@ class PlayersBoxOutsAdmin(admin.ModelAdmin):
 
 @admin.register(PlayersBios)
 class PlayersBiosAdmin(admin.ModelAdmin):
-    list_display = ['season', 'season_type', 'player_name', 'player_id', 'team_abb']
-    search_fields = ['player_name', 'player_id', 'team_abb']
-    list_filter = ['season', 'season_type', 'team_abb']
+    list_display = ["season", "season_type", "player_name", "player_id", "team_abb"]
+    search_fields = ["player_name", "player_id", "team_abb"]
+    list_filter = ["season", "season_type", "team_abb"]
     actions = [export_as_csv]
 
     def get_urls(self):

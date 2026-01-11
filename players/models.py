@@ -1514,11 +1514,10 @@ class PlayersGeneralOpponent(models.Model):
         verbose_name="Tipo de Temporada",
         db_index=True,
     )
-    vs_player_name = models.CharField(
+    player_name = models.CharField(
         max_length=100,
-        verbose_name="Nombre del Jugador Oponente",
-        null=True,
-        blank=True,
+        verbose_name="Nombre del Jugador",
+        db_index=True,
     )
     player_id = models.IntegerField(
         verbose_name="ID del Jugador",
@@ -1529,6 +1528,19 @@ class PlayersGeneralOpponent(models.Model):
         choices=TeamChoices.choices(),
         verbose_name="Equipo",
         db_index=True,
+    )
+    age = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name="Edad",
+        help_text="Age",
+    )
+    vs_player_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Jugador Oponente",
+        null=True,
+        blank=True,
     )
     gp = models.IntegerField(
         default=0,

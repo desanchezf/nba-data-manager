@@ -137,11 +137,15 @@ def get_csv_import_view(model_class):
                     reader, start=2
                 ):  # start=2 porque la fila 1 es el header
                     try:
+                        # Normalizar las columnas del CSV a minúsculas para coincidir con los campos del modelo
+                        # Los CSVs tienen columnas en mayúsculas (SEASON, TEAM_ABB) pero los modelos en minúsculas (season, team_abb)
+                        row_normalized = {k.lower(): v for k, v in row.items()}
+                        
                         # Preparar datos para crear/actualizar
                         data = {}
                         for field_name in field_names:
-                            if field_name in row:
-                                value = row[field_name].strip()
+                            if field_name in row_normalized:
+                                value = row_normalized[field_name].strip() if row_normalized[field_name] else ""
 
                                 # Obtener el campo del modelo
                                 field = meta.get_field(field_name)
