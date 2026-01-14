@@ -71,11 +71,18 @@ def get_csv_import_view(model_class):
                     reader, start=2
                 ):  # start=2 porque la fila 1 es el header
                     try:
+                        # Filtrar campos _rank del CSV (no se usan en el sistema)
+                        row_filtered = {
+                            k: v 
+                            for k, v in row.items() 
+                            if not k.lower().endswith('_rank') and not k.upper().endswith('_RANK')
+                        }
+                        
                         # Preparar datos para crear/actualizar
                         data = {}
                         for field_name in field_names:
-                            if field_name in row:
-                                value = row[field_name].strip()
+                            if field_name in row_filtered:
+                                value = row_filtered[field_name].strip()
 
                                 # Obtener el campo del modelo
                                 field = meta.get_field(field_name)

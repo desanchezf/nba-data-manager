@@ -139,7 +139,22 @@ def get_csv_import_view(model_class):
                     try:
                         # Normalizar las columnas del CSV a minúsculas para coincidir con los campos del modelo
                         # Los CSVs tienen columnas en mayúsculas (SEASON, TEAM_ABB) pero los modelos en minúsculas (season, team_abb)
-                        row_normalized = {k.lower(): v for k, v in row.items()}
+                        # Filtrar campos _rank (no se usan en el sistema)
+                        row_normalized = {
+                            k.lower(): v 
+                            for k, v in row.items() 
+                            if not k.lower().endswith('_rank') and not k.upper().endswith('_RANK')
+                        }
+                        
+                        # Mapeo de columnas CSV normalizadas a campos del modelo
+                        csv_field_map = {
+                            'w': 'win',
+                            'l': 'lose',
+                        }
+                        # Aplicar mapeo
+                        for csv_key, model_key in csv_field_map.items():
+                            if csv_key in row_normalized and model_key in field_names:
+                                row_normalized[model_key] = row_normalized.pop(csv_key)
                         
                         # Preparar datos para crear/actualizar
                         data = {}

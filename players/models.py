@@ -198,136 +198,6 @@ class PlayersGeneralTraditional(models.Model):
         blank=True,
         help_text="Plus-Minus",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pts_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fgm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fg3m_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg3a_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg3_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ftm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fta_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    ft_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    oreb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    dreb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    reb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    ast_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    stl_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    blk_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pf_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    nba_fantasy_pts_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    dd2_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    td3_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    plus_minus_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players General Traditional"
@@ -527,126 +397,6 @@ class PlayersGeneralAdvanced(models.Model):
         blank=True,
         help_text="Field Goal Percentage",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    off_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    net_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_to_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_ratio_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    oreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    reb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    tm_tov_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    efg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ts_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pace_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pie_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fgm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fgm_pg_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga_pg_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players General Advanced"
@@ -845,126 +595,78 @@ class PlayersGeneralMisc(models.Model):
         null=True,
         blank=True,
         help_text="Field Goal Percentage",
-    )
-    gp_rank = models.IntegerField(
+    )  # Estadísticas misceláneas del CSV
+    pts_off_tov = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Points Off Turnovers",
     )
-    w_rank = models.IntegerField(
+    pts_2nd_chance = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Second Chance Points",
     )
-    l_rank = models.IntegerField(
+    pts_fb = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Fast Break Points",
     )
-    min_rank = models.IntegerField(
+    pts_paint = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Points in the Paint",
     )
-    off_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    net_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_to_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_ratio_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    oreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    reb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    tm_tov_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    efg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ts_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pace_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pie_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fgm_rank = models.IntegerField(
+    opp_pts_off_tov = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Opponent Points Off Turnovers",
     )
-    fga_rank = models.IntegerField(
+    opp_pts_2nd_chance = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Opponent 2nd Chance Points",
     )
-    fgm_pg_rank = models.IntegerField(
+    opp_pts_fb = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Opponent Fast Break Points",
     )
-    fga_pg_rank = models.IntegerField(
+    opp_pts_paint = models.IntegerField(
         default=0,
         null=True,
         blank=True,
+        help_text="Opponent Points in the Paint",
     )
-    fg_pct_rank = models.FloatField(
-        default=0.0,
+    blk = models.IntegerField(
+        default=0,
         null=True,
         blank=True,
+        help_text="Blocks",
+    )
+    blka = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        help_text="Blocks Against",
+    )
+    pf = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        help_text="Personal Fouls",
+    )
+    pfd = models.IntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        help_text="Personal Fouls Drawn",
     )
 
     class Meta:
@@ -1131,101 +833,6 @@ class PlayersGeneralScoring(models.Model):
         blank=True,
         help_text="Percent of Field Goals Made Unassisted",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_mr_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_fb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_ft_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_paint_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players General Scoring"
@@ -1390,101 +997,6 @@ class PlayersGeneralUsage(models.Model):
         null=True,
         blank=True,
         help_text="Percent of Field Goals Made Unassisted",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_mr_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_fb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_ft_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_paint_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
@@ -1693,131 +1205,6 @@ class PlayersGeneralOpponent(models.Model):
         blank=True,
         help_text="Plus-Minus",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fgm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fga_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_fg3m_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fg3a_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fg3_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_ftm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_fta_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_ft_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_oreb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_dreb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_reb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_ast_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_stl_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_blk_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_blka_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pf_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pfd_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    plus_minus_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players General Opponent"
@@ -1966,91 +1353,6 @@ class PlayersGeneralDefense(models.Model):
         help_text="Opponent Points in the Paint",
     )
     def_ws = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    dreb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_dreb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    stl_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pct_stl_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    blk_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pct_blk_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_2nd_chance_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_fb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_paint_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    def_ws_rank = models.IntegerField(
         default=0,
         null=True,
         blank=True,
@@ -2213,101 +1515,6 @@ class PlayersGeneralViolations(models.Model):
         blank=True,
         help_text="Kicked Ball",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    travel_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    double_dribble_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    discontinued_dribble_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    off_three_sec_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    inbound_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    backcourt_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    off_goaltending_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    palming_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    off_foul_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    def_three_sec_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    charge_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    def_goaltending_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    lane_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    jump_ball_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    kicked_ball_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players General Violations"
@@ -2427,71 +1634,6 @@ class PlayersGeneralEstimatedAdvanced(models.Model):
         null=True,
         blank=True,
         help_text="Estimated Pace",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    e_off_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_ast_ratio_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_oreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_reb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_tov_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_pace_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
@@ -2617,71 +1759,6 @@ class PlayersClutchTraditional(models.Model):
         null=True,
         blank=True,
         help_text="Estimated Pace",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    e_off_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_ast_ratio_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_oreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_reb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_tov_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    e_pace_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
@@ -2876,126 +1953,6 @@ class PlayersClutchAdvanced(models.Model):
         blank=True,
         help_text="Field Goal Percentage",
     )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    off_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    def_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    net_rating_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_to_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ast_ratio_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    oreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    dreb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    reb_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    tm_tov_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    efg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    ts_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pace_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pie_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    fgm_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fgm_pg_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fga_pg_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    fg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
 
     class Meta:
         verbose_name = "Players Clutch Advanced"
@@ -3142,86 +2099,6 @@ class PlayersClutchMisc(models.Model):
         null=True,
         blank=True,
         help_text="Personal Fouls Drawn",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pts_2nd_chance_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pts_fb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pts_paint_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_2nd_chance_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_fb_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    opp_pts_paint_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    blk_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    blka_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pf_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pfd_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
@@ -3387,101 +2264,6 @@ class PlayersClutchScoring(models.Model):
         null=True,
         blank=True,
         help_text="Percent of Field Goals Made Unassisted",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_2pt_mr_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_3pt_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_fb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_ft_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_off_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_paint_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_2pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_3pm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_uast_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
@@ -3663,116 +2445,6 @@ class PlayersClutchUsage(models.Model):
         null=True,
         blank=True,
         help_text="Percent of Team's Points",
-    )
-    gp_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    w_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    l_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    min_rank = models.IntegerField(
-        default=0,
-        null=True,
-        blank=True,
-    )
-    usg_pct_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fgm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fga_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fg3m_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fg3a_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ftm_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_fta_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_oreb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_dreb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_reb_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_ast_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_tov_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_stl_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_blk_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_blka_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pf_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pfd_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
-    )
-    pct_pts_rank = models.FloatField(
-        default=0.0,
-        null=True,
-        blank=True,
     )
 
     class Meta:
