@@ -1,0 +1,505 @@
+SEASON,SEASON_TYPE,TEAM_ABB,TEAM_ID,TEAM_NAME,PLAYER_NAME,PLAYER_ID,PLAYER_LAST_TEAM_ABBREVIATION,PLAYER_POSITION,GP,G,FREQ,FG2M,FG2A,FG2_PCT,NS_FG2_PCT,PLUSMINUS
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Nikola Jokić,203999,DEN,C,32,32,76.5,7.8,14.0,55.4,54.7,0.7
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Alex Sarr,1642259,WAS,C,29,29,72.5,7.0,13.6,51.9,56.0,-4.1
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Rudy Gobert,203497,MIN,C,40,40,74.6,5.8,12.7,46.0,55.4,-9.4
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Domantas Sabonis,1627734,SAC,F-C,11,11,78.0,7.9,12.6,63.0,59.7,3.3
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Donovan Clingan,1642270,POR,C,37,37,64.8,6.2,12.3,50.5,56.6,-6.0
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Luke Kornet,1628436,SAS,C-F,32,32,72.0,6.3,12.3,51.1,57.1,-6.0
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Alperen Sengun,1630578,HOU,C,29,29,66.6,6.4,12.2,52.7,56.7,-4.0
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Nikola Vučević,202696,CHI,C,38,38,69.8,6.3,11.8,53.8,56.3,-2.5
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Evan Mobley,1630596,CLE,C,35,35,67.4,5.6,11.6,48.3,56.3,-8.1
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Ryan Kalkbrenner,1641750,CHA,C,28,28,75.9,6.0,11.5,51.9,56.1,-4.2
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Ivica Zubac,1627826,LAC,C,34,34,73.4,5.8,11.4,50.9,56.6,-5.7
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Joel Embiid,203954,PHI,C-F,20,20,70.9,5.8,11.2,51.3,54.7,-3.3
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Myles Turner,1626167,MIL,C-F,39,39,75.5,5.8,11.1,52.8,55.8,-3.0
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Derik Queen,1642852,NOP,C,41,41,69.3,6.1,11.1,55.4,57.5,-2.1
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Walker Kessler,1631117,UTA,C,5,5,71.4,6.0,11.0,54.5,57.0,-2.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Anthony Davis,203076,DAL,F-C,20,20,69.0,5.3,10.8,49.1,55.7,-6.6
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Keegan Murray,1631099,SAC,F,19,19,75.6,6.5,10.8,60.0,56.6,3.4
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Deandre Ayton,1629028,LAL,C,34,34,72.6,5.5,10.5,52.2,55.1,-2.9
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Luka Dončić,1629029,LAL,F-G,31,31,62.4,6.3,10.4,60.2,54.6,5.6
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Kyshawn George,1642273,WAS,F,29,29,58.1,5.5,10.3,53.0,54.9,-1.9
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,P.J. Washington,1629023,DAL,F,30,29,67.5,5.4,10.3,52.6,55.1,-2.5
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Mark Williams,1631109,PHX,C,35,35,68.6,6.1,10.2,60.1,56.0,4.1
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Onyeka Okongwu,1630168,ATL,F-C,40,40,66.4,6.0,10.2,58.8,56.5,2.3
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Cooper Flagg,1642843,DAL,F,39,39,65.2,5.4,10.1,53.7,54.9,-1.2
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Wendell Carter Jr.,1628976,ORL,C-F,38,38,77.2,5.0,10.1,49.7,55.4,-5.6
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Nic Claxton,1629651,BKN,C,35,35,72.4,4.7,10.0,47.3,55.4,-8.1
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Toumani Camara,1641739,POR,F,41,41,67.1,5.9,9.9,59.6,55.1,4.5
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Victor Wembanyama,1641705,SAS,F-C,26,26,63.6,4.5,9.8,45.5,56.7,-11.2
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Jakob Poeltl,1627751,TOR,C,21,21,72.0,5.2,9.7,53.7,55.6,-1.9
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Chet Holmgren,1631096,OKC,C-F,35,35,70.0,4.3,9.7,44.4,54.9,-10.6
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Noah Clowney,1641730,BKN,F-C,37,37,67.1,5.6,9.4,59.3,54.8,4.6
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Kristaps Porziņģis,204001,ATL,F-C,17,17,69.0,4.5,9.4,47.5,56.5,-9.0
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Tyler Herro,1629639,MIA,G,10,10,71.2,4.5,9.4,47.9,52.2,-4.3
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Matas Buzelis,1641824,CHI,F,39,39,65.2,5.0,9.2,53.6,54.8,-1.2
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Deni Avdija,1630166,POR,F,40,40,69.1,4.9,9.2,53.1,55.1,-2.0
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Zach Edey,1641744,MEM,C,11,11,75.9,3.8,9.2,41.6,55.0,-13.4
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Scottie Barnes,1630567,TOR,F-G,40,40,64.2,5.2,9.2,56.9,54.7,2.2
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Kon Knueppel,1642851,CHA,G-F,39,39,69.2,4.5,9.2,49.6,54.9,-5.3
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Kel'el Ware,1642276,MIA,C,40,40,68.8,5.3,9.1,58.3,57.9,0.4
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Austin Reaves,1630559,LAL,G,23,23,65.0,5.1,9.0,56.7,54.3,2.5
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Maxime Raynaud,1642875,SAC,C,32,31,68.3,5.1,8.9,57.3,56.7,0.7
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Dyson Daniels,1630700,ATL,G,41,41,61.4,4.8,8.9,54.4,54.9,-0.5
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Derrick White,1628401,BOS,G,38,38,60.5,4.4,8.9,49.6,53.5,-4.0
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Jaden McDaniels,1630183,MIN,F,39,39,61.4,4.5,8.9,50.1,55.1,-5.0
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Jaren Jackson Jr.,1628991,MEM,F-C,37,37,58.5,4.4,8.9,49.8,55.6,-5.8
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Jusuf Nurkić,203994,UTA,C,32,32,66.6,5.0,8.8,56.5,57.8,-1.3
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Jarrett Allen,1628386,CLE,C,29,29,72.0,4.2,8.8,48.2,57.0,-8.8
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Pascal Siakam,1627783,IND,F,39,39,62.6,5.0,8.8,57.6,55.4,2.3
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Nickeil Alexander-Walker,1629638,ATL,G,40,40,66.0,5.0,8.8,57.7,54.1,3.6
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Anthony Black,1641710,ORL,G,40,40,65.3,4.9,8.8,55.7,53.5,2.2
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,VJ Edgecombe,1642845,PHI,G,34,34,66.2,4.7,8.7,53.4,54.3,-0.9
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Isaiah Hartenstein,1628392,OKC,C-F,24,24,71.9,3.4,8.6,39.6,54.5,-14.8
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Paolo Banchero,1631094,ORL,F,30,30,64.7,4.4,8.6,51.6,55.3,-3.7
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Santi Aldama,1630583,MEM,F-C,39,39,62.1,4.7,8.5,55.4,55.9,-0.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Daniel Gafford,1629655,DAL,F-C,28,28,74.8,4.7,8.5,55.5,55.8,-0.3
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Neemias Queta,1629674,BOS,C,36,36,70.0,4.2,8.5,49.3,56.5,-7.1
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Karl-Anthony Towns,1626157,NYK,C-F,36,36,63.1,4.3,8.4,50.3,55.7,-5.3
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Moussa Diabaté,1631217,CHA,F,37,37,65.1,4.6,8.4,54.3,56.5,-2.1
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Jalen Johnson,1630552,ATL,F,38,38,64.8,4.8,8.4,57.1,55.9,1.2
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Draymond Green,203110,GSW,F,34,34,65.7,4.2,8.4,50.2,55.7,-5.5
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Andrew Nembhard,1629614,IND,G-F,31,31,68.7,5.0,8.3,59.8,54.2,5.6
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Josh Hart,1628404,NYK,G,29,29,60.5,4.6,8.3,55.4,55.4,0.0
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Cade Cunningham,1630595,DET,G,33,33,58.7,4.3,8.3,52.2,54.4,-2.2
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Lauri Markkanen,1628374,UTA,F-C,33,33,65.4,4.6,8.3,55.5,55.9,-0.4
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Brandon Miller,1641706,CHA,F,23,23,64.7,4.0,8.3,48.7,54.7,-6.0
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Peyton Watson,1631212,DEN,G,38,37,63.1,4.6,8.3,55.9,53.8,2.1
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Bam Adebayo,1628389,MIA,C-F,32,32,64.1,4.0,8.3,48.5,56.0,-7.6
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Dominick Barlow,1631230,PHI,F,28,28,67.2,4.1,8.3,49.8,54.7,-5.0
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Kevin Porter Jr.,1629645,MIL,G-F,21,21,54.7,4.0,8.2,48.0,55.1,-7.2
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Trey Murphy III,1630530,NOP,F,38,38,60.0,4.8,8.2,58.7,55.6,3.0
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Mikal Bridges,1628969,NYK,G-F,39,39,64.0,4.4,8.2,53.1,54.7,-1.6
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Josh Giddey,1630581,CHI,G,30,30,59.1,4.3,8.2,52.0,54.1,-2.1
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Steven Adams,203500,HOU,C,30,30,69.8,4.0,8.2,48.6,57.1,-8.6
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Andrew Wiggins,203952,MIA,F,36,36,56.5,4.3,8.1,53.2,54.7,-1.4
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Jalen Duren,1631105,DET,C,31,31,63.3,4.2,8.1,51.2,56.0,-4.8
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Keyonte George,1641718,UTA,G,38,38,59.5,5.2,8.1,64.5,55.0,9.5
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Franz Wagner,1630532,ORL,F,24,24,59.4,4.2,8.0,51.8,54.7,-2.9
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,James Harden,201935,LAC,G,36,36,65.6,4.5,8.0,55.9,55.0,0.9
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Isaiah Stewart,1630191,DET,F-C,34,34,65.6,3.6,8.0,44.6,54.4,-9.7
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Jake LaRavia,1631222,LAL,F,38,38,65.1,4.4,7.9,55.5,54.3,1.2
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Jaime Jaquez Jr.,1631170,MIA,G,37,37,58.4,4.2,7.9,53.3,54.5,-1.3
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Jamal Murray,1627750,DEN,G,36,36,57.5,4.4,7.8,56.6,53.1,3.5
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Julius Randle,203944,MIN,F-C,41,41,62.8,4.2,7.7,53.9,55.9,-1.9
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Andre Drummond,203083,PHI,C,33,33,72.2,4.5,7.7,59.1,57.1,2.0
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,RJ Barrett,1629628,TOR,F-G,23,22,60.2,4.0,7.7,52.5,54.8,-2.3
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Jabari Smith Jr.,1631095,HOU,F,36,36,61.7,4.1,7.7,53.6,55.1,-1.5
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Nikola Jović,1631107,MIA,F,27,26,67.5,4.0,7.6,52.9,55.3,-2.4
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,OG Anunoby,1628384,NYK,F-G,29,29,58.5,4.1,7.6,53.6,55.0,-1.4
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Ryan Rollins,1631157,MIL,G,40,40,60.7,4.0,7.6,52.5,53.6,-1.2
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Max Christie,1631108,DAL,G,38,38,65.8,4.1,7.6,53.8,53.8,0.0
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Jay Huff,1630643,IND,C,40,40,70.6,3.9,7.5,51.3,56.4,-5.1
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Stephon Castle,1642264,SAS,G,31,31,64.9,3.8,7.5,50.6,55.3,-4.6
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Dylan Cardwell,1642928,SAC,C,13,13,82.9,3.9,7.5,51.5,56.2,-4.7
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Tyrese Maxey,1630178,PHI,G,36,36,57.9,4.0,7.4,53.6,53.9,-0.3
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,AJ Green,1631260,MIL,G,37,37,60.5,4.0,7.4,53.5,54.3,-0.8
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Kelly Oubre Jr.,1626162,PHI,F-G,16,16,63.1,3.8,7.4,50.8,54.5,-3.7
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Michael Porter Jr.,1629008,BKN,F,30,30,68.6,3.9,7.4,53.4,55.0,-1.6
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Collin Gillespie,1631221,PHX,G,40,40,65.6,4.3,7.3,58.5,53.8,4.7
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Reed Sheppard,1642263,HOU,G,37,37,64.8,4.0,7.3,54.2,53.5,0.7
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Aaron Nesmith,1630174,IND,G-F,20,20,62.2,3.8,7.3,51.7,54.8,-3.1
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Christian Braun,1631128,DEN,G,14,14,61.2,3.7,7.2,51.5,54.6,-3.1
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Micah Potter,1630695,IND,C,10,10,69.9,4.6,7.2,63.9,55.9,8.0
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Jalen Suggs,1630591,ORL,G,23,23,63.7,4.1,7.2,57.6,53.7,3.8
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Dean Wade,1629731,CLE,F-C,33,33,69.2,3.2,7.2,45.3,53.7,-8.4
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Jeremiah Fears,1642847,NOP,G,42,42,60.6,4.4,7.1,61.9,55.0,6.9
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Aaron Gordon,203932,DEN,F,18,18,61.0,3.9,7.1,55.5,56.1,-0.7
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Jaylon Tyson,1642281,CLE,G-F,36,36,60.1,3.4,7.1,48.0,54.1,-6.0
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Donte DiVincenzo,1628978,MIN,G,41,41,64.7,3.7,7.1,52.6,53.4,-0.8
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Vít Krejčí,1630249,ATL,G,38,38,66.8,3.8,7.0,54.5,53.1,1.3
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Sam Merrill,1630241,CLE,G,23,23,70.5,3.5,7.0,50.6,53.9,-3.3
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Miles Bridges,1628970,CHA,F,39,38,58.0,3.9,7.0,55.4,55.5,-0.2
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Immanuel Quickley,1630193,TOR,G,40,40,63.2,3.6,7.0,52.5,53.7,-1.2
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Sandro Mamukelashvili,1630572,TOR,F-C,40,40,65.0,3.6,7.0,51.4,55.5,-4.0
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Duncan Robinson,1629130,DET,F,36,36,62.4,3.5,6.9,50.6,54.0,-3.4
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Quinten Post,1642366,GSW,C,41,41,67.1,3.4,6.9,49.1,55.4,-6.3
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Sion James,1642883,CHA,G,40,40,64.6,3.6,6.9,52.2,54.6,-2.5
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Paul George,202331,PHI,F,21,21,63.7,3.7,6.9,53.5,54.7,-1.2
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Shai Gilgeous-Alexander,1628983,OKC,G,39,39,58.6,3.3,6.8,47.9,53.7,-5.7
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Naz Reid,1629675,MIN,C-F,41,41,64.8,3.5,6.8,51.1,54.7,-3.6
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Tre Jones,1630200,CHI,G,33,33,68.2,3.8,6.8,55.1,53.2,2.0
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Devin Booker,1626164,PHX,G,37,37,62.0,3.4,6.8,49.4,54.6,-5.2
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Royce O'Neale,1626220,PHX,F,40,39,62.3,3.4,6.8,50.2,55.4,-5.2
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,DeMar DeRozan,201942,SAC,G-F,40,40,65.1,4.0,6.8,58.7,56.3,2.3
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Darius Garland,1629636,CLE,G,25,24,56.9,4.0,6.8,59.2,54.0,5.2
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Rui Hachimura,1629060,LAL,F,28,28,62.6,4.1,6.8,60.3,54.4,5.9
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Bennedict Mathurin,1631097,IND,G-F,24,24,65.6,3.8,6.8,56.2,55.6,0.6
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Dereck Lively II,1641726,DAL,C,7,7,69.1,3.9,6.7,57.4,54.7,2.8
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Al Horford,201143,GSW,C-F,22,22,64.8,3.7,6.7,55.8,55.3,0.5
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Precious Achiuwa,1630173,SAC,F,32,32,66.1,3.6,6.7,53.5,57.4,-3.9
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Kevin Durant,201142,HOU,F,35,35,57.1,2.9,6.7,44.2,54.5,-10.3
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Jalen Brunson,1628973,NYK,G,36,36,52.1,4.3,6.6,64.4,54.7,9.7
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Shaedon Sharpe,1631101,POR,G,37,37,64.3,4.2,6.6,62.9,54.6,8.3
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Kyle Filipowski,1642271,UTA,C,38,36,58.0,3.6,6.6,54.2,55.9,-1.7
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Desmond Bane,1630217,ORL,G,40,40,57.8,3.5,6.6,53.4,54.0,-0.6
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Brook Lopez,201572,LAC,C,32,32,73.3,3.3,6.6,49.8,55.8,-6.1
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Jrue Holiday,201950,POR,G,14,14,54.4,3.8,6.6,57.6,55.8,1.8
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Dillon Brooks,1628415,PHX,G-F,34,34,58.2,3.5,6.6,53.4,54.7,-1.4
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Devin Vassell,1630170,SAS,G-F,32,31,69.8,3.6,6.6,54.3,54.9,-0.6
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Naji Marshall,1630230,DAL,F,40,40,60.8,3.6,6.5,55.7,55.3,0.4
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Bobby Portis,1626171,MIL,F,40,40,63.7,3.9,6.5,59.8,56.1,3.7
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Isaiah Jackson,1630543,IND,F,29,29,69.5,4.0,6.5,61.9,57.4,4.5
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Tobias Harris,202699,DET,F,23,23,68.2,3.3,6.5,50.7,54.4,-3.7
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,CJ McCollum,203468,ATL,G,37,37,52.7,3.8,6.5,58.1,54.4,3.7
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Cason Wallace,1641717,OKC,G,39,39,54.6,3.3,6.5,51.2,53.7,-2.5
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Julian Champagnie,1630577,SAS,F,40,39,62.1,3.4,6.5,51.9,54.6,-2.7
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Cedric Coward,1642907,MEM,G,36,36,55.2,3.4,6.5,53.0,54.5,-1.5
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Miles McBride,1630540,NYK,G,28,28,59.3,3.5,6.5,53.6,54.2,-0.7
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Oso Ighodaro,1642345,PHX,F,40,40,71.5,3.3,6.5,50.4,54.9,-4.5
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,De'Anthony Melton,1629001,GSW,G,16,16,73.0,4.0,6.4,62.1,54.1,8.0
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Stephen Curry,201939,GSW,G,31,31,62.3,3.7,6.4,58.1,53.2,4.9
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Moses Moody,1630541,GSW,G,39,38,66.9,3.2,6.4,50.6,53.7,-3.1
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Christian Koloko,1631132,MEM,C,13,13,75.5,3.6,6.4,56.6,56.4,0.2
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Zaccharie Risacher,1642258,ATL,F,36,35,61.2,3.8,6.4,59.4,54.4,5.0
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Mitchell Robinson,1629011,NYK,C-F,27,27,61.5,3.3,6.3,51.5,55.9,-4.5
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Kevin Huerter,1628989,CHI,G-F,34,34,62.3,3.3,6.3,51.6,54.0,-2.3
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Jock Landale,1629111,MEM,C,37,37,69.6,3.5,6.3,56.2,56.7,-0.5
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Davion Mitchell,1630558,MIA,G,38,38,55.2,3.5,6.3,56.1,53.6,2.5
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Isaac Okoro,1630171,CHI,F-G,31,31,62.9,3.3,6.3,52.8,55.4,-2.5
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,De'Aaron Fox,1628368,SAS,G,31,31,52.7,3.3,6.3,51.8,54.6,-2.8
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,John Collins,1628381,LAC,F-C,38,38,53.7,3.2,6.3,50.8,55.1,-4.3
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Zach LaVine,203897,SAC,G,28,28,52.6,3.9,6.3,61.7,57.3,4.4
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Egor Dëmin,1642856,BKN,G,33,33,67.8,3.5,6.2,56.3,53.3,3.1
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Kawhi Leonard,202695,LAC,F,29,28,53.4,3.8,6.2,61.3,55.7,5.6
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Jaylen Wells,1642377,MEM,F,39,39,58.7,3.4,6.2,55.1,54.2,0.9
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Marvin Bagley III,1628963,WAS,F,32,32,65.5,3.0,6.2,47.7,55.6,-7.8
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Amen Thompson,1641708,HOU,G-F,37,37,61.7,3.2,6.2,50.9,54.3,-3.5
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Anthony Edwards,1630162,MIN,G,33,33,58.9,3.3,6.2,53.7,54.9,-1.2
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Brandin Podziemski,1641764,GSW,G,41,41,67.6,3.4,6.2,55.1,55.1,0.0
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Quentin Grimes,1629656,PHI,G,36,36,61.9,3.3,6.2,52.5,53.9,-1.4
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Jaylen Brown,1627759,BOS,G-F,36,35,51.6,3.3,6.2,53.6,55.4,-1.8
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Dennis Schröder,203471,SAC,G,31,31,61.4,3.7,6.2,60.7,55.4,5.3
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Jaylin Williams,1631119,OKC,F,27,27,68.6,2.9,6.2,46.4,54.4,-8.0
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Cameron Johnson,1629661,DEN,F,28,28,57.3,3.3,6.1,52.9,53.6,-0.7
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Bruce Brown,1628971,DEN,G-F,40,40,63.3,3.5,6.1,56.3,53.3,3.0
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Goga Bitadze,1629048,ORL,C-F,36,36,72.1,3.2,6.1,52.7,55.1,-2.4
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Brandon Ingram,1627742,TOR,F,39,39,57.0,3.2,6.1,52.7,54.5,-1.7
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Coby White,1629632,CHI,G,18,17,58.3,3.7,6.1,60.6,53.8,6.8
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Kevin Love,201567,UTA,F-C,22,22,73.9,4.0,6.0,65.4,57.7,7.7
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Obi Toppin,1630167,IND,F,3,3,58.1,3.7,6.0,61.1,57.8,3.3
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Bogdan Bogdanović,203992,LAC,G,15,15,62.1,3.5,6.0,57.8,54.9,2.9
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Terance Mann,1629611,BKN,G-F,33,33,62.1,3.3,6.0,55.3,53.3,2.1
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Giannis Antetokounmpo,203507,MIL,F,26,26,59.8,2.8,6.0,46.5,55.5,-9.1
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Grayson Allen,1628960,PHX,G,23,23,56.4,3.2,6.0,53.3,53.1,0.2
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,LeBron James,2544,LAL,F,21,21,56.8,3.3,6.0,56.0,54.4,1.6
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Ja Morant,1629630,MEM,G,18,17,55.4,3.3,5.9,55.1,54.4,0.7
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Russell Westbrook,201566,SAC,G,40,40,61.7,3.8,5.9,64.1,56.0,8.2
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Kyle Kuzma,1628398,MIL,F,38,38,62.8,2.9,5.9,48.9,55.4,-6.5
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Bilal Coulibaly,1641731,WAS,G,24,24,67.9,3.1,5.9,52.1,56.0,-3.9
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Zach Collins,1628380,CHI,F-C,10,10,70.2,2.8,5.9,47.5,54.9,-7.4
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Danny Wolf,1642874,BKN,F,22,21,65.5,2.7,5.9,46.5,53.7,-7.2
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Collin Murray-Boyles,1642867,TOR,F,34,34,61.8,3.2,5.8,55.3,55.7,-0.5
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Adem Bona,1641737,PHI,F,29,29,65.8,2.9,5.8,49.1,55.6,-6.5
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Aaron Wiggins,1630598,OKC,G,28,28,60.4,2.8,5.8,48.1,54.0,-5.8
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Payton Pritchard,1630202,BOS,G,39,39,56.4,2.9,5.8,49.8,54.0,-4.2
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Jalen Smith,1630188,CHI,F-C,31,31,69.3,3.0,5.7,52.8,55.4,-2.6
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Jerami Grant,203924,POR,F,26,25,59.4,3.0,5.7,53.0,55.4,-2.4
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Ziaire Williams,1630533,BKN,F,29,29,58.9,3.4,5.7,59.0,53.0,6.0
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Luguentz Dort,1629652,OKC,G,31,31,54.5,2.8,5.7,49.7,53.9,-4.1
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Ausar Thompson,1641709,DET,G-F,34,34,56.9,2.9,5.7,51.0,54.9,-3.8
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Trae Young,1629027,WAS,G,10,10,57.0,3.9,5.7,68.4,53.5,14.9
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Jimmy Butler III,202710,GSW,F,36,35,56.6,3.5,5.7,62.0,54.4,7.5
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,De'Andre Hunter,1629631,CLE,F-G,36,36,57.8,3.1,5.7,55.4,55.4,0.0
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,KJ Simpson,1642354,CHA,G,12,12,70.1,2.8,5.7,48.5,55.0,-6.5
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Cam Thomas,1630560,BKN,G,15,15,73.0,3.5,5.6,61.9,55.2,6.7
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Jordan Walsh,1641775,BOS,G,32,31,65.6,2.7,5.6,48.6,54.4,-5.8
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Yves Missi,1642274,NOP,C,34,33,60.9,2.8,5.6,49.5,56.6,-7.1
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Luka Garza,1630568,BOS,C,30,30,63.3,3.1,5.6,55.7,56.0,-0.3
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Jordan Poole,1629673,NOP,G,23,23,52.9,3.2,5.6,57.0,54.3,2.7
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Trayce Jackson-Davis,1631218,GSW,F,28,28,75.0,2.6,5.6,46.8,54.8,-8.0
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Marcus Smart,203935,LAL,G,29,29,53.8,3.1,5.5,55.3,53.6,1.7
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Jaxson Hayes,1629637,LAL,C-F,32,32,66.8,2.9,5.5,52.5,55.3,-2.7
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Jonas Valančiūnas,202685,DEN,C,33,33,75.2,2.8,5.5,50.5,54.5,-3.9
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Ryan Dunn,1642346,PHX,F,33,32,65.7,2.7,5.5,48.9,54.1,-5.2
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Harrison Barnes,203084,SAS,F,40,39,56.0,3.3,5.5,60.0,56.3,3.7
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Jalen Williams,1631114,OKC,G-F,22,21,62.7,2.7,5.5,49.6,54.2,-4.6
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Bub Carrington,1642267,WAS,G,38,38,58.9,3.2,5.5,58.9,54.4,4.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Miles Kelly,1642939,DAL,G,2,2,84.6,3.5,5.5,63.6,53.8,9.8
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Kris Dunn,1627739,LAC,G,39,39,56.0,3.0,5.5,53.7,54.7,-0.9
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,LaMelo Ball,1630163,CHA,G,30,30,64.3,3.0,5.5,55.5,53.5,1.9
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Craig Porter Jr.,1641854,CLE,G,35,34,65.6,2.8,5.5,51.3,52.7,-1.4
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Zion Williamson,1629627,NOP,F,26,26,52.4,3.1,5.5,56.3,56.2,0.2
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Tristan da Silva,1641783,ORL,F,35,35,63.3,3.1,5.4,56.3,53.9,2.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,D'Angelo Russell,1626156,DAL,G,26,26,62.1,2.9,5.4,53.2,53.0,0.2
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Dwight Powell,203939,DAL,F-C,24,24,76.9,3.2,5.4,58.5,55.4,3.0
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Robert Williams III,1629057,POR,C-F,28,26,66.5,2.7,5.4,49.7,55.1,-5.5
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Vince Williams Jr.,1631246,MEM,G,25,25,56.1,2.7,5.4,50.0,54.9,-4.9
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Justin Champagnie,1630551,WAS,G-F,34,29,65.2,3.1,5.3,58.2,55.2,3.1
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Josh Minott,1631169,BOS,F,28,28,62.6,2.6,5.3,49.7,55.5,-5.9
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Svi Mykhailiuk,1629004,UTA,G-F,35,34,56.4,2.9,5.3,55.4,55.1,0.3
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Day'Ron Sharpe,1630549,BKN,C,36,36,72.3,3.0,5.3,56.0,54.0,2.1
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Tim Hardaway Jr.,203501,DEN,G-F,39,38,55.2,3.3,5.3,62.3,53.7,8.6
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Spencer Jones,1642461,DEN,F,33,28,62.5,2.7,5.3,50.3,54.3,-4.1
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Herbert Jones,1630529,NOP,F,23,23,59.5,3.1,5.3,58.2,55.5,2.7
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Brandon Williams,1630314,DAL,G,34,33,62.9,3.0,5.3,56.1,52.5,3.6
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Khris Middleton,203114,WAS,F,26,26,56.8,2.8,5.3,53.3,55.5,-2.2
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Norman Powell,1626181,MIA,G,34,34,61.7,3.0,5.3,57.0,55.1,1.9
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Derrick Jones Jr.,1627884,LAC,F,17,17,58.2,2.2,5.2,42.7,55.1,-12.4
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Drew Eubanks,1629234,SAC,F-C,30,29,70.0,3.2,5.2,60.9,58.1,2.8
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Tre Johnson,1642848,WAS,G,31,31,61.5,3.0,5.2,57.1,54.0,3.2
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Johnny Furphy,1642277,IND,G,21,20,68.6,2.9,5.2,56.0,53.5,2.5
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Kris Murray,1631200,POR,F,34,34,69.0,2.5,5.2,48.3,53.6,-5.3
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Pelle Larsson,1641796,MIA,G,31,31,57.8,2.5,5.2,49.4,54.1,-4.7
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Nique Clifford,1642363,SAC,G,36,35,62.1,2.7,5.1,53.0,54.4,-1.5
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Tari Eason,1631106,HOU,F,21,21,59.8,2.8,5.1,55.1,54.9,0.2
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Ben Sheppard,1641767,IND,G,29,29,60.7,2.7,5.1,53.7,53.8,-0.1
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Landry Shamet,1629013,NYK,G,14,14,53.8,2.8,5.1,54.9,53.3,1.6
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Keon Ellis,1631165,SAC,G,38,36,61.6,2.8,5.0,55.5,55.2,0.3
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Keldon Johnson,1629640,SAS,F-G,40,40,64.4,2.6,5.0,52.7,55.3,-2.5
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Will Richard,1642954,GSW,G,34,34,62.9,2.9,5.0,57.9,53.4,4.5
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Anfernee Simons,1629014,BOS,G,39,39,60.2,2.5,5.0,50.8,53.7,-2.9
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Ja'Kobe Walter,1642266,TOR,G,37,37,65.8,2.7,5.0,54.6,55.2,-0.6
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Buddy Hield,1627741,GSW,G,35,34,65.3,2.7,5.0,54.3,53.6,0.7
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Bryce McGowens,1631121,NOP,G,24,23,62.2,3.1,5.0,62.5,55.5,7.0
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Mac McClung,1630644,IND,G,2,2,76.9,2.5,5.0,50.0,52.9,-2.9
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Lonzo Ball,1628366,CLE,G,27,26,55.0,2.3,4.9,47.4,54.1,-6.8
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Tristan Vukcevic,1641774,WAS,F,28,26,69.7,2.7,4.9,54.3,56.9,-2.6
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Sam Hauser,1630573,BOS,F,38,38,57.9,2.7,4.9,54.5,54.5,0.1
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Jarace Walker,1641716,IND,F,40,38,67.4,2.8,4.9,57.7,54.4,3.3
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,DaRon Holmes II,1641747,DEN,F,9,8,62.0,2.3,4.9,47.7,55.2,-7.5
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Donovan Mitchell,1628378,CLE,G,37,37,55.2,3.0,4.9,60.8,55.3,5.5
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Ayo Dosunmu,1630245,CHI,G,33,32,57.7,2.5,4.9,52.2,54.1,-1.9
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Pat Spencer,1630311,GSW,G,21,21,73.4,2.4,4.9,50.0,54.4,-4.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Ryan Nembhard,1642948,DAL,G,27,27,61.2,2.5,4.8,51.1,53.7,-2.5
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Tidjane Salaün,1642275,CHA,F,25,23,64.4,2.4,4.8,50.4,53.6,-3.2
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Jonathan Kuminga,1630228,GSW,F,18,17,54.7,2.9,4.8,60.9,54.7,6.2
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Ace Bailey,1642846,UTA,F,32,32,55.0,2.6,4.8,53.2,55.8,-2.6
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Saddiq Bey,1630180,NOP,G-F,35,35,56.2,2.9,4.8,59.5,56.5,3.0
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Olivier-Maxence Prosper,1641765,MEM,F,15,14,68.6,2.5,4.8,51.4,55.1,-3.8
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Caris LeVert,1627747,DET,G,28,28,59.3,2.5,4.8,53.0,53.2,-0.2
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,James Wiseman,1630164,IND,C,4,4,76.0,3.0,4.8,63.2,55.0,8.2
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Cam Spencer,1642285,MEM,G,38,37,61.0,2.9,4.7,60.6,54.5,6.0
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Kevon Looney,1626172,NOP,F,16,15,58.1,2.9,4.7,62.7,58.8,3.9
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Ajay Mitchell,1642349,OKC,G,39,39,58.5,1.9,4.7,41.8,52.7,-11.0
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Mike Conley,201144,MIN,G,35,34,62.7,2.5,4.7,53.4,53.7,-0.4
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Taylor Hendricks,1641707,UTA,F,25,24,58.3,2.4,4.6,51.7,56.2,-4.5
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Jamir Watkins,1642364,WAS,F,11,10,66.2,2.4,4.6,51.0,56.2,-5.2
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Ronald Holland II,1641842,DET,F,36,34,61.6,2.1,4.6,46.1,54.0,-7.9
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Jeremy Sochan,1631110,SAS,F,23,20,74.1,2.6,4.6,56.6,55.2,1.4
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Dru Smith,1630696,MIA,G,40,40,60.5,2.3,4.6,50.0,53.1,-3.1
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Luke Kennard,1628379,ATL,G,36,34,64.7,2.6,4.6,57.0,53.3,3.7
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Jordan Clarkson,203903,NYK,G,39,38,65.1,2.4,4.5,52.5,53.9,-1.4
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Javonte Green,1629750,DET,G,37,37,61.5,2.4,4.5,53.0,55.7,-2.7
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Patrick Williams,1630172,CHI,F,37,37,64.6,2.6,4.5,56.5,55.1,1.5
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Noah Penda,1642869,ORL,G-F,24,22,64.9,2.4,4.5,53.2,54.0,-0.8
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Zeke Nnaji,1630192,DEN,F-C,23,21,65.4,2.1,4.5,46.2,55.8,-9.7
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Thomas Bryant,1628418,CLE,C-F,25,24,76.4,2.6,4.5,57.5,55.8,1.7
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,PJ Hall,1641790,CHA,C,12,11,57.4,2.2,4.5,48.1,55.2,-7.0
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,DeAndre Jordan,201599,NOP,C,2,2,69.2,2.0,4.5,44.4,62.5,-18.0
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Johni Broome,1641780,PHI,F,4,4,75.0,3.3,4.5,72.2,55.0,17.3
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Nicolas Batum,201587,LAC,G-F,37,37,62.4,2.4,4.5,53.6,54.3,-0.7
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Quenton Jackson,1631245,IND,G,15,15,55.8,2.3,4.5,50.7,53.9,-3.2
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Ochai Agbaji,1630534,TOR,G,31,31,66.3,2.2,4.5,50.0,52.7,-2.7
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Isaiah Collier,1642268,UTA,G,31,31,52.9,2.7,4.5,60.9,55.9,4.9
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Kasparas Jakučionis,1642857,MIA,G,11,11,60.5,2.7,4.5,61.2,55.7,5.5
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Jeremiah Robinson-Earl,1630526,IND,F,16,16,55.9,3.1,4.4,70.4,54.9,15.5
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Corey Kispert,1630557,ATL,F,21,21,63.7,2.2,4.4,49.5,55.6,-6.1
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Alijah Martin,1642918,TOR,G,5,4,61.1,2.2,4.4,50.0,53.6,-3.6
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Kobe Sanders,1642920,LAC,G,31,29,62.4,2.5,4.4,55.9,53.6,2.3
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Jared McCain,1642272,PHI,G,29,25,60.8,2.5,4.4,58.3,53.6,4.7
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Sidy Cissoko,1631321,POR,G,34,31,61.4,2.5,4.3,57.4,54.5,2.9
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Jordan Goodwin,1630692,PHX,G,37,35,58.5,2.4,4.3,55.9,54.1,1.8
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Klay Thompson,202691,DAL,G,37,37,64.5,1.9,4.3,44.4,53.5,-9.1
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Tre Mann,1630544,CHA,G,26,26,62.2,2.6,4.3,61.6,55.2,6.4
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Jose Alvarado,1630631,NOP,G,35,33,54.1,2.7,4.3,61.6,55.1,6.5
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Malik Monk,1628370,SAC,G,32,32,61.2,2.7,4.3,62.0,53.8,8.3
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Mouhamed Gueye,1631243,ATL,F,40,38,62.0,2.1,4.3,50.3,56.5,-6.2
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Moussa Cisse,1630619,DAL,C,20,19,68.5,2.1,4.3,50.6,55.8,-5.2
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Chris Boucher,1628449,BOS,F,8,8,69.4,2.0,4.3,47.1,55.0,-8.0
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Taurean Prince,1627752,MIL,F,8,8,58.6,2.5,4.3,58.8,52.9,5.9
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Trendon Watford,1630570,PHI,G-F,17,16,53.7,2.5,4.2,59.7,55.6,4.1
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Jordan Miller,1641757,LAC,G,17,16,59.5,2.2,4.2,52.8,52.3,0.5
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Collin Sexton,1629012,CHA,G,31,31,57.3,2.2,4.2,51.5,54.5,-2.9
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Jarred Vanderbilt,1629020,LAL,F,28,28,63.6,2.4,4.2,58.1,54.8,3.3
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Clint Capela,203991,HOU,C,33,29,73.4,2.1,4.2,50.0,55.0,-5.0
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Paul Reed,1630194,DET,F,28,26,67.6,2.1,4.2,51.3,54.9,-3.6
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Ben Saraf,1642879,BKN,G,12,12,60.2,2.8,4.2,68.0,53.3,14.7
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Josh Okogie,1629006,HOU,G,36,35,64.7,2.3,4.2,56.0,54.2,1.8
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Karlo Matković,1631255,NOP,F-C,29,28,65.2,2.1,4.1,50.0,55.7,-5.7
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Nolan Traore,1642849,BKN,G,17,16,62.5,1.7,4.1,41.4,51.9,-10.5
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Walter Clayton Jr.,1642383,UTA,G,34,34,53.6,2.3,4.1,55.7,53.7,2.0
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Branden Carlson,1642382,OKC,C,27,23,59.7,2.1,4.1,50.5,54.1,-3.6
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Brice Sensabaugh,1641729,UTA,F,37,35,56.3,2.4,4.1,57.9,55.4,2.5
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Tyrese Martin,1631213,BKN,F,31,31,57.7,2.0,4.1,48.8,52.8,-3.9
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Bones Hyland,1630538,MIN,G,30,28,66.1,2.2,4.1,53.7,53.0,0.7
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Justin Edwards,1642348,PHI,F,26,25,63.6,2.4,4.0,60.0,53.9,6.1
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Jaylen Clark,1641740,MIN,G,37,37,64.6,2.0,4.0,51.4,53.3,-1.9
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Gary Trent Jr.,1629018,MIL,G,37,34,56.3,2.3,4.0,57.4,52.9,4.5
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Tolu Smith,1642449,DET,F,4,4,59.3,2.3,4.0,56.3,55.5,0.8
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Charles Bassey,1629646,MEM,C-F,2,2,88.9,2.0,4.0,50.0,57.3,-7.3
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Oscar Tshiebwe,1631131,UTA,F-C,1,1,50.0,1.0,4.0,25.0,58.3,-33.3
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Gui Santos,1630611,GSW,F,29,29,68.0,2.1,4.0,52.2,53.3,-1.1
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Ousmane Dieng,1631172,OKC,F,18,18,64.5,2.1,3.9,52.1,52.1,0.0
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Alex Caruso,1627936,OKC,G,29,28,55.3,2.0,3.9,50.9,54.2,-3.3
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Mason Plumlee,203486,CHA,F-C,14,14,68.8,2.5,3.9,63.6,56.4,7.2
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,GG Jackson,1641713,MEM,F,15,15,57.8,2.1,3.9,54.2,53.0,1.2
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Kyle Anderson,203937,UTA,F-G,12,12,55.3,2.9,3.9,74.5,55.1,19.3
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,John Konchar,1629723,MEM,G,21,21,69.5,2.0,3.9,52.4,53.2,-0.8
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Isaiah Joe,1630198,OKC,G,32,31,51.5,2.3,3.8,61.0,54.3,6.7
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Yang Hansen,1642905,POR,C,23,22,64.2,1.9,3.8,50.0,55.6,-5.6
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Ethan Thompson,1630679,IND,G,15,14,59.4,2.1,3.8,56.1,50.2,6.0
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Dylan Harper,1642844,SAS,G,30,28,59.1,1.9,3.8,50.9,54.1,-3.3
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Larry Nance Jr.,1626204,CLE,F-C,15,13,64.8,2.4,3.8,63.2,54.7,8.5
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Hugo González,1642864,BOS,G,34,31,62.3,1.9,3.8,50.4,53.3,-3.0
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Daniss Jenkins,1642450,DET,G,28,24,61.3,2.3,3.8,59.4,54.5,4.9
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Nick Richards,1630208,PHX,C,27,24,72.3,2.3,3.8,61.8,54.9,6.9
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Ariel Hukporti,1630574,NYK,C,23,23,68.5,1.6,3.8,41.4,55.9,-14.5
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Jamal Shead,1642347,TOR,G,41,40,53.1,2.2,3.8,57.4,53.1,4.3
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Aaron Holiday,1628988,HOU,G,28,27,60.3,2.3,3.8,61.9,54.2,7.7
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Jamaree Bouyea,1631123,PHX,G,19,18,63.4,1.7,3.7,46.5,53.8,-7.3
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Cody Williams,1642262,UTA,F,24,22,59.7,1.9,3.7,51.7,54.9,-3.2
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Dorian Finney-Smith,1627827,HOU,F,9,9,70.2,2.0,3.7,54.5,53.6,0.9
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Jaden Ivey,1631093,DET,G,23,21,60.1,2.0,3.6,56.6,53.6,3.0
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Caleb Love,1631126,POR,G,31,30,60.9,2.1,3.6,57.1,54.2,3.0
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Baylor Scheierman,1631248,BOS,G,31,27,66.1,1.6,3.6,45.0,54.1,-9.0
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Cody Martin,1628998,IND,F,4,3,66.7,1.5,3.5,42.9,51.0,-8.1
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Brandon Clarke,1629634,MEM,F,2,2,100,1.5,3.5,42.9,54.5,-11.7
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Orlando Robinson,1631115,ORL,C,4,3,82.4,2.8,3.5,78.6,50.8,27.8
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Mo Bamba,1628964,TOR,C,2,2,70.0,2.0,3.5,57.1,52.4,4.8
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Tyus Jones,1626145,ORL,G,40,39,66.4,2.1,3.5,60.0,52.6,7.4
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Gabe Vincent,1629216,LAL,G,18,18,52.9,1.9,3.5,54.0,52.5,1.4
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Grant Williams,1629684,CHA,F,2,2,46.7,1.0,3.5,28.6,53.6,-25.0
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Asa Newell,1642854,ATL,F,28,27,63.8,1.8,3.5,50.5,53.6,-3.1
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Kelly Olynyk,203482,SAS,F-C,24,21,50.6,2.1,3.5,60.2,55.4,4.9
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Simone Fontecchio,1631323,MIA,F,36,34,50.8,1.9,3.4,54.0,54.2,-0.2
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Gary Payton II,1627780,GSW,G,36,34,62.6,1.8,3.4,51.6,54.8,-3.2
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Jalen Pickett,1629618,DEN,G,21,19,55.8,1.6,3.4,47.2,53.1,-5.9
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Garrison Mathews,1629726,IND,G,14,13,65.8,2.0,3.4,58.3,53.3,5.0
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Maxi Kleber,1628467,LAL,F,19,19,64.4,1.6,3.4,47.7,53.9,-6.3
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Yanic Konan Niederhäuser,1642949,LAC,C,17,16,76.3,1.9,3.4,55.2,54.5,0.7
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Jordan Hawkins,1641722,NOP,G,31,30,57.1,2.2,3.4,63.8,54.5,9.3
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Cam Whitmore,1641715,WAS,F,21,19,62.8,1.9,3.4,56.3,55.4,1.0
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Kentavious Caldwell-Pope,203484,MEM,G,38,35,57.7,2.0,3.3,61.4,54.9,6.5
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Cole Anthony,1630175,MIL,G,26,23,50.3,1.9,3.3,58.1,54.5,3.6
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Tyler Kolek,1642278,NYK,G,31,29,59.8,1.6,3.3,49.5,51.9,-2.4
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Chris Paul,101108,LAC,G,16,15,64.2,2.1,3.3,63.5,52.5,11.0
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Gradey Dick,1641711,TOR,G-F,40,39,56.8,2.0,3.2,61.2,53.9,7.3
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Dalen Terry,1631207,CHI,F,19,18,59.2,1.4,3.2,44.3,52.9,-8.7
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Monte Morris,1628420,IND,G,5,5,57.1,2.0,3.2,62.5,52.0,10.5
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Drake Powell,1642962,BKN,G-F,26,25,60.6,1.7,3.2,53.0,53.7,-0.7
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Jalen Wilson,1630592,BKN,F,24,22,61.8,1.9,3.2,59.2,54.6,4.6
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Dalton Knecht,1642261,LAL,F,30,27,59.2,1.7,3.1,53.8,54.1,-0.4
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Will Riley,1642860,WAS,F,27,25,63.4,1.6,3.1,53.0,54.5,-1.5
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Josh Green,1630182,CHA,G,16,14,62.0,1.6,3.1,53.1,54.7,-1.6
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Tony Bradley,1628396,IND,C-F,27,25,58.2,1.5,3.0,48.8,57.2,-8.4
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Caleb Martin,1628997,DAL,F,32,31,67.4,1.8,3.0,59.8,54.1,5.7
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,RayJ Dennis,1642484,ATL,G,12,9,64.3,1.9,3.0,63.9,52.4,11.5
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Hunter Dickinson,1630621,NOP,C,1,1,37.5,2.0,3.0,66.7,54.9,11.7
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Jamal Cain,1631288,ORL,F,13,11,63.9,1.8,3.0,59.0,51.7,7.3
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Nae'Qwan Tomlin,1641772,CLE,F,29,26,52.7,1.5,3.0,50.6,54.1,-3.5
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Trey Alexander,1641725,NOP,G,4,4,63.2,1.5,3.0,50.0,55.3,-5.3
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Dario Šarić,203967,SAC,F-C,5,5,62.5,2.2,3.0,73.3,54.1,19.2
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Wendell Moore Jr.,1631111,DET,G,3,3,50.0,1.7,3.0,55.6,54.9,0.7
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Jericho Sims,1630579,MIL,C,26,24,54.6,1.7,3.0,57.1,56.1,1.1
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Gary Harris,203914,MIL,G,29,26,48.9,1.7,2.9,58.8,53.7,5.1
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,T.J. McConnell,204456,IND,G,28,25,59.9,1.8,2.9,59.8,53.8,5.9
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Keshad Johnson,1642352,MIA,F,13,10,67.9,1.2,2.9,42.1,55.9,-13.7
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Javon Small,1642914,MEM,G,12,11,53.8,1.7,2.9,57.1,51.2,5.9
+2025-26,Regular+Season,NOP,1610612740,New Orleans Pelicans,Micah Peavy,1642877,NOP,G-F,35,31,58.0,1.6,2.9,53.9,55.5,-1.5
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Xavier Tillman,1630214,BOS,F,11,9,51.6,1.4,2.9,50.0,54.7,-4.7
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Jase Richardson,1642859,ORL,G,23,23,68.4,1.6,2.9,55.2,54.1,1.2
+2025-26,Regular+Season,DAL,1610612742,Dallas Mavericks,Jaden Hardy,1630702,DAL,G,24,24,69.7,1.5,2.9,52.2,53.3,-1.2
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Keaton Wallace,1630811,ATL,G,32,30,54.1,1.7,2.9,57.6,53.7,3.9
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Rob Dillingham,1642265,MIN,G,29,27,72.2,1.7,2.9,60.2,53.9,6.4
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Nick Smith Jr.,1641733,LAL,G,20,19,54.3,1.8,2.9,61.4,54.0,7.4
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Jae'Sean Tate,1630256,HOU,F,19,17,73.0,1.6,2.8,57.4,54.0,3.4
+2025-26,Regular+Season,UTA,1610612762,Utah Jazz,Elijah Harkless,1641989,UTA,G,6,5,54.8,1.8,2.8,64.7,53.6,11.1
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Andre Jackson Jr.,1641748,MIL,G,11,11,72.1,1.6,2.8,54.8,54.8,0.1
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Trey Jemison III,1641998,NYK,C,5,4,77.8,2.0,2.8,71.4,51.7,19.8
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Pat Connaughton,1626192,CHA,G,13,12,59.0,1.3,2.8,47.2,51.9,-4.7
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Duop Reath,1641871,POR,C,25,19,58.0,1.2,2.8,44.9,55.7,-10.8
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Amari Williams,1642873,BOS,F-C,4,4,61.1,1.3,2.8,45.5,58.9,-13.5
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,David Jones Garcia,1642357,SAS,G,8,8,71.0,1.3,2.8,45.5,50.5,-5.0
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Rayan Rupert,1641712,POR,G-F,30,28,63.6,1.4,2.7,51.2,54.0,-2.7
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Liam McNeeley,1642862,CHA,F,25,23,61.8,1.4,2.7,52.9,55.3,-2.3
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Jonathan Isaac,1628371,ORL,F,29,26,69.0,1.1,2.7,39.7,55.6,-15.9
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Jabari Walker,1631133,PHI,F,36,34,62.2,1.5,2.7,55.7,56.2,-0.5
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Terrence Shannon Jr.,1630545,MIN,G-F,22,22,70.2,1.6,2.7,59.3,54.5,4.8
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Doug McDermott,203926,SAC,F,6,6,57.1,1.0,2.7,37.5,48.5,-11.0
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Kyle Lowry,200768,PHI,G,3,3,66.7,0.7,2.7,25.0,53.4,-28.4
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Brooks Barnhizer,1642964,OKC,G,17,16,65.2,1.2,2.6,44.4,52.0,-7.6
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Devin Carter,1642269,SAC,G,11,9,52.7,1.7,2.6,65.5,54.4,11.1
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Isaiah Livers,1630587,PHX,F,19,16,65.8,1.5,2.6,56.0,54.1,1.9
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Tyrese Proctor,1642878,CLE,G,25,21,64.3,1.1,2.5,44.4,54.6,-10.1
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Jevon Carter,1628975,CHI,G,18,16,51.7,1.4,2.5,57.8,51.2,6.6
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Malaki Branham,1631103,WAS,F,20,18,64.9,1.2,2.5,48.0,52.8,-4.8
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Drew Peterson,1641809,CHA,F,6,5,75.0,1.2,2.5,46.7,54.9,-8.2
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Bradley Beal,203078,LAC,G,6,6,40.5,1.7,2.5,66.7,53.6,13.1
+2025-26,Regular+Season,GSW,1610612744,Golden State Warriors,Seth Curry,203552,GSW,G,2,1,41.7,2.0,2.5,80.0,52.9,27.1
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Kenrich Williams,1629026,OKC,G-F,20,18,56.3,1.4,2.5,59.2,55.3,3.9
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Guerschon Yabusele,1627824,NYK,F,31,24,61.7,1.3,2.4,55.4,55.8,-0.4
+2025-26,Regular+Season,ORL,1610612753,Orlando Magic,Jett Howard,1641724,ORL,G,24,23,69.5,1.3,2.4,54.4,53.5,0.9
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,JD Davison,1631120,HOU,G,14,13,70.2,1.1,2.4,45.5,55.2,-9.8
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Nigel Hayes-Davis,1628502,PHX,F,17,15,78.4,1.2,2.4,52.5,55.8,-3.3
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,N'Faly Dante,1642368,ATL,C,3,3,87.5,0.3,2.3,14.3,52.6,-38.3
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Jonathan Mogbo,1642367,TOR,F,12,11,77.8,1.2,2.3,50.0,55.9,-5.9
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Blake Wesley,1631104,POR,G,6,6,51.9,1.8,2.3,78.6,56.2,22.4
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Jamison Battle,1642419,TOR,F,23,21,68.8,1.1,2.3,47.2,55.5,-8.4
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Chaz Lanier,1642404,DET,G,10,9,71.9,0.5,2.3,21.7,54.2,-32.4
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Cam Christie,1642353,LAC,G,21,16,57.1,1.1,2.3,45.8,53.9,-8.0
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Marcus Sasser,1631204,DET,G,7,6,59.3,1.1,2.3,50.0,54.1,-4.1
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Kobe Brown,1641738,LAC,F,22,16,46.3,1.1,2.3,48.0,53.7,-5.7
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Matisse Thybulle,1629680,POR,G-F,4,4,100,0.8,2.3,33.3,52.2,-18.9
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Joan Beringer,1642866,MIN,F,13,11,67.4,1.1,2.2,48.3,52.4,-4.1
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Leonard Miller,1631159,MIN,F,10,9,56.4,1.5,2.2,68.2,52.3,15.9
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Luke Travers,1631247,CLE,F,11,10,72.7,1.0,2.2,45.8,53.8,-8.0
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Carter Bryant,1642868,SAS,F,27,22,62.2,1.1,2.1,51.8,53.9,-2.1
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Taelon Peter,1643007,IND,G,18,16,71.2,1.1,2.1,54.1,55.1,-1.1
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Julian Strawther,1631124,DEN,G,16,15,59.3,1.1,2.0,53.1,53.3,-0.2
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Myron Gardner,1642066,MIA,F,9,9,66.7,1.1,2.0,55.6,54.3,1.3
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Bronny James,1642355,LAL,G,17,14,65.4,1.4,2.0,70.6,53.8,16.8
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Chucky Hepburn,1642935,TOR,G,2,2,66.7,1.0,2.0,50.0,47.6,2.4
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Khaman Maluach,1642863,PHX,C,16,13,64.0,1.0,2.0,50.0,54.3,-4.3
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Bismack Biyombo,202687,SAS,C,9,8,60.0,1.4,2.0,72.2,55.2,17.0
+2025-26,Regular+Season,POR,1610612757,Portland Trail Blazers,Javonte Cooke,1631451,POR,G,6,6,70.6,1.2,2.0,58.3,55.8,2.5
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Jalen Green,1630224,PHX,G,2,2,50.0,0.5,2.0,25.0,51.8,-26.8
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Kevin McCullar Jr.,1641755,NYK,G,8,7,47.1,1.4,2.0,68.8,57.0,11.8
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Koby Brea,1642886,PHX,G,1,1,66.7,0.0,2.0,0.0,50.0,-50.0
+2025-26,Regular+Season,CLE,1610612739,Cleveland Cavaliers,Chris Livingston,1641753,CLE,F,1,1,66.7,2.0,2.0,100,51.6,48.5
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Amir Coffey,1629599,MIL,G-F,18,16,59.3,0.7,1.9,34.3,53.8,-19.5
+2025-26,Regular+Season,PHX,1610612756,Phoenix Suns,Rasheer Fleming,1642853,PHX,F,20,18,63.3,1.0,1.9,52.6,51.0,1.6
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Julian Phillips,1641763,CHI,F,25,23,47.5,0.8,1.9,44.7,54.6,-9.9
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Lachlan Olbrich,1642950,CHI,C,7,6,65.0,1.4,1.9,76.9,58.6,18.3
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Adou Thiero,1642876,LAL,G,13,12,72.7,1.3,1.9,70.8,52.9,17.9
+2025-26,Regular+Season,MIA,1610612748,Miami Heat,Jahmir Young,1642443,MIA,G,4,3,77.8,1.0,1.8,57.1,52.1,5.0
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Jordan McLaughlin,1629162,SAS,G,12,11,57.1,1.3,1.7,75.0,52.4,22.6
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Eric Gordon,201569,PHI,G,6,5,43.5,0.3,1.7,20.0,51.0,-31.0
+2025-26,Regular+Season,LAC,1610612746,Los Angeles Clippers,Jahmyl Telfort,1643141,LAC,G,3,3,71.4,0.7,1.7,40.0,50.9,-10.9
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Hunter Tyson,1641816,DEN,F,15,12,60.0,0.6,1.6,37.5,54.6,-17.1
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,Tyson Etienne,1630623,BKN,G,5,5,66.7,0.6,1.6,37.5,40.0,-2.5
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Emanuel Miller,1641801,CHI,F,5,5,72.7,1.0,1.6,62.5,51.6,10.9
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Pacôme Dadiet,1642359,NYK,F,9,7,82.4,0.8,1.6,50.0,55.7,-5.7
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,A.J. Lawson,1630639,TOR,G,6,4,47.4,0.5,1.5,33.3,49.1,-15.8
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,AJ Johnson,1642358,WAS,G,18,14,61.4,0.9,1.5,63.0,53.5,9.5
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Caleb Houstan,1631216,ATL,G,4,3,85.7,1.3,1.5,83.3,59.8,23.5
+2025-26,Regular+Season,PHI,1610612755,Philadelphia 76ers,Hunter Sallis,1642282,PHI,G,4,2,50.0,1.0,1.5,66.7,53.8,12.9
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Harrison Ingram,1631127,SAS,F,2,2,100,0.5,1.5,33.3,66.0,-32.7
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Anthony Gill,1630264,WAS,F,10,6,56.0,0.6,1.4,42.9,51.8,-8.9
+2025-26,Regular+Season,MEM,1610612763,Memphis Grizzlies,Jahmai Mashack,1642942,MEM,G,5,3,63.6,1.0,1.4,71.4,46.3,25.1
+2025-26,Regular+Season,IND,1610612754,Indiana Pacers,Kam Jones,1642880,IND,G,8,6,61.1,0.9,1.4,63.6,47.9,15.7
+2025-26,Regular+Season,HOU,1610612745,Houston Rockets,Jeff Green,201145,HOU,F,11,9,55.6,0.8,1.4,60.0,55.4,4.6
+2025-26,Regular+Season,CHA,1610612766,Charlotte Hornets,Antonio Reeves,1641810,CHA,G,6,5,50.0,0.7,1.3,50.0,52.4,-2.4
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Isaac Jones,1642403,DET,F,3,3,57.1,1.0,1.3,75.0,50.9,24.2
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Drew Timme,1631166,LAL,F,3,3,80.0,1.0,1.3,75.0,58.5,16.6
+2025-26,Regular+Season,OKC,1610612760,Oklahoma City Thunder,Chris Youngblood,1642959,OKC,G,17,12,47.8,0.6,1.3,45.5,56.1,-10.6
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Lindy Waters III,1630322,SAS,F,20,16,48.1,0.8,1.3,64.0,54.9,9.1
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Mohamed Diawara,1642885,NYK,F,24,15,46.8,0.8,1.2,62.1,52.6,9.5
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Pete Nance,1631250,MIL,F,5,3,54.5,0.6,1.2,50.0,51.6,-1.6
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Mark Sears,1641813,MIL,G,5,4,60.0,0.4,1.2,33.3,49.3,-16.0
+2025-26,Regular+Season,MIL,1610612749,Milwaukee Bucks,Thanasis Antetokounmpo,203648,MIL,F,6,6,70.0,0.7,1.2,57.1,56.6,0.6
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Bobi Klintman,1641752,DET,F,6,4,31.8,0.5,1.2,42.9,55.4,-12.5
+2025-26,Regular+Season,BKN,1610612751,Brooklyn Nets,E.J. Liddell,1630604,BKN,F,7,6,88.9,0.4,1.1,37.5,55.1,-17.6
+2025-26,Regular+Season,TOR,1610612761,Toronto Raptors,Garrett Temple,202066,TOR,G-F,5,4,62.5,0.4,1.0,40.0,47.9,-7.9
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Johnny Juzang,1630548,MIN,G,12,7,52.2,0.4,1.0,41.7,50.9,-9.2
+2025-26,Regular+Season,MIN,1610612750,Minnesota Timberwolves,Joe Ingles,204060,MIN,F-G,7,5,58.3,0.7,1.0,71.4,55.5,15.9
+2025-26,Regular+Season,SAS,1610612759,San Antonio Spurs,Riley Minix,1642434,SAS,F,3,3,60.0,0.7,1.0,66.7,53.7,13.0
+2025-26,Regular+Season,BOS,1610612738,Boston Celtics,Ron Harper Jr.,1631199,BOS,G-F,2,2,100,0.5,1.0,50.0,56.3,-6.3
+2025-26,Regular+Season,CHI,1610612741,Chicago Bulls,Trentyn Flowers,1642280,CHI,F,2,2,100,0.5,1.0,50.0,54.5,-4.5
+2025-26,Regular+Season,DET,1610612765,Detroit Pistons,Colby Jones,1641732,DET,G,1,1,100,1.0,1.0,100,67.3,32.7
+2025-26,Regular+Season,NYK,1610612752,New York Knicks,Tosan Evbuomwan,1641787,NYK,F,2,1,50.0,0.5,1.0,50.0,67.5,-17.5
+2025-26,Regular+Season,SAC,1610612758,Sacramento Kings,Daeqwon Plowden,1631342,SAC,G-F,1,1,33.3,0.0,1.0,0.0,52.4,-52.4
+2025-26,Regular+Season,DEN,1610612743,Denver Nuggets,Curtis Jones,1642938,DEN,G,4,3,37.5,0.3,0.8,33.3,49.4,-16.1
+2025-26,Regular+Season,WAS,1610612764,Washington Wizards,Sharife Cooper,1630536,WAS,G,3,2,66.7,0.3,0.7,50.0,48.1,2.0
+2025-26,Regular+Season,LAL,1610612747,Los Angeles Lakers,Chris Mañon,1643024,LAL,G,3,2,50.0,0.3,0.7,50.0,53.5,-3.5
+2025-26,Regular+Season,ATL,1610612737,Atlanta Hawks,Jacob Toppin,1631210,ATL,F,2,1,50.0,0.0,0.5,0.0,47.9,-47.9
