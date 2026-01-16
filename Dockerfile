@@ -34,6 +34,8 @@ COPY requirements.txt /code/
 # Usar UV para instalar dependencias (mucho más rápido que pip)
 # --system: instala en el sistema Python
 # --no-cache: evita cache local para builds más limpios
+# Añadir flags de compilación para pandas si es necesario compilar desde fuente
+ENV CFLAGS="-Wno-error=unused-function"
 RUN uv pip install --system --no-cache -r requirements.txt
 
 # Instalar herramientas adicionales
