@@ -71,18 +71,18 @@ def get_csv_import_view(model_class):
                     reader, start=2
                 ):  # start=2 porque la fila 1 es el header
                     try:
-                        # Filtrar campos _rank del CSV (no se usan en el sistema)
-                        row_filtered = {
-                            k: v 
-                            for k, v in row.items() 
-                            if not k.lower().endswith('_rank') and not k.upper().endswith('_RANK')
+                        # Filtrar campos _rank y normalizar columnas a minúsculas (CSV usa SEASON, TEAM_ABB, etc.)
+                        row_normalized = {
+                            k.lower().strip(): (v.strip() if v else "")
+                            for k, v in row.items()
+                            if not k.lower().endswith("_rank")
                         }
-                        
+
                         # Preparar datos para crear/actualizar
                         data = {}
                         for field_name in field_names:
-                            if field_name in row_filtered:
-                                value = row_filtered[field_name].strip()
+                            if field_name in row_normalized:
+                                value = row_normalized[field_name]
 
                                 # Obtener el campo del modelo
                                 field = meta.get_field(field_name)
@@ -134,9 +134,15 @@ def get_csv_import_view(model_class):
                                         "si",
                                     )
                                 elif isinstance(field, models.IntegerField):
-                                    data[field_name] = int(value) if value else 0
+                                    try:
+                                        data[field_name] = int(float(value)) if value else 0
+                                    except (ValueError, TypeError):
+                                        data[field_name] = 0
                                 elif isinstance(field, models.FloatField):
-                                    data[field_name] = float(value) if value else 0.0
+                                    try:
+                                        data[field_name] = float(value) if value not in ("", "-") else 0.0
+                                    except (ValueError, TypeError):
+                                        data[field_name] = 0.0
                                 elif isinstance(field, models.DateTimeField):
                                     # Intentar parsear fecha
                                     parsed = parse_datetime(value)
@@ -150,16 +156,14 @@ def get_csv_import_view(model_class):
                                     data[field_name] = value if value else ""
 
                         # Crear o actualizar el objeto
-                        # Intentar encontrar un objeto existente por campos únicos
                         unique_fields = [
                             f for f in meta.fields if f.unique or f.primary_key
                         ]
+                        unique_together = getattr(meta, "unique_together", None) or []
 
                         if unique_fields:
-                            # Buscar por el primer campo único
                             unique_field = unique_fields[0]
                             unique_value = data.get(unique_field.name)
-
                             if unique_value:
                                 obj, created = model_class.objects.update_or_create(
                                     **{unique_field.name: unique_value}, defaults=data
@@ -169,11 +173,23 @@ def get_csv_import_view(model_class):
                                 else:
                                     updated_count += 1
                             else:
-                                # Si no hay valor único, crear nuevo
+                                model_class.objects.create(**data)
+                                created_count += 1
+                        elif unique_together:
+                            lookup_fields = unique_together[0]
+                            lookup = {k: data.get(k) for k in lookup_fields if k in data}
+                            if len(lookup) == len(lookup_fields):
+                                obj, created = model_class.objects.update_or_create(
+                                    defaults=data, **lookup
+                                )
+                                if created:
+                                    created_count += 1
+                                else:
+                                    updated_count += 1
+                            else:
                                 model_class.objects.create(**data)
                                 created_count += 1
                         else:
-                            # Si no hay campos únicos, siempre crear nuevo
                             model_class.objects.create(**data)
                             created_count += 1
 

@@ -49,6 +49,7 @@ class Migration(migrations.Migration):
                 ('plus_minus', models.IntegerField(default=0, help_text='Diferencia de puntos cuando el jugador está en cancha', verbose_name='Plus/Minus')),
             ],
             options={
+                'db_table': 'data_gameboxscoretraditional',
                 'verbose_name': 'Game Boxscore Traditional',
                 'verbose_name_plural': 'Game Boxscore Tradicionals',
                 'ordering': ['-game_id'],
@@ -72,6 +73,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True, help_text='Fecha y hora de última actualización del registro', verbose_name='Fecha de Actualización')),
             ],
             options={
+                'db_table': 'data_gameplaybyplay',
                 'verbose_name': 'Game Play by Play',
                 'verbose_name_plural': 'Game Play by Plays',
                 'ordering': ['-game_id', 'period', 'min'],
@@ -109,6 +111,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True, help_text='Fecha y hora de última actualización del registro', verbose_name='Fecha de Actualización')),
             ],
             options={
+                'db_table': 'data_gamesummary',
                 'verbose_name': 'Game Summary',
                 'verbose_name_plural': 'Game Summaries',
                 'ordering': ['-game_id', 'team_abb'],
@@ -152,6 +155,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True, help_text='Fecha y hora de última actualización del registro', verbose_name='Fecha de Actualización')),
             ],
             options={
+                'db_table': 'data_teamboxscoretraditional',
                 'verbose_name': 'Team Boxscore Traditional',
                 'verbose_name_plural': 'Team Boxscore Tradicionals',
                 'ordering': ['-game_id', 'team_abb'],

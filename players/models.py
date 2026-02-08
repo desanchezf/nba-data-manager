@@ -3,7 +3,7 @@ Modelos para estadísticas de jugadores por categoría
 """
 
 from django.db import models
-from data.enums import SeasonChoices, SeasonTypeChoices
+from game.enums import SeasonChoices, SeasonTypeChoices
 from roster.enums import TeamChoices
 
 
@@ -7317,6 +7317,18 @@ class PlayersBoxScores(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    team_id = models.CharField(
+        max_length=20,
+        verbose_name="ID del Equipo",
+        null=True,
+        blank=True,
+    )
+    team_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre del Equipo",
+        null=True,
+        blank=True,
+    )
     matchup = models.CharField(
         max_length=50,
         verbose_name="Enfrentamiento",
@@ -9037,24 +9049,26 @@ class PlayersBios(models.Model):
         verbose_name="Edad",
         help_text="Age",
     )
-    player_height_inches = models.FloatField(
-        default=0.0,
+    player_height_inches = models.CharField(
+        max_length=20,
         null=True,
         blank=True,
+        help_text="Altura ej. 6-10",
     )
-    player_weight = models.FloatField(
-        default=0.0,
+    player_weight = models.CharField(
+        max_length=10,
         null=True,
         blank=True,
+        help_text="Peso ej. 245",
     )
-    college = models.IntegerField(
-        default=0,
+    college = models.CharField(
+        max_length=100,
         null=True,
         blank=True,
         help_text="College",
     )
-    country = models.IntegerField(
-        default=0,
+    country = models.CharField(
+        max_length=100,
         null=True,
         blank=True,
         help_text="Country",

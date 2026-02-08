@@ -3,7 +3,7 @@ Modelos para estadísticas de equipos por categoría
 """
 
 from django.db import models
-from data.enums import SeasonChoices, SeasonTypeChoices
+from game.enums import SeasonChoices, SeasonTypeChoices
 from roster.enums import TeamChoices
 
 
@@ -7280,3 +7280,92 @@ class TeamsBoxOuts(models.Model):
 
     def __str__(self):
         return f"{self.team_abb} - {self.season} ({self.season_type})"
+
+
+class TeamsBoxScores(models.Model):
+    """Box score por partido (una fila por equipo por juego). CSV: teams_box_scores.csv"""
+
+    season = models.CharField(
+        max_length=10,
+        choices=SeasonChoices.choices(),
+        verbose_name="Temporada",
+        db_index=True,
+    )
+    season_type = models.CharField(
+        max_length=20,
+        choices=SeasonTypeChoices.choices(),
+        verbose_name="Tipo de Temporada",
+        db_index=True,
+    )
+    team_abb = models.CharField(
+        max_length=20,
+        verbose_name="Equipo",
+        db_index=True,
+    )
+    game_id = models.CharField(
+        max_length=20,
+        verbose_name="ID del Partido",
+        db_index=True,
+    )
+    matchup = models.CharField(
+        max_length=50,
+        verbose_name="Enfrentamiento",
+        null=True,
+        blank=True,
+    )
+    home_away = models.CharField(
+        max_length=10,
+        verbose_name="Local/Visitante",
+        null=True,
+        blank=True,
+    )
+    gdate = models.CharField(
+        max_length=20,
+        verbose_name="Fecha del Juego",
+        null=True,
+        blank=True,
+    )
+    wl = models.CharField(
+        max_length=1,
+        verbose_name="Resultado",
+        null=True,
+        blank=True,
+    )
+    min = models.IntegerField(
+        default=0,
+        verbose_name="Minutos",
+        null=True,
+        blank=True,
+    )
+    pts = models.IntegerField(default=0, null=True, blank=True)
+    fgm = models.IntegerField(default=0, null=True, blank=True)
+    fga = models.IntegerField(default=0, null=True, blank=True)
+    fg_pct = models.FloatField(default=0.0, null=True, blank=True)
+    fg3m = models.IntegerField(default=0, null=True, blank=True)
+    fg3a = models.IntegerField(default=0, null=True, blank=True)
+    fg3_pct = models.FloatField(default=0.0, null=True, blank=True)
+    ftm = models.IntegerField(default=0, null=True, blank=True)
+    fta = models.IntegerField(default=0, null=True, blank=True)
+    ft_pct = models.FloatField(default=0.0, null=True, blank=True)
+    oreb = models.IntegerField(default=0, null=True, blank=True)
+    dreb = models.IntegerField(default=0, null=True, blank=True)
+    reb = models.IntegerField(default=0, null=True, blank=True)
+    ast = models.IntegerField(default=0, null=True, blank=True)
+    stl = models.IntegerField(default=0, null=True, blank=True)
+    blk = models.IntegerField(default=0, null=True, blank=True)
+    tov = models.IntegerField(default=0, null=True, blank=True)
+    pf = models.IntegerField(default=0, null=True, blank=True)
+    plus_minus = models.FloatField(default=0.0, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Teams Box Scores"
+        verbose_name_plural = "Teams Box Scores"
+        unique_together = [["season", "season_type", "team_abb", "game_id"]]
+        indexes = [
+            models.Index(fields=["season", "season_type"]),
+            models.Index(fields=["team_abb"]),
+            models.Index(fields=["game_id"]),
+        ]
+
+    def __str__(self):
+        return f"{self.team_abb} @ {self.game_id} ({self.season})"

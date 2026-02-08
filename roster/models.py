@@ -1,5 +1,5 @@
 from django.db import models
-from data.enums import SeasonChoices
+from game.enums import SeasonChoices
 
 
 # Create your models here.

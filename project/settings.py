@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     "django_celery_results",
     # Project apps
     "dashboard",
-    "data",
+    "game",
+    "game_boxscore",
     "ia",
     "lineups",
     "players",

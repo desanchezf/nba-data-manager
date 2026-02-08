@@ -2,7 +2,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-from data.models import (
+from game.models import (
     GameBoxscoreTraditional,
     GamePlayByPlay,
     TeamBoxscoreTraditional,

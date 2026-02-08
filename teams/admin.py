@@ -73,6 +73,7 @@ from teams.models import (
     TeamsOpponentShotsClosestDefender10,
     TeamsHustle,
     TeamsBoxOuts,
+    TeamsBoxScores,
 )
 
 
@@ -228,16 +229,14 @@ def get_csv_import_view(model_class):
                                     data[field_name] = value if value else ""
 
                         # Crear o actualizar el objeto
-                        # Intentar encontrar un objeto existente por campos únicos
                         unique_fields = [
                             f for f in meta.fields if f.unique or f.primary_key
                         ]
+                        unique_together = getattr(meta, "unique_together", None) or []
 
                         if unique_fields:
-                            # Buscar por el primer campo único
                             unique_field = unique_fields[0]
                             unique_value = data.get(unique_field.name)
-
                             if unique_value:
                                 obj, created = model_class.objects.update_or_create(
                                     **{unique_field.name: unique_value}, defaults=data
@@ -247,11 +246,24 @@ def get_csv_import_view(model_class):
                                 else:
                                     updated_count += 1
                             else:
-                                # Si no hay valor único, crear nuevo
+                                model_class.objects.create(**data)
+                                created_count += 1
+                        elif unique_together:
+                            # Usar el primer conjunto de unique_together para el lookup
+                            lookup_fields = unique_together[0]
+                            lookup = {k: data.get(k) for k in lookup_fields if k in data}
+                            if len(lookup) == len(lookup_fields):
+                                obj, created = model_class.objects.update_or_create(
+                                    defaults=data, **lookup
+                                )
+                                if created:
+                                    created_count += 1
+                                else:
+                                    updated_count += 1
+                            else:
                                 model_class.objects.create(**data)
                                 created_count += 1
                         else:
-                            # Si no hay campos únicos, siempre crear nuevo
                             model_class.objects.create(**data)
                             created_count += 1
 
@@ -2073,6 +2085,33 @@ class TeamsBoxOutsAdmin(admin.ModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
+    actions = [export_as_csv]
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "import-csv/",
+                self.admin_site.admin_view(self.csv_import_view),
+                name=f"{self.model._meta.app_label}_{self.model._meta.model_name}_import_csv",
+            ),
+        ]
+        return custom_urls + urls
+
+    def csv_import_view(self, request):
+        return get_csv_import_view(self.model)(request)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["show_import_button"] = True
+        return super().changelist_view(request, extra_context=extra_context)
+
+
+@admin.register(TeamsBoxScores)
+class TeamsBoxScoresAdmin(admin.ModelAdmin):
+    list_display = ["season", "season_type", "team_abb", "game_id", "wl", "pts"]
+    search_fields = ["team_abb", "game_id", "matchup"]
+    list_filter = ["season", "season_type", "home_away", "wl"]
     actions = [export_as_csv]
 
     def get_urls(self):

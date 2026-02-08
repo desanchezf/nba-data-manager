@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-from data.enums import (
+from game.enums import (
     SeasonChoices,
     SeasonTypeChoices,
     GameBoxscorePeriodChoices,
@@ -193,6 +193,7 @@ class GameBoxscoreTraditional(models.Model):
     )
 
     class Meta:
+        db_table = "data_gameboxscoretraditional"
         verbose_name = "Game Boxscore Traditional"
         verbose_name_plural = "Game Boxscore Tradicionals"
         ordering = ["-game_id"]
@@ -267,6 +268,7 @@ class GamePlayByPlay(models.Model):
     )
 
     class Meta:
+        db_table = "data_gameplaybyplay"
         verbose_name = "Game Play by Play"
         verbose_name_plural = "Game Play by Plays"
         ordering = ["-game_id", "period", "min"]
@@ -415,6 +417,7 @@ class GameSummary(models.Model):
     )
 
     class Meta:
+        db_table = "data_gamesummary"
         verbose_name = "Game Summary"
         verbose_name_plural = "Game Summaries"
         ordering = ["-game_id", "team_abb"]
@@ -600,6 +603,7 @@ class TeamBoxscoreTraditional(models.Model):
     )
 
     class Meta:
+        db_table = "data_teamboxscoretraditional"
         verbose_name = "Team Boxscore Traditional"
         verbose_name_plural = "Team Boxscore Tradicionals"
         ordering = ["-game_id", "team_abb"]

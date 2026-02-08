@@ -3,7 +3,7 @@ Modelos para estadísticas de lineups por categoría
 """
 
 from django.db import models
-from data.enums import SeasonChoices, SeasonTypeChoices
+from game.enums import SeasonChoices, SeasonTypeChoices
 from roster.enums import TeamChoices
 
 
@@ -31,14 +31,26 @@ class LineupsTraditional(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,
@@ -209,14 +221,26 @@ class LineupsAdvanced(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,
@@ -345,63 +369,75 @@ class LineupsMisc(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,
         help_text="Minutos Jugados",
     )
-    pts_off_tov = models.IntegerField(
-        default=0,
+    pts_off_tov = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos Tras Pérdidas de Balón",
     )
-    pts_2nd_chance = models.IntegerField(
-        default=0,
+    pts_2nd_chance = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos de Segunda Oportunidad",
     )
-    pts_fb = models.IntegerField(
-        default=0,
+    pts_fb = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos al Contraataque",
     )
-    pts_paint = models.IntegerField(
-        default=0,
+    pts_paint = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos en la Zona Pintada",
     )
-    opp_pts_off_tov = models.IntegerField(
-        default=0,
+    opp_pts_off_tov = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos del Oponente Tras Pérdidas de Balón",
     )
-    opp_pts_2nd_chance = models.IntegerField(
-        default=0,
+    opp_pts_2nd_chance = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos de Segunda Oportunidad del Oponente",
     )
-    opp_pts_fb = models.IntegerField(
-        default=0,
+    opp_pts_fb = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos al Contraataque del Oponente",
     )
-    opp_pts_paint = models.IntegerField(
-        default=0,
+    opp_pts_paint = models.FloatField(
+        default=0.0,
         null=True,
         blank=True,
         help_text="Puntos en la Zona Pintada del Oponente",
@@ -445,14 +481,26 @@ class LineupsFourFactors(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,
@@ -545,14 +593,26 @@ class LineupsScoring(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,
@@ -687,14 +747,26 @@ class LineupsOpponent(models.Model):
         verbose_name="Equipo",
         db_index=True,
     )
+    group_name = models.CharField(
+        max_length=50,
+        verbose_name="Nombre del Grupo",
+        null=True,
+        blank=True,
+    )
+    team_abbreviation = models.CharField(
+        max_length=10,
+        verbose_name="Abreviatura del Equipo",
+        null=True,
+        blank=True,
+    )
     gp = models.IntegerField(
         default=0,
         null=True,
         blank=True,
         help_text="Partidos Jugados",
     )
-    min = models.IntegerField(
-        default=0,
+    min = models.FloatField(
+        default=0.0,
         verbose_name="Minutos",
         null=True,
         blank=True,

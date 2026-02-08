@@ -6,7 +6,7 @@ from django.conf import settings
 
 import csv
 from tqdm import tqdm
-from data.models import (
+from game.models import (
     GameBoxscoreTraditional,
     GamePlayByPlay,
     TeamBoxscoreTraditional,

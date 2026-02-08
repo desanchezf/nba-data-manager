@@ -144,7 +144,10 @@ def get_csv_import_view(model_class):
 
                         # Mapeo de columnas CSV normalizadas a campos del modelo
                         csv_field_map = {
-                            'l': 'lose',  # L -> lose (w ya coincide con w)
+                            "l": "lose",
+                            "match_up": "matchup",
+                            "fgpct": "fgperc",
+                            "ftmpct": "ftmperc",
                         }
                         # Aplicar mapeo
                         for csv_key, model_key in csv_field_map.items():
@@ -227,16 +230,14 @@ def get_csv_import_view(model_class):
                                     data[field_name] = value if value else ""
 
                         # Crear o actualizar el objeto
-                        # Intentar encontrar un objeto existente por campos únicos
                         unique_fields = [
                             f for f in meta.fields if f.unique or f.primary_key
                         ]
+                        unique_together = getattr(meta, "unique_together", None) or []
 
                         if unique_fields:
-                            # Buscar por el primer campo único
                             unique_field = unique_fields[0]
                             unique_value = data.get(unique_field.name)
-
                             if unique_value:
                                 obj, created = model_class.objects.update_or_create(
                                     **{unique_field.name: unique_value}, defaults=data
@@ -246,11 +247,23 @@ def get_csv_import_view(model_class):
                                 else:
                                     updated_count += 1
                             else:
-                                # Si no hay valor único, crear nuevo
+                                model_class.objects.create(**data)
+                                created_count += 1
+                        elif unique_together:
+                            lookup_fields = unique_together[0]
+                            lookup = {k: data.get(k) for k in lookup_fields if k in data}
+                            if len(lookup) == len(lookup_fields):
+                                obj, created = model_class.objects.update_or_create(
+                                    defaults=data, **lookup
+                                )
+                                if created:
+                                    created_count += 1
+                                else:
+                                    updated_count += 1
+                            else:
                                 model_class.objects.create(**data)
                                 created_count += 1
                         else:
-                            # Si no hay campos únicos, siempre crear nuevo
                             model_class.objects.create(**data)
                             created_count += 1
 

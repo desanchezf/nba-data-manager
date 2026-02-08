@@ -8,7 +8,7 @@ import csv
 from io import StringIO
 from django.template.response import TemplateResponse
 
-from data.models import (
+from game.models import (
     GameBoxscoreTraditional,
     GamePlayByPlay,
     GameSummary,
@@ -95,7 +95,7 @@ class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
             path(
                 "import-csv/",
                 self.import_csv_view,
-                name="data_gameboxscoretraditional_import_csv",
+                name="game_gameboxscoretraditional_import_csv",
             ),
         ]
         return custom_urls + urls
@@ -186,11 +186,11 @@ class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
                     if len(errors) > 10:
                         messages.warning(request, f"Y {len(errors) - 10} errores más.")
 
-                return redirect("admin:data_gameboxscoretraditional_changelist")
+                return redirect("admin:game_gameboxscoretraditional_changelist")
 
             except Exception as e:
                 messages.error(request, f"Error al procesar el archivo: {str(e)}")
-                return redirect("admin:data_gameboxscoretraditional_changelist")
+                return redirect("admin:game_gameboxscoretraditional_changelist")
 
         return TemplateResponse(
             request,
@@ -199,7 +199,7 @@ class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
                 "title": "Importar CSV",
                 "opts": self.model._meta,
                 "has_view_permission": self.has_view_permission(request),
-                "import_url": "admin:data_gameboxscoretraditional_import_csv",
+                "import_url": "admin:game_gameboxscoretraditional_import_csv",
             },
         )
 
@@ -244,7 +244,7 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
             path(
                 "import-csv/",
                 self.import_csv_view,
-                name="data_gameplaybyplay_import_csv",
+                name="game_gameplaybyplay_import_csv",
             ),
         ]
         return custom_urls + urls
@@ -265,11 +265,19 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
                 with transaction.atomic():
                     for row_num, row in enumerate(reader, start=2):
                         try:
+                            # Normalizar columnas a minúsculas (CSV: SEASON, GAME_ID, etc.)
+                            row_normalized = {
+                                k.lower().strip(): (v.strip() if v else "")
+                                for k, v in row.items()
+                            }
                             data = {}
                             for field in GamePlayByPlay._meta.fields:
                                 field_name = field.name
-                                if field_name in row:
-                                    value = row[field_name].strip()
+                                if field_name in row_normalized:
+                                    value = row_normalized[field_name]
+                                    # No incluir auto fields en data
+                                    if field.name in ("created_at", "updated_at"):
+                                        continue
                                     if isinstance(field, models.BooleanField):
                                         data[field_name] = value.lower() in (
                                             "true",
@@ -279,15 +287,19 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
                                             "si",
                                         )
                                     elif isinstance(field, models.IntegerField):
-                                        data[field_name] = int(value) if value else 0
+                                        try:
+                                            data[field_name] = int(float(value)) if value else 0
+                                        except (ValueError, TypeError):
+                                            data[field_name] = 0
                                     elif isinstance(field, models.FloatField):
-                                        data[field_name] = (
-                                            float(value) if value else 0.0
-                                        )
+                                        try:
+                                            data[field_name] = float(value) if value else 0.0
+                                        except (ValueError, TypeError):
+                                            data[field_name] = 0.0
                                     else:
                                         data[field_name] = value if value else ""
 
-                            # Usar game_id, team_abb, period, min como clave única aproximada
+                            # game_id requerido
                             game_id = data.get("game_id", "")
                             if not game_id:
                                 errors.append(f"Fila {row_num}: game_id es requerido")
@@ -312,11 +324,11 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
                     if len(errors) > 10:
                         messages.warning(request, f"Y {len(errors) - 10} errores más.")
 
-                return redirect("admin:data_gameplaybyplay_changelist")
+                return redirect("admin:game_gameplaybyplay_changelist")
 
             except Exception as e:
                 messages.error(request, f"Error al procesar el archivo: {str(e)}")
-                return redirect("admin:data_gameplaybyplay_changelist")
+                return redirect("admin:game_gameplaybyplay_changelist")
 
         return TemplateResponse(
             request,
@@ -325,7 +337,7 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
                 "title": "Importar CSV",
                 "opts": self.model._meta,
                 "has_view_permission": self.has_view_permission(request),
-                "import_url": "admin:data_gameplaybyplay_import_csv",
+                "import_url": "admin:game_gameplaybyplay_import_csv",
             },
         )
 
@@ -367,7 +379,7 @@ class GameSummaryAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         custom_urls = [
             path(
-                "import-csv/", self.import_csv_view, name="data_gamesummary_import_csv"
+                "import-csv/", self.import_csv_view, name="game_gamesummary_import_csv"
             ),
         ]
         return custom_urls + urls
@@ -448,11 +460,11 @@ class GameSummaryAdmin(admin.ModelAdmin):
                     if len(errors) > 10:
                         messages.warning(request, f"Y {len(errors) - 10} errores más.")
 
-                return redirect("admin:data_gamesummary_changelist")
+                return redirect("admin:game_gamesummary_changelist")
 
             except Exception as e:
                 messages.error(request, f"Error al procesar el archivo: {str(e)}")
-                return redirect("admin:data_gamesummary_changelist")
+                return redirect("admin:game_gamesummary_changelist")
 
         return TemplateResponse(
             request,
@@ -461,7 +473,7 @@ class GameSummaryAdmin(admin.ModelAdmin):
                 "title": "Importar CSV",
                 "opts": self.model._meta,
                 "has_view_permission": self.has_view_permission(request),
-                "import_url": "admin:data_gamesummary_import_csv",
+                "import_url": "admin:game_gamesummary_import_csv",
             },
         )
 
@@ -511,7 +523,7 @@ class TeamBoxscoreTraditionalAdmin(admin.ModelAdmin):
             path(
                 "import-csv/",
                 self.import_csv_view,
-                name="data_teamboxscoretraditional_import_csv",
+                name="game_teamboxscoretraditional_import_csv",
             ),
         ]
         return custom_urls + urls
@@ -594,11 +606,11 @@ class TeamBoxscoreTraditionalAdmin(admin.ModelAdmin):
                     if len(errors) > 10:
                         messages.warning(request, f"Y {len(errors) - 10} errores más.")
 
-                return redirect("admin:data_teamboxscoretraditional_changelist")
+                return redirect("admin:game_teamboxscoretraditional_changelist")
 
             except Exception as e:
                 messages.error(request, f"Error al procesar el archivo: {str(e)}")
-                return redirect("admin:data_teamboxscoretraditional_changelist")
+                return redirect("admin:game_teamboxscoretraditional_changelist")
 
         return TemplateResponse(
             request,
@@ -607,6 +619,6 @@ class TeamBoxscoreTraditionalAdmin(admin.ModelAdmin):
                 "title": "Importar CSV",
                 "opts": self.model._meta,
                 "has_view_permission": self.has_view_permission(request),
-                "import_url": "admin:data_teamboxscoretraditional_import_csv",
+                "import_url": "admin:game_teamboxscoretraditional_import_csv",
             },
         )
