@@ -401,11 +401,18 @@ class GameSummaryAdmin(admin.ModelAdmin):
                 with transaction.atomic():
                     for row_num, row in enumerate(reader, start=2):
                         try:
+                            # Normalizar columnas a minúsculas (CSV: SEASON, GAME_ID, etc.)
+                            row_normalized = {
+                                k.lower().strip(): (v.strip() if v else "")
+                                for k, v in row.items()
+                            }
                             data = {}
                             for field in GameSummary._meta.fields:
                                 field_name = field.name
-                                if field_name in row:
-                                    value = row[field_name].strip()
+                                if field_name in row_normalized:
+                                    value = row_normalized[field_name]
+                                    if field.name in ("created_at", "updated_at"):
+                                        continue
                                     if isinstance(field, models.BooleanField):
                                         data[field_name] = value.lower() in (
                                             "true",
@@ -415,11 +422,15 @@ class GameSummaryAdmin(admin.ModelAdmin):
                                             "si",
                                         )
                                     elif isinstance(field, models.IntegerField):
-                                        data[field_name] = int(value) if value else 0
+                                        try:
+                                            data[field_name] = int(float(value)) if value else 0
+                                        except (ValueError, TypeError):
+                                            data[field_name] = 0
                                     elif isinstance(field, models.FloatField):
-                                        data[field_name] = (
-                                            float(value) if value else 0.0
-                                        )
+                                        try:
+                                            data[field_name] = float(value) if value not in ("", "-") else 0.0
+                                        except (ValueError, TypeError):
+                                            data[field_name] = 0.0
                                     else:
                                         data[field_name] = value if value else ""
 

@@ -44,7 +44,12 @@ NBA Data Manager es una plataforma integral diseñada para almacenar datos hist�
 nba-data-manager/
 ├── 📁 dashboard/              # App del dashboard principal
 ├── 📁 data/                   # Modelos de datos NBA
+├── 📁 game/                   # Partidos: play-by-play, summary, boxscore traditional
+├── 📁 game_boxscore/          # Box scores por partido (advanced, traditional)
+├── 📁 lineups/                # Estadísticas por alineación (traditional, advanced, misc, etc.)
+├── 📁 players/                # Estadísticas por jugador (general, clutch, playtype, tracking, etc.)
 ├── 📁 roster/                 # Modelos de equipos y jugadores
+├── 📁 teams/                   # Estadísticas por equipo (general, clutch, tracking, etc.)
 ├── 📁 project/                # Configuración principal
 │   └── 📁 admin.py            # AdminSite personalizado
 ├── 📁 project_commands/        # Comandos de management
@@ -73,7 +78,12 @@ nba-data-manager/
 
 - **`dashboard/`**: Aplicación principal del dashboard con vistas y templates
 - **`data/`**: Modelos Django para almacenar estadísticas de partidos (box scores, shooting, defense, etc.)
+- **`game/`**: Modelos de partidos (play-by-play, summary por equipo, boxscore traditional por jugador)
+- **`game_boxscore/`**: Box scores por partido (traditional, advanced)
+- **`lineups/`**: Estadísticas por alineación (traditional, advanced, four factors, misc, scoring, opponent)
+- **`players/`**: Estadísticas por jugador (general, clutch, playtype, tracking, defense dashboard, shot dashboard, etc.)
 - **`roster/`**: Modelos para equipos y jugadores de la NBA
+- **`teams/`**: Estadísticas por equipo (general, clutch, tracking, defense dashboard, opponent shots, etc.)
 - **`project/`**: Configuración principal de Django (settings, urls, admin personalizado)
 - **`project_commands/`**: Comandos de management personalizados para importación y setup
 - **`ml/`**: Módulo de Machine Learning con modelos entrenados, scripts de entrenamiento y predicción
@@ -367,6 +377,8 @@ python manage.py import_data
 # Importar links desde directorio
 python manage.py import
 ```
+
+**Importación desde CSV en el Admin**: Cada modelo de las apps **Game**, **Game Boxscore**, **Lineups**, **Players** y **Teams** dispone en el admin de Django de un botón *Importar CSV* que permite subir los archivos desde `csv/`. La importación normaliza las cabeceras del CSV a minúsculas (p. ej. `SEASON` → `season`), aplica mapeos de columnas cuando el CSV usa nombres distintos (p. ej. `MATCH_UP` → `matchup`) y, en modelos con `unique_together`, actualiza registros existentes en lugar de duplicarlos al reimportar.
 
 ### Entrenar Modelos
 
@@ -725,6 +737,334 @@ Estos archivos CSV contienen estadísticas detalladas de cada partido:
   - `TIMES_TIED`: Veces que el partido estuvo empatado
 
 **Nota**: Cada archivo CSV contiene headers específicos definidos en el sistema de scrapping. Los headers completos están disponibles en la configuración del scrapper y se importan automáticamente al sistema.
+
+
+#### Distribución de los csv por apps
+
+- **Game**
+  - Game Play by Play (`game_play_by_play.csv`)
+  - Game Summary (`game_summary.csv`)
+- **Game Boxscore**
+  - Game Boxscore Advanced (`game_boxscore_advanced.csv`)
+  - Game Boxscore Traditional (`game_boxscore_traditional.csv`)
+- **Lineups**
+  - Lineups Advanced (`lineups_advanced.csv`)
+  - Lineups Four Factors (`lineups_four_factors.csv`)
+  - Lineups Misc (`lineups_misc.csv`)
+  - Lineups Opponent (`lineups_opponent.csv`)
+  - Lineups Scoring (`lineups_scoring.csv`)
+  - Lineups Traditional (`lineups_traditional.csv`)
+- **Players**
+  - Players Advanced Box Scores Advanced (`players_advanced_box_scores_advanced.csv`)
+  - Players Advanced Box Scores Misc (`players_advanced_box_scores_misc.csv`)
+  - Players Advanced Box Scores Scoring (`players_advanced_box_scores_scoring.csv`)
+  - Players Advanced Box Scores Traditional (`players_advanced_box_scores_traditional.csv`)
+  - Players Advanced Box Scores Usage (`players_advanced_box_scores_usage.csv`)
+  - Players Bios (`players_bios.csv`)
+  - Players Box Outs (`players_box_outs.csv`)
+  - Players Box Scores (`players_box_scores.csv`)
+  - Players Clutch Advanced (`players_clutch_advanced.csv`)
+  - Players Clutch Misc (`players_clutch_misc.csv`)
+  - Players Clutch Scoring (`players_clutch_scoring.csv`)
+  - Players Clutch Traditional (`players_clutch_traditional.csv`)
+  - Players Clutch Usage (`players_clutch_usage.csv`)
+  - Players Defense Dashboard 2PT (`players_defense_dashboard_2pt.csv`)
+  - Players Defense Dashboard 3PT (`players_defense_dashboard_3pt.csv`)
+  - Players Defense Dashboard &gt;15FT (`players_defense_dashboard_gt15.csv`)
+  - Players Defense Dashboard &lt;10FT (`players_defense_dashboard_lt10.csv`)
+  - Players Defense Dashboard &lt;6FT (`players_defense_dashboard_lt6.csv`)
+  - Players Defense Dashboard Overall (`players_defense_dashboard_overall.csv`)
+  - Players Dunk Scores (`players_dunk_scores.csv`)
+  - Players General Advanced (`players_general_advanced.csv`)
+  - Players General Defense (`players_general_defense.csv`)
+  - Players General Estimated Advanced (`players_general_estimated_advanced.csv`)
+  - Players General Misc (`players_general_misc.csv`)
+  - Players General Opponent (`players_general_opponent.csv`)
+  - Players General Scoring (`players_general_scoring.csv`)
+  - Players General Usage (`players_general_usage.csv`)
+  - Players General Violations (`players_general_violations.csv`)
+  - Players Hustle (`players_hustle.csv`)
+  - Players Opponent Shooting Overall (`players_opponent_shooting_overall.csv`)
+  - Players Playtype Ball Handler (`players_playtype_ball_handler.csv`)
+  - Players Playtype Cut (`players_playtype_cut.csv`)
+  - Players Playtype Hand Off (`players_playtype_hand_off.csv`)
+  - Players Playtype Isolation (`players_playtype_isolation.csv`)
+  - Players Playtype Misc (`players_playtype_misc.csv`)
+  - Players Playtype Off Screen (`players_playtype_off_screen.csv`)
+  - Players Playtype Putbacks (`players_playtype_putbacks.csv`)
+  - Players Playtype Roll Man (`players_playtype_roll_man.csv`)
+  - Players Playtype Spot Up (`players_playtype_spot_up.csv`)
+  - Players Playtype Transition (`players_playtype_transition.csv`)
+  - Players Shooting (`players_shooting.csv`)
+  - Players Shot Dashboard Closest Defender (`players_shot_dashboard_closest_defender.csv`)
+  - Players Shot Dashboard Closest Defender 10 (`players_shot_dashboard_closest_defender_10.csv`)
+  - Players Shot Dashboard Dribbles (`players_shot_dashboard_dribbles.csv`)
+  - Players Shot Dashboard General (`players_shot_dashboard_general.csv`)
+  - Players Shot Dashboard Shot Clock (`players_shot_dashboard_shot_clock.csv`)
+  - Players Shot Dashboard Touch Time (`players_shot_dashboard_touch_time.csv`)
+  - Players Tracking Catch Shoot (`players_tracking_catch_shoot.csv`)
+  - Players Tracking Defensive Impact (`players_tracking_defensive_impact.csv`)
+  - Players Tracking Defensive Rebounding (`players_tracking_defensive_rebounding.csv`)
+  - Players Tracking Drives (`players_tracking_drives.csv`)
+  - Players Tracking Elbow Touch (`players_tracking_elbow_touch.csv`)
+  - Players Tracking Offensive Rebounding (`players_tracking_offensive_rebounding.csv`)
+  - Players Tracking Paint Touch (`players_tracking_paint_touch.csv`)
+  - Players Tracking Passing (`players_tracking_passing.csv`)
+  - Players Tracking Post Ups (`players_tracking_post_ups.csv`)
+  - Players Tracking Pullup (`players_tracking_pullup.csv`)
+  - Players Tracking Rebounding (`players_tracking_rebounding.csv`)
+  - Players Tracking Shooting Efficiency (`players_tracking_shooting_efficiency.csv`)
+  - Players Tracking Speed Distance (`players_tracking_speed_distance.csv`)
+  - Players Tracking Touches (`players_tracking_touches.csv`)
+- **Teams**
+  - Teams Box Outs (`teams_box_outs.csv`)
+  - Teams Box Scores (`teams_box_scores.csv`) — una fila por equipo por partido (incl. `game_id`, `home_away`)
+  - Teams Clutch Advanced (`teams_clutch_advanced.csv`)
+  - Teams Clutch Four Factors (`teams_clutch_four_factors.csv`)
+  - Teams Clutch Misc (`teams_clutch_misc.csv`)
+  - Teams Clutch Opponent (`teams_clutch_opponent.csv`)
+  - Teams Clutch Scoring (`teams_clutch_scoring.csv`)
+  - Teams Clutch Traditional (`teams_clutch_traditional.csv`)
+  - Teams Defense Dashboard 2PT (`teams_defense_dashboard_2pt.csv`)
+  - Teams Defense Dashboard 3PT (`teams_defense_dashboard_3pt.csv`)
+  - Teams Defense Dashboard >15FT (`teams_defense_dashboard_gt15.csv`)
+  - Teams Defense Dashboard <10FT (`teams_defense_dashboard_lt10.csv`)
+  - Teams Defense Dashboard <6FT (`teams_defense_dashboard_lt6.csv`)
+  - Teams Defense Dashboard Overall (`teams_defense_dashboard_overall.csv`)
+  - Teams General Advanced (`teams_general_advanced.csv`)
+  - Teams General Defense (`teams_general_defense.csv`)
+  - Teams General Estimated Advanced (`teams_general_estimated_advanced.csv`)
+  - Teams General Four Factors (`teams_general_four_factors.csv`)
+  - Teams General Misc (`teams_general_misc.csv`)
+  - Teams General Opponent (`teams_general_opponent.csv`)
+  - Teams General Scoring (`teams_general_scoring.csv`)
+  - Teams General Traditional (`teams_general_traditional.csv`)
+  - Teams General Violations (`teams_general_violations.csv`)
+  - Teams Hustle (`teams_hustle.csv`)
+  - Teams Opponent Shooting Overall (`teams_opponent_shooting_overall.csv`)
+  - Teams Opponent Shots Closest Defender (`teams_opponent_shots_closest_defender.csv`)
+  - Teams Opponent Shots Closest Defender 10 (`teams_opponent_shots_closest_defender_10.csv`)
+  - Teams Opponent Shots Dribbles (`teams_opponent_shots_dribbles.csv`)
+  - Teams Opponent Shots General (`teams_opponent_shots_general.csv`)
+  - Teams Opponent Shots Shot Clock (`teams_opponent_shots_shotclock.csv`)
+  - Teams Opponent Shots Touch Time (`teams_opponent_shots_touch_time.csv`)
+  - Teams Playtype Ball Handler (`teams_playtype_ball_handler.csv`)
+  - Teams Playtype Cut (`teams_playtype_cut.csv`)
+  - Teams Playtype Hand Off (`teams_playtype_hand_off.csv`)
+  - Teams Playtype Isolation (`teams_playtype_isolation.csv`)
+  - Teams Playtype Misc (`teams_playtype_misc.csv`)
+  - Teams Playtype Off Screen (`teams_playtype_off_screen.csv`)
+  - Teams Playtype Post Up (`teams_playtype_post_up.csv`)
+  - Teams Playtype Putbacks (`teams_playtype_putbacks.csv`)
+  - Teams Playtype Roll Man (`teams_playtype_roll_man.csv`)
+  - Teams Playtype Spot Up (`teams_playtype_spot_up.csv`)
+  - Teams Playtype Transition (`teams_playtype_transition.csv`)
+  - Teams Shooting (`teams_shooting.csv`)
+  - Teams Shot Dashboard Closest Defender (`teams_shot_dashboard_closest_defender.csv`)
+  - Teams Shot Dashboard Closest Defender 10 (`teams_shot_dashboard_closest_defender_10.csv`)
+  - Teams Shot Dashboard Dribbles (`teams_shot_dashboard_dribbles.csv`)
+  - Teams Shot Dashboard General (`teams_shot_dashboard_general.csv`)
+  - Teams Shot Dashboard Shot Clock (`teams_shot_dashboard_shot_clock.csv`)
+  - Teams Shot Dashboard Touch Time (`teams_shot_dashboard_touch_time.csv`)
+  - Teams Tracking Catch & Shoot (`teams_tracking_catch_shoot.csv`)
+  - Teams Tracking Defensive Impact (`teams_tracking_defensive_impact.csv`)
+  - Teams Tracking Defensive Rebounding (`teams_tracking_defensive_rebounding.csv`)
+  - Teams Tracking Drives (`teams_tracking_drives.csv`)
+  - Teams Tracking Elbow Touch (`teams_tracking_elbow_touch.csv`)
+  - Teams Tracking Offensive Rebounding (`teams_tracking_offensive_rebounding.csv`)
+  - Teams Tracking Paint Touch (`teams_tracking_paint_touch.csv`)
+  - Teams Tracking Passing (`teams_tracking_passing.csv`)
+  - Teams Tracking Post Ups (`teams_tracking_post_ups.csv`)
+  - Teams Tracking Pullup (`teams_tracking_pullup.csv`)
+  - Teams Tracking Rebounding (`teams_tracking_rebounding.csv`)
+  - Teams Tracking Shooting Efficiency (`teams_tracking_shooting_efficiency.csv`)
+  - Teams Tracking Speed & Distance (`teams_tracking_speed_distance.csv`)
+  - Teams Tracking Touches (`teams_tracking_touches.csv`)
+
+
+#### Distribución de modelos por app
+
+Las siguientes apps definen modelos Django. **dashboard**, **grafana**, **prometheus**, **prompt**, **static**, **templates**, **project_commands** y **project** no definen modelos (son configuración, UI, comandos o estáticos).
+
+- **game**
+  - `GameBoxscoreTraditional` — Box score tradicional por jugador y período
+  - `GamePlayByPlay` — Jugada a jugada del partido
+  - `GameSummary` — Resumen por equipo (cuartos, PITP, FB_PTS, etc.)
+  - `TeamBoxscoreTraditional` — Box score tradicional por equipo
+
+- **game_boxscore**
+  - `GameBoxscoreTraditional` — Box score tradicional por partido
+  - `GameBoxscoreAdvanced` — Box score avanzado por partido
+
+- **lineups**
+  - `LineupsTraditional`
+  - `LineupsAdvanced`
+  - `LineupsMisc`
+  - `LineupsFourFactors`
+  - `LineupsScoring`
+  - `LineupsOpponent`
+
+- **players**
+  - General
+    - `PlayersGeneralTraditional`
+    - `PlayersGeneralAdvanced`
+    - `PlayersGeneralMisc`
+    - `PlayersGeneralScoring`
+    - `PlayersGeneralUsage`
+    - `PlayersGeneralOpponent`
+    - `PlayersGeneralDefense`
+    - `PlayersGeneralViolations`
+    - `PlayersGeneralEstimatedAdvanced`
+  - Clutch
+    - `PlayersClutchTraditional`
+    - `PlayersClutchAdvanced`
+    - `PlayersClutchMisc`
+    - `PlayersClutchScoring`
+    - `PlayersClutchUsage`
+  - Playtype
+    - `PlayersPlaytypeIsolation`
+    - `PlayersPlaytypeTransition`
+    - `PlayersPlaytypeBallHandler`
+    - `PlayersPlaytypeRollMan`
+    - `PlayersPlaytypePostUp`
+    - `PlayersPlaytypeSpotUp`
+    - `PlayersPlaytypeHandOff`
+    - `PlayersPlaytypeCut`
+    - `PlayersPlaytypeOffScreen`
+    - `PlayersPlaytypePutbacks`
+    - `PlayersPlaytypeMisc`
+  - Tracking
+    - `PlayersTrackingDrives`
+    - `PlayersTrackingDefensiveImpact`
+    - `PlayersTrackingCatchShoot`
+    - `PlayersTrackingPassing`
+    - `PlayersTrackingTouches`
+    - `PlayersTrackingPullup`
+    - `PlayersTrackingRebounding`
+    - `PlayersTrackingOffensiveRebounding`
+    - `PlayersTrackingDefensiveRebounding`
+    - `PlayersTrackingShootingEfficiency`
+    - `PlayersTrackingSpeedDistance`
+    - `PlayersTrackingElbowTouch`
+    - `PlayersTrackingPostUps`
+    - `PlayersTrackingPaintTouch`
+  - Defense dashboard
+    - `PlayersDefenseDashboardOverall`
+    - `PlayersDefenseDashboard3pt`
+    - `PlayersDefenseDashboard2pt`
+    - `PlayersDefenseDashboardLt6`
+    - `PlayersDefenseDashboardLt10`
+    - `PlayersDefenseDashboardGt15`
+  - Shot dashboard
+    - `PlayersShotDashboardGeneral`
+    - `PlayersShotDashboardShotClock`
+    - `PlayersShotDashboardDribbles`
+    - `PlayersShotDashboardTouchTime`
+    - `PlayersShotDashboardClosestDefender`
+    - `PlayersShotDashboardClosestDefender10`
+  - Otros
+    - `PlayersBoxScores`
+    - `PlayersAdvancedBoxScoresTraditional`
+    - `PlayersAdvancedBoxScoresAdvanced`
+    - `PlayersAdvancedBoxScoresMisc`
+    - `PlayersAdvancedBoxScoresScoring`
+    - `PlayersAdvancedBoxScoresUsage`
+    - `PlayersShooting`
+    - `PlayersDunkScores`
+    - `PlayersOpponentShootingOverall`
+    - `PlayersHustle`
+    - `PlayersBoxOuts`
+    - `PlayersBios`
+
+- **roster**
+  - `Teams` — Equipos NBA
+  - `Players` — Jugadores NBA
+
+- **teams**
+  - General
+    - `TeamsGeneralTraditional`
+    - `TeamsGeneralAdvanced`
+    - `TeamsGeneralFourFactors`
+    - `TeamsGeneralMisc`
+    - `TeamsGeneralScoring`
+    - `TeamsGeneralOpponent`
+    - `TeamsGeneralDefense`
+    - `TeamsGeneralViolations`
+    - `TeamsGeneralEstimatedAdvanced`
+  - Clutch
+    - `TeamsClutchTraditional`
+    - `TeamsClutchAdvanced`
+    - `TeamsClutchFourFactors`
+    - `TeamsClutchMisc`
+    - `TeamsClutchScoring`
+    - `TeamsClutchOpponent`
+  - Playtype
+    - `TeamsPlaytypeIsolation`
+    - `TeamsPlaytypeTransition`
+    - `TeamsPlaytypeBallHandler`
+    - `TeamsPlaytypeRollMan`
+    - `TeamsPlaytypePostUp`
+    - `TeamsPlaytypeSpotUp`
+    - `TeamsPlaytypeHandOff`
+    - `TeamsPlaytypeCut`
+    - `TeamsPlaytypeOffScreen`
+    - `TeamsPlaytypePutbacks`
+    - `TeamsPlaytypeMisc`
+  - Tracking
+    - `TeamsTrackingDrives`
+    - `TeamsTrackingDefensiveImpact`
+    - `TeamsTrackingCatchShoot`
+    - `TeamsTrackingPassing`
+    - `TeamsTrackingTouches`
+    - `TeamsTrackingPullup`
+    - `TeamsTrackingRebounding`
+    - `TeamsTrackingOffensiveRebounding`
+    - `TeamsTrackingDefensiveRebounding`
+    - `TeamsTrackingShootingEfficiency`
+    - `TeamsTrackingSpeedDistance`
+    - `TeamsTrackingElbowTouch`
+    - `TeamsTrackingPostUps`
+    - `TeamsTrackingPaintTouch`
+  - Defense dashboard
+    - `TeamsDefenseDashboardOverall`
+    - `TeamsDefenseDashboard3pt`
+    - `TeamsDefenseDashboard2pt`
+    - `TeamsDefenseDashboardLt6`
+    - `TeamsDefenseDashboardLt10`
+    - `TeamsDefenseDashboardGt15`
+  - Shot dashboard
+    - `TeamsShotDashboardGeneral`
+    - `TeamsShotDashboardShotClock`
+    - `TeamsShotDashboardDribbles`
+    - `TeamsShotDashboardTouchTime`
+    - `TeamsShotDashboardClosestDefender`
+    - `TeamsShotDashboardClosestDefender10`
+  - Opponent
+    - `TeamsOpponentShootingOverall`
+    - `TeamsOpponentShotsGeneral`
+    - `TeamsOpponentShotsShotclock`
+    - `TeamsOpponentShotsDribbles`
+    - `TeamsOpponentShotsTouchTime`
+    - `TeamsOpponentShotsClosestDefender`
+    - `TeamsOpponentShotsClosestDefender10`
+  - Otros
+    - `TeamsAdvancedBoxScores`
+    - `TeamsAdvancedBoxScoresAdvanced`
+    - `TeamsAdvancedBoxScoresFourFactors`
+    - `TeamsAdvancedBoxScoresMisc`
+    - `TeamsAdvancedBoxScoresScoring`
+    - `TeamsShooting`
+    - `TeamsHustle`
+    - `TeamsBoxOuts`
+    - `TeamsBoxScores`
+
+- **ia**
+  - `PredictionModel` — Modelos de predicción (ML)
+
+- **predictions**
+  - `Prediction` — Predicciones generadas
+  - `PredictionsHistory` — Historial de predicciones
+
 
 ## 🤖 Predicciones con Machine Learning
 
