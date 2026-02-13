@@ -8,6 +8,7 @@ from game.models import (
     TeamBoxscoreTraditional,
     GameSummary,
 )
+from game_boxscore.models import GameBoxscoreAdvanced
 from roster.models import Teams, Players
 
 logger = logging.getLogger(__name__)
@@ -42,6 +43,7 @@ class Command(BaseCommand):
         self.drop_team_boxscore_traditional()
         self.drop_game_summary()
         self.drop_game_play_by_play()
+        self.drop_game_boxscore_advanced()
         self.drop_game_boxscore_traditional()
         self.drop_players()
         self.drop_teams()
@@ -85,6 +87,19 @@ class Command(BaseCommand):
                 self.style.SUCCESS(f"  ✓ Eliminados {count} registros de Game Play By Play")
             )
             logger.info(f"Eliminados {count} registros de GamePlayByPlay")
+        else:
+            self.stdout.write("  ⊘ No hay registros para eliminar")
+
+    def drop_game_boxscore_advanced(self):
+        """Elimina todos los registros de GameBoxscoreAdvanced (app game_boxscore)."""
+        self.stdout.write(self.style.WARNING("\n[3b/6] Eliminando Game Boxscore Advanced..."))
+        count = GameBoxscoreAdvanced.objects.count()
+        if count > 0:
+            GameBoxscoreAdvanced.objects.all().delete()
+            self.stdout.write(
+                self.style.SUCCESS(f"  ✓ Eliminados {count} registros de Game Boxscore Advanced")
+            )
+            logger.info(f"Eliminados {count} registros de GameBoxscoreAdvanced")
         else:
             self.stdout.write("  ⊘ No hay registros para eliminar")
 

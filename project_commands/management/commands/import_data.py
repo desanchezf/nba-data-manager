@@ -12,6 +12,7 @@ from game.models import (
     TeamBoxscoreTraditional,
     GameSummary,
 )
+from game_boxscore.models import GameBoxscoreAdvanced
 from roster.models import Teams, Players
 from django.utils.dateparse import parse_datetime, parse_date
 from django.db import models as django_models
@@ -205,6 +206,7 @@ class Command(BaseCommand):
         self.import_teams()
         self.import_players()
         self.import_game_boxscore_traditional()
+        self.import_game_boxscore_advanced()
         self.import_game_play_by_play()
         self.import_game_summary()
         self.import_team_boxscore_traditional()
@@ -487,42 +489,61 @@ class Command(BaseCommand):
             )
         )
 
+    def import_game_boxscore_advanced(self):
+        """Importa game_boxscore_advanced.csv al modelo GameBoxscoreAdvanced (app game_boxscore)."""
+        self.stdout.write(
+            self.style.WARNING("\n[3b/6] Importando Game Boxscore Advanced...")
+        )
+        csv_path = "./csv/game_boxscore_advanced.csv"
+        # Mapeo: cabeceras CSV en minúsculas -> nombres de campos del modelo
+        csv_field_map = {
+            "offrtg": "off_rtg",
+            "defrtg": "def_rtg",
+            "netrtg": "net_rtg",
+            "ast_perc": "ast_pct",
+            "oreb_perc": "oreb_pct",
+            "dreb_perc": "dreb_pct",
+            "reb_perc": "reb_pct",
+            "efg_perc": "efg_pct",
+            "ts_perc": "ts_pct",
+            "usg_perc": "usg_pct",
+        }
+        created, updated, errors = self.import_csv_to_model(
+            csv_path, GameBoxscoreAdvanced, csv_field_map=csv_field_map
+        )
+        if errors:
+            self.stdout.write(
+                self.style.ERROR(f"  ⚠ game_boxscore_advanced: {len(errors)} errores")
+            )
+        else:
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"  Game Boxscore Advanced: {created} creados, {updated} actualizados"
+                )
+            )
+
     def import_game_play_by_play(self):
+        """Importa play-by-play. El CSV tiene millones de filas: no contamos líneas ni
+        cargamos existentes en memoria; usamos unique_together + ignore_conflicts."""
         self.stdout.write(self.style.WARNING("\n[4/6] Importando Game Play By Play..."))
 
         csv_path = "./csv/game_play_by_play.csv"
-        total_lines = count_csv_lines(csv_path)
-
-        # Cargar registros existentes en memoria (clave única basada en los campos únicos)
-        existing_records = {
-            tuple(r)
-            for r in GamePlayByPlay.objects.values_list(
-                "season",
-                "season_type",
-                "game_id",
-                "team_abb",
-                "period",
-                "min",
-                "score",
-                "player",
-                "action",
-            )
-        }
-        self.stdout.write(
-            f"  Cargados {len(existing_records)} registros existentes en memoria"
-        )
+        if not os.path.exists(csv_path):
+            self.stdout.write(self.style.WARNING(f"  ⚠ Archivo no encontrado: {csv_path}"))
+            return
 
         batch_size = 5000
         batch = []
         created_count = 0
-        skipped_count = 0
+        total_rows = 0
 
-        with open(csv_path, "r") as file:
+        with open(csv_path, "r", encoding="utf-8") as file:
             reader = csv.reader(file)
             next(reader)  # Saltar la cabecera
 
+            # Sin total para no bloquear leyendo todo el archivo (~5.6M líneas)
             progress_bar = tqdm(
-                total=total_lines,
+                total=None,
                 desc="  Procesando play-by-play",
                 unit=" filas",
                 ncols=100,
@@ -530,27 +551,10 @@ class Command(BaseCommand):
             try:
                 for row in reader:
                     progress_bar.update(1)
+                    total_rows += 1
                     if len(row) < 9:
                         continue
 
-                    # Clave única para verificar si ya existe
-                    record_key = (
-                        row[0],
-                        row[1],
-                        row[2],
-                        row[3],
-                        row[4],
-                        row[5],
-                        row[6],
-                        row[7],
-                        row[8],
-                    )
-
-                    if record_key in existing_records:
-                        skipped_count += 1
-                        continue
-
-                    # Crear objeto para bulk_create
                     batch.append(
                         GamePlayByPlay(
                             season=row[0],
@@ -565,30 +569,24 @@ class Command(BaseCommand):
                         )
                     )
 
-                    # Insertar por lotes
                     if len(batch) >= batch_size:
-                        GamePlayByPlay.objects.bulk_create(batch, ignore_conflicts=True)
+                        GamePlayByPlay.objects.bulk_create(
+                            batch, ignore_conflicts=True
+                        )
                         created_count += len(batch)
                         batch = []
-
-                    # Actualizar descripción de la barra
-                    progress_bar.set_postfix(
-                        {
-                            "nuevos": created_count + len(batch),
-                            "existentes": skipped_count,
-                        }
-                    )
+                        progress_bar.set_postfix(insertados=created_count)
             finally:
                 progress_bar.close()
 
-            # Insertar el lote final
-            if batch:
-                GamePlayByPlay.objects.bulk_create(batch, ignore_conflicts=True)
-                created_count += len(batch)
+        if batch:
+            GamePlayByPlay.objects.bulk_create(batch, ignore_conflicts=True)
+            created_count += len(batch)
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"  Game Play By Play: {created_count} nuevos, {skipped_count} existentes, {total_lines} filas procesadas"
+                f"  Game Play By Play: {created_count} insertados (duplicados ignorados), "
+                f"{total_rows} filas procesadas"
             )
         )
 

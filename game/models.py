@@ -272,6 +272,19 @@ class GamePlayByPlay(models.Model):
         verbose_name = "Game Play by Play"
         verbose_name_plural = "Game Play by Plays"
         ordering = ["-game_id", "period", "min"]
+        unique_together = [
+            [
+                "season",
+                "season_type",
+                "game_id",
+                "team_abb",
+                "period",
+                "min",
+                "score",
+                "player",
+                "action",
+            ]
+        ]
         indexes = [
             models.Index(fields=["game_id"]),
             models.Index(fields=["season", "season_type"]),
