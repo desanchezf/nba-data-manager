@@ -829,8 +829,7 @@ class Command(BaseCommand):
         created_count = 0
         updated_count = 0
         errors = []
-        batch_size = 5000
-        batch = []
+        error_rows = []  # Filas que fallan, para guardar en csv_errors/
 
         # Obtener campos únicos del modelo
         unique_fields = [
@@ -865,15 +864,24 @@ class Command(BaseCommand):
                     progress_bar.update(1)
 
                     try:
+                        # Evitar None en claves (CSV con cabecera vacía)
+                        def _skip_key(key):
+                            if key is None:
+                                return True
+                            u = (key or "").upper()
+                            return u.endswith("_RANK") or u in ignore_fields
+
                         # Normalizar columnas del CSV (aplicar mismo mapeo que en admin)
                         if "teams" in csv_path.lower():
-                            # Mapeo para teams
                             row_normalized = {
                                 k.lower(): v
                                 for k, v in row.items()
-                                if not k.upper().endswith("_RANK")
-                                and k.upper() not in ignore_fields
+                                if not _skip_key(k)
                             }
+                            # Normalizar season_type del CSV (Regular+Season -> regular-season, All+Star -> all-star)
+                            if "season_type" in row_normalized and row_normalized["season_type"]:
+                                st = (row_normalized["season_type"] or "").strip().replace("+", "-").lower()
+                                row_normalized["season_type"] = st
                             csv_field_map_teams = {"w": "win", "l": "lose"}
                             for csv_key, model_key in csv_field_map_teams.items():
                                 if (
@@ -884,12 +892,10 @@ class Command(BaseCommand):
                                         csv_key
                                     )
                         elif "players" in csv_path.lower():
-                            # Mapeo para players
                             row_normalized = {
                                 k.lower(): v
                                 for k, v in row.items()
-                                if not k.upper().endswith("_RANK")
-                                and k.upper() not in ignore_fields
+                                if not _skip_key(k)
                             }
                             csv_field_map_players = {"l": "lose"}
                             for csv_key, model_key in csv_field_map_players.items():
@@ -901,12 +907,10 @@ class Command(BaseCommand):
                                         csv_key
                                     )
                         else:
-                            # Lineups - sin mapeo especial
                             row_normalized = {
                                 k.lower(): v
                                 for k, v in row.items()
-                                if not k.upper().endswith("_RANK")
-                                and k.upper() not in ignore_fields
+                                if not _skip_key(k)
                             }
 
                         # Aplicar mapeo personalizado si existe
@@ -924,11 +928,8 @@ class Command(BaseCommand):
                         data = {}
                         for field_name in field_names:
                             if field_name in row_normalized:
-                                value = (
-                                    row_normalized[field_name].strip()
-                                    if row_normalized[field_name]
-                                    else ""
-                                )
+                                raw = row_normalized[field_name]
+                                value = (raw.strip() if raw else "") or ""
 
                                 # Obtener el campo del modelo
                                 field = meta.get_field(field_name)
@@ -953,7 +954,7 @@ class Command(BaseCommand):
 
                                 # Manejar tipos de datos
                                 if isinstance(field, django_models.BooleanField):
-                                    data[field_name] = value.lower() in (
+                                    data[field_name] = (value or "").lower() in (
                                         "true",
                                         "1",
                                         "yes",
@@ -972,6 +973,11 @@ class Command(BaseCommand):
                                     parsed = parse_date(value)
                                     if parsed:
                                         data[field_name] = parsed
+                                elif isinstance(field, django_models.CharField):
+                                    s = value if value else ""
+                                    if getattr(field, "max_length", None) and len(s) > field.max_length:
+                                        s = s[: field.max_length]
+                                    data[field_name] = s
                                 else:
                                     data[field_name] = value if value else ""
 
@@ -1008,6 +1014,7 @@ class Command(BaseCommand):
 
                     except Exception as e:
                         errors.append(f"Fila {row_num}: {str(e)}")
+                        error_rows.append(dict(row))  # Guardar fila original para csv_errors
                         if len(errors) <= 10:  # Limitar errores mostrados
                             logger.error(f"Error en fila {row_num} de {csv_path}: {e}")
 
@@ -1022,6 +1029,23 @@ class Command(BaseCommand):
                         )
             finally:
                 progress_bar.close()
+
+        # Guardar filas con error en csv_errors/<mismo_nombre>.csv (mismo nombre que el CSV)
+        if error_rows:
+            errors_dir = "csv_errors"
+            os.makedirs(errors_dir, exist_ok=True)
+            error_file = os.path.join(errors_dir, os.path.basename(csv_path))
+            try:
+                fieldnames = list(error_rows[0].keys())
+                with open(error_file, "w", encoding="utf-8", newline="") as f:
+                    writer = csv.DictWriter(f, fieldnames=fieldnames)
+                    writer.writeheader()
+                    writer.writerows(error_rows)
+                self.stdout.write(
+                    self.style.WARNING(f"  → Filas con error guardadas en: {error_file}")
+                )
+            except Exception as write_err:
+                logger.warning("No se pudo escribir csv_errors: %s", write_err)
 
         return created_count, updated_count, errors
 

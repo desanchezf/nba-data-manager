@@ -80,10 +80,11 @@ def create_model_fields(fields_string):
             )
         elif field_name == "TEAM_ABB":
             fields[field_name.lower()] = models.CharField(
-                max_length=10,
-                choices=TeamChoices.choices(),
+                max_length=50,
                 verbose_name="Equipo",
                 db_index=True,
+                null=True,
+                blank=True,
             )
         elif field_name == "MATCHUP":
             fields[field_name.lower()] = models.CharField(
@@ -149,10 +150,11 @@ class TeamsGeneralTraditional(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -261,10 +263,11 @@ class TeamsGeneralAdvanced(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -360,10 +363,11 @@ class TeamsGeneralFourFactors(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -412,10 +416,11 @@ class TeamsGeneralMisc(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -463,10 +468,11 @@ class TeamsGeneralScoring(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -521,10 +527,11 @@ class TeamsGeneralOpponent(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -585,10 +592,11 @@ class TeamsGeneralDefense(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -637,10 +645,11 @@ class TeamsGeneralViolations(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -699,10 +708,11 @@ class TeamsGeneralEstimatedAdvanced(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -751,10 +761,11 @@ class TeamsClutchTraditional(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -921,10 +932,11 @@ class TeamsClutchAdvanced(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1051,10 +1063,11 @@ class TeamsClutchFourFactors(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1156,10 +1169,11 @@ class TeamsClutchMisc(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1256,10 +1270,11 @@ class TeamsClutchScoring(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1391,10 +1406,11 @@ class TeamsClutchOpponent(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1556,10 +1572,11 @@ class TeamsPlaytypeIsolation(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1670,10 +1687,11 @@ class TeamsPlaytypeTransition(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1784,10 +1802,11 @@ class TeamsPlaytypeBallHandler(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -1898,10 +1917,11 @@ class TeamsPlaytypeRollMan(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2012,10 +2032,11 @@ class TeamsPlaytypePostUp(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2126,10 +2147,11 @@ class TeamsPlaytypeSpotUp(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2240,10 +2262,11 @@ class TeamsPlaytypeHandOff(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2354,10 +2377,11 @@ class TeamsPlaytypeCut(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2468,10 +2492,11 @@ class TeamsPlaytypeOffScreen(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2582,10 +2607,11 @@ class TeamsPlaytypePutbacks(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2696,10 +2722,11 @@ class TeamsPlaytypeMisc(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2810,10 +2837,11 @@ class TeamsTrackingDrives(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -2914,10 +2942,11 @@ class TeamsTrackingDefensiveImpact(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3004,10 +3033,11 @@ class TeamsTrackingCatchShoot(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3094,10 +3124,11 @@ class TeamsTrackingPassing(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3199,10 +3230,11 @@ class TeamsTrackingTouches(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3326,10 +3358,11 @@ class TeamsTrackingPullup(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3426,10 +3459,11 @@ class TeamsTrackingRebounding(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3521,10 +3555,11 @@ class TeamsTrackingOffensiveRebounding(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3616,10 +3651,11 @@ class TeamsTrackingDefensiveRebounding(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3711,10 +3747,11 @@ class TeamsTrackingShootingEfficiency(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3841,10 +3878,11 @@ class TeamsTrackingSpeedDistance(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -3936,10 +3974,11 @@ class TeamsTrackingElbowTouch(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4086,10 +4125,11 @@ class TeamsTrackingPostUps(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4236,10 +4276,11 @@ class TeamsTrackingPaintTouch(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4386,10 +4427,11 @@ class TeamsDefenseDashboardOverall(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4465,10 +4507,11 @@ class TeamsDefenseDashboard3pt(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4544,10 +4587,11 @@ class TeamsDefenseDashboard2pt(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4623,10 +4667,11 @@ class TeamsDefenseDashboardLt6(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4702,10 +4747,11 @@ class TeamsDefenseDashboardLt10(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4781,10 +4827,11 @@ class TeamsDefenseDashboardGt15(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4860,10 +4907,11 @@ class TeamsShotDashboardGeneral(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -4974,10 +5022,11 @@ class TeamsShotDashboardShotClock(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5088,10 +5137,11 @@ class TeamsShotDashboardDribbles(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5202,10 +5252,11 @@ class TeamsShotDashboardTouchTime(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5316,10 +5367,11 @@ class TeamsShotDashboardClosestDefender(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5430,10 +5482,11 @@ class TeamsShotDashboardClosestDefender10(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5544,10 +5597,11 @@ class TeamsAdvancedBoxScores(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5702,10 +5756,11 @@ class TeamsAdvancedBoxScoresAdvanced(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5835,10 +5890,11 @@ class TeamsAdvancedBoxScoresFourFactors(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -5938,10 +5994,11 @@ class TeamsAdvancedBoxScoresMisc(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6041,10 +6098,11 @@ class TeamsAdvancedBoxScoresScoring(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6179,10 +6237,11 @@ class TeamsShooting(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6308,10 +6367,11 @@ class TeamsOpponentShootingOverall(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6437,10 +6497,11 @@ class TeamsOpponentShotsGeneral(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6551,10 +6612,11 @@ class TeamsOpponentShotsShotclock(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6665,10 +6727,11 @@ class TeamsOpponentShotsDribbles(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6779,10 +6842,11 @@ class TeamsOpponentShotsTouchTime(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -6893,10 +6957,11 @@ class TeamsOpponentShotsClosestDefender(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -7007,10 +7072,11 @@ class TeamsOpponentShotsClosestDefender10(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -7121,10 +7187,11 @@ class TeamsHustle(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
@@ -7226,10 +7293,11 @@ class TeamsBoxOuts(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=10,
-        choices=TeamChoices.choices(),
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     team_name = models.CharField(
         max_length=100,
