@@ -7,13 +7,7 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'django'
+  - job_name: backend
     static_configs:
-      - targets: ['backend:8000']
-    metrics_path: '/metrics'
-
-  # Celery metrics - requiere configuración adicional (celery-exporter o flower)
-  # - job_name: 'celery'
-  #   static_configs:
-  #     - targets: ['celery:5555']
-  #   metrics_path: '/metrics'
+      - targets: ["backend:8000"]
+    metrics_path: /metrics
