@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.http import HttpResponse
+from import_export.admin import ImportExportModelAdmin
 from django.shortcuts import redirect
 from django.urls import path
 from django.contrib import messages
@@ -51,7 +52,7 @@ export_as_csv.short_description = "Exportar seleccionados a CSV"
 
 
 @admin.register(GameBoxscoreTraditional)
-class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
+class GameBoxscoreTraditionalAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",
@@ -205,7 +206,7 @@ class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
 
 
 @admin.register(GamePlayByPlay)
-class GamePlayByPlayAdmin(admin.ModelAdmin):
+class GamePlayByPlayAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",
@@ -343,7 +344,7 @@ class GamePlayByPlayAdmin(admin.ModelAdmin):
 
 
 @admin.register(GameSummary)
-class GameSummaryAdmin(admin.ModelAdmin):
+class GameSummaryAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",
@@ -490,7 +491,7 @@ class GameSummaryAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamBoxscoreTraditional)
-class TeamBoxscoreTraditionalAdmin(admin.ModelAdmin):
+class TeamBoxscoreTraditionalAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",

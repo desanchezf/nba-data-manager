@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.http import HttpResponse
+from import_export.admin import ImportExportModelAdmin
 from django.urls import path
 from django.contrib import messages
 from django.db import transaction, models
@@ -224,7 +225,7 @@ def get_csv_import_view(model_class):
     return csv_import_view
 
 @admin.register(LineupsTraditional)
-class LineupsTraditionalAdmin(admin.ModelAdmin):
+class LineupsTraditionalAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']
@@ -251,7 +252,7 @@ class LineupsTraditionalAdmin(admin.ModelAdmin):
 
 
 @admin.register(LineupsAdvanced)
-class LineupsAdvancedAdmin(admin.ModelAdmin):
+class LineupsAdvancedAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']
@@ -278,7 +279,7 @@ class LineupsAdvancedAdmin(admin.ModelAdmin):
 
 
 @admin.register(LineupsMisc)
-class LineupsMiscAdmin(admin.ModelAdmin):
+class LineupsMiscAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']
@@ -305,7 +306,7 @@ class LineupsMiscAdmin(admin.ModelAdmin):
 
 
 @admin.register(LineupsFourFactors)
-class LineupsFourFactorsAdmin(admin.ModelAdmin):
+class LineupsFourFactorsAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']
@@ -332,7 +333,7 @@ class LineupsFourFactorsAdmin(admin.ModelAdmin):
 
 
 @admin.register(LineupsScoring)
-class LineupsScoringAdmin(admin.ModelAdmin):
+class LineupsScoringAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']
@@ -359,7 +360,7 @@ class LineupsScoringAdmin(admin.ModelAdmin):
 
 
 @admin.register(LineupsOpponent)
-class LineupsOpponentAdmin(admin.ModelAdmin):
+class LineupsOpponentAdmin(ImportExportModelAdmin):
     list_display = ['season', 'season_type', 'lineup', 'team_abb']
     search_fields = ['lineup', 'team_abb']
     list_filter = ['season', 'season_type', 'team_abb']

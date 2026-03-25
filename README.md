@@ -380,6 +380,8 @@ python manage.py import
 
 **Importación desde CSV en el Admin**: Cada modelo de las apps **Game**, **Game Boxscore**, **Lineups**, **Players** y **Teams** dispone en el admin de Django de un botón *Importar CSV* que permite subir los archivos desde `csv/`. La importación normaliza las cabeceras del CSV a minúsculas (p. ej. `SEASON` → `season`), aplica mapeos de columnas cuando el CSV usa nombres distintos (p. ej. `MATCH_UP` → `matchup`) y, en modelos con `unique_together`, actualiza registros existentes en lugar de duplicarlos al reimportar.
 
+**Exportar datos desde el Admin**: El proyecto usa **django-import-export**. En cada listado de modelo del admin aparece el botón **Export**, que permite descargar los datos del listado (o solo los registros seleccionados) en **CSV**, **XLSX**, **JSON**, etc. Aplica a todos los modelos (game, game_boxscore, lineups, players, teams, roster, ia, predictions). Además, en algunos listados se mantiene la acción *Exportar seleccionados a CSV* propia del proyecto.
+
 ### Entrenar Modelos
 
 ```bash

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.http import HttpResponse
+from import_export.admin import ImportExportModelAdmin
 from django.shortcuts import redirect
 from django.urls import path
 from django.contrib import messages
@@ -45,7 +46,7 @@ export_as_csv.short_description = "Exportar seleccionados a CSV"
 
 
 @admin.register(Teams)
-class TeamsAdmin(admin.ModelAdmin):
+class TeamsAdmin(ImportExportModelAdmin):
     list_display = (
         "team_name",
         "team_abb",
@@ -151,7 +152,7 @@ class TeamsAdmin(admin.ModelAdmin):
 
 
 @admin.register(Players)
-class PlayersAdmin(admin.ModelAdmin):
+class PlayersAdmin(ImportExportModelAdmin):
     list_display = (
         "player_name",
         "player_abb",

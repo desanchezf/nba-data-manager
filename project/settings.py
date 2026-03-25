@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Third party apps
+    "import_export",
     "rest_framework",
     "corsheaders",
     "django_celery_beat",

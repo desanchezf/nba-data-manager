@@ -1,4 +1,6 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
+
 from .models import Prediction, PredictionsHistory
 
 
@@ -12,7 +14,7 @@ class PredictionsHistoryInline(admin.TabularInline):
 
 
 @admin.register(Prediction)
-class PredictionAdmin(admin.ModelAdmin):
+class PredictionAdmin(ImportExportModelAdmin):
     list_display = [
         "matchup",
         "home_team",
@@ -80,7 +82,7 @@ class PredictionAdmin(admin.ModelAdmin):
 
 
 @admin.register(PredictionsHistory)
-class PredictionsHistoryAdmin(admin.ModelAdmin):
+class PredictionsHistoryAdmin(ImportExportModelAdmin):
     list_display = [
         "prediction",
         "odds",

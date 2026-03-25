@@ -1,9 +1,11 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
+
 from .models import PredictionModel
 
 
 @admin.register(PredictionModel)
-class PredictionModelAdmin(admin.ModelAdmin):
+class PredictionModelAdmin(ImportExportModelAdmin):
     list_display = [
         "name",
         "algorithm_type",

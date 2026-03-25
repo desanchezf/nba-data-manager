@@ -5,6 +5,7 @@ Mapeo de cabeceras CSV a campos del modelo (ej. 3PM->fg3m, OFFRTG->off_rtg).
 
 from django.contrib import admin
 from django.http import HttpResponse
+from import_export.admin import ImportExportModelAdmin
 from django.shortcuts import redirect
 from django.urls import path
 from django.contrib import messages
@@ -103,7 +104,7 @@ def _set_model_data_from_row(model_class, row_normalized, data):
 
 
 @admin.register(GameBoxscoreTraditional)
-class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
+class GameBoxscoreTraditionalAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",
@@ -211,7 +212,7 @@ class GameBoxscoreTraditionalAdmin(admin.ModelAdmin):
 
 
 @admin.register(GameBoxscoreAdvanced)
-class GameBoxscoreAdvancedAdmin(admin.ModelAdmin):
+class GameBoxscoreAdvancedAdmin(ImportExportModelAdmin):
     list_display = (
         "game_id",
         "season",

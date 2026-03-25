@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.http import HttpResponse
+from import_export.admin import ImportExportModelAdmin
 from django.urls import path
 from django.contrib import messages
 from django.db import transaction, models
@@ -299,7 +300,7 @@ def get_csv_import_view(model_class):
 
 
 @admin.register(TeamsGeneralTraditional)
-class TeamsGeneralTraditionalAdmin(admin.ModelAdmin):
+class TeamsGeneralTraditionalAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -326,7 +327,7 @@ class TeamsGeneralTraditionalAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralAdvanced)
-class TeamsGeneralAdvancedAdmin(admin.ModelAdmin):
+class TeamsGeneralAdvancedAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -353,7 +354,7 @@ class TeamsGeneralAdvancedAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralFourFactors)
-class TeamsGeneralFourFactorsAdmin(admin.ModelAdmin):
+class TeamsGeneralFourFactorsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -380,7 +381,7 @@ class TeamsGeneralFourFactorsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralMisc)
-class TeamsGeneralMiscAdmin(admin.ModelAdmin):
+class TeamsGeneralMiscAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -407,7 +408,7 @@ class TeamsGeneralMiscAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralScoring)
-class TeamsGeneralScoringAdmin(admin.ModelAdmin):
+class TeamsGeneralScoringAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -434,7 +435,7 @@ class TeamsGeneralScoringAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralOpponent)
-class TeamsGeneralOpponentAdmin(admin.ModelAdmin):
+class TeamsGeneralOpponentAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -461,7 +462,7 @@ class TeamsGeneralOpponentAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralDefense)
-class TeamsGeneralDefenseAdmin(admin.ModelAdmin):
+class TeamsGeneralDefenseAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -488,7 +489,7 @@ class TeamsGeneralDefenseAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralViolations)
-class TeamsGeneralViolationsAdmin(admin.ModelAdmin):
+class TeamsGeneralViolationsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -515,7 +516,7 @@ class TeamsGeneralViolationsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsGeneralEstimatedAdvanced)
-class TeamsGeneralEstimatedAdvancedAdmin(admin.ModelAdmin):
+class TeamsGeneralEstimatedAdvancedAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -542,7 +543,7 @@ class TeamsGeneralEstimatedAdvancedAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchTraditional)
-class TeamsClutchTraditionalAdmin(admin.ModelAdmin):
+class TeamsClutchTraditionalAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -569,7 +570,7 @@ class TeamsClutchTraditionalAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchAdvanced)
-class TeamsClutchAdvancedAdmin(admin.ModelAdmin):
+class TeamsClutchAdvancedAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -596,7 +597,7 @@ class TeamsClutchAdvancedAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchFourFactors)
-class TeamsClutchFourFactorsAdmin(admin.ModelAdmin):
+class TeamsClutchFourFactorsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -623,7 +624,7 @@ class TeamsClutchFourFactorsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchMisc)
-class TeamsClutchMiscAdmin(admin.ModelAdmin):
+class TeamsClutchMiscAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -650,7 +651,7 @@ class TeamsClutchMiscAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchScoring)
-class TeamsClutchScoringAdmin(admin.ModelAdmin):
+class TeamsClutchScoringAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -677,7 +678,7 @@ class TeamsClutchScoringAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsClutchOpponent)
-class TeamsClutchOpponentAdmin(admin.ModelAdmin):
+class TeamsClutchOpponentAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -704,7 +705,7 @@ class TeamsClutchOpponentAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeIsolation)
-class TeamsPlaytypeIsolationAdmin(admin.ModelAdmin):
+class TeamsPlaytypeIsolationAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -731,7 +732,7 @@ class TeamsPlaytypeIsolationAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeTransition)
-class TeamsPlaytypeTransitionAdmin(admin.ModelAdmin):
+class TeamsPlaytypeTransitionAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -758,7 +759,7 @@ class TeamsPlaytypeTransitionAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeBallHandler)
-class TeamsPlaytypeBallHandlerAdmin(admin.ModelAdmin):
+class TeamsPlaytypeBallHandlerAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -785,7 +786,7 @@ class TeamsPlaytypeBallHandlerAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeRollMan)
-class TeamsPlaytypeRollManAdmin(admin.ModelAdmin):
+class TeamsPlaytypeRollManAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -812,7 +813,7 @@ class TeamsPlaytypeRollManAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypePostUp)
-class TeamsPlaytypePostUpAdmin(admin.ModelAdmin):
+class TeamsPlaytypePostUpAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -839,7 +840,7 @@ class TeamsPlaytypePostUpAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeSpotUp)
-class TeamsPlaytypeSpotUpAdmin(admin.ModelAdmin):
+class TeamsPlaytypeSpotUpAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -866,7 +867,7 @@ class TeamsPlaytypeSpotUpAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeHandOff)
-class TeamsPlaytypeHandOffAdmin(admin.ModelAdmin):
+class TeamsPlaytypeHandOffAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -893,7 +894,7 @@ class TeamsPlaytypeHandOffAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeCut)
-class TeamsPlaytypeCutAdmin(admin.ModelAdmin):
+class TeamsPlaytypeCutAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -920,7 +921,7 @@ class TeamsPlaytypeCutAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeOffScreen)
-class TeamsPlaytypeOffScreenAdmin(admin.ModelAdmin):
+class TeamsPlaytypeOffScreenAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -947,7 +948,7 @@ class TeamsPlaytypeOffScreenAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypePutbacks)
-class TeamsPlaytypePutbacksAdmin(admin.ModelAdmin):
+class TeamsPlaytypePutbacksAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -974,7 +975,7 @@ class TeamsPlaytypePutbacksAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsPlaytypeMisc)
-class TeamsPlaytypeMiscAdmin(admin.ModelAdmin):
+class TeamsPlaytypeMiscAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1001,7 +1002,7 @@ class TeamsPlaytypeMiscAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingDrives)
-class TeamsTrackingDrivesAdmin(admin.ModelAdmin):
+class TeamsTrackingDrivesAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1028,7 +1029,7 @@ class TeamsTrackingDrivesAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingDefensiveImpact)
-class TeamsTrackingDefensiveImpactAdmin(admin.ModelAdmin):
+class TeamsTrackingDefensiveImpactAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1055,7 +1056,7 @@ class TeamsTrackingDefensiveImpactAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingCatchShoot)
-class TeamsTrackingCatchShootAdmin(admin.ModelAdmin):
+class TeamsTrackingCatchShootAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1082,7 +1083,7 @@ class TeamsTrackingCatchShootAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingPassing)
-class TeamsTrackingPassingAdmin(admin.ModelAdmin):
+class TeamsTrackingPassingAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1109,7 +1110,7 @@ class TeamsTrackingPassingAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingTouches)
-class TeamsTrackingTouchesAdmin(admin.ModelAdmin):
+class TeamsTrackingTouchesAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1136,7 +1137,7 @@ class TeamsTrackingTouchesAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingPullup)
-class TeamsTrackingPullupAdmin(admin.ModelAdmin):
+class TeamsTrackingPullupAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1163,7 +1164,7 @@ class TeamsTrackingPullupAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingRebounding)
-class TeamsTrackingReboundingAdmin(admin.ModelAdmin):
+class TeamsTrackingReboundingAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1190,7 +1191,7 @@ class TeamsTrackingReboundingAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingOffensiveRebounding)
-class TeamsTrackingOffensiveReboundingAdmin(admin.ModelAdmin):
+class TeamsTrackingOffensiveReboundingAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1217,7 +1218,7 @@ class TeamsTrackingOffensiveReboundingAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingDefensiveRebounding)
-class TeamsTrackingDefensiveReboundingAdmin(admin.ModelAdmin):
+class TeamsTrackingDefensiveReboundingAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1244,7 +1245,7 @@ class TeamsTrackingDefensiveReboundingAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingShootingEfficiency)
-class TeamsTrackingShootingEfficiencyAdmin(admin.ModelAdmin):
+class TeamsTrackingShootingEfficiencyAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1271,7 +1272,7 @@ class TeamsTrackingShootingEfficiencyAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingSpeedDistance)
-class TeamsTrackingSpeedDistanceAdmin(admin.ModelAdmin):
+class TeamsTrackingSpeedDistanceAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1298,7 +1299,7 @@ class TeamsTrackingSpeedDistanceAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingElbowTouch)
-class TeamsTrackingElbowTouchAdmin(admin.ModelAdmin):
+class TeamsTrackingElbowTouchAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1325,7 +1326,7 @@ class TeamsTrackingElbowTouchAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingPostUps)
-class TeamsTrackingPostUpsAdmin(admin.ModelAdmin):
+class TeamsTrackingPostUpsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1352,7 +1353,7 @@ class TeamsTrackingPostUpsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsTrackingPaintTouch)
-class TeamsTrackingPaintTouchAdmin(admin.ModelAdmin):
+class TeamsTrackingPaintTouchAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1379,7 +1380,7 @@ class TeamsTrackingPaintTouchAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboardOverall)
-class TeamsDefenseDashboardOverallAdmin(admin.ModelAdmin):
+class TeamsDefenseDashboardOverallAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1406,7 +1407,7 @@ class TeamsDefenseDashboardOverallAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboard3pt)
-class TeamsDefenseDashboard3ptAdmin(admin.ModelAdmin):
+class TeamsDefenseDashboard3ptAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1433,7 +1434,7 @@ class TeamsDefenseDashboard3ptAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboard2pt)
-class TeamsDefenseDashboard2ptAdmin(admin.ModelAdmin):
+class TeamsDefenseDashboard2ptAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1460,7 +1461,7 @@ class TeamsDefenseDashboard2ptAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboardLt6)
-class TeamsDefenseDashboardLt6Admin(admin.ModelAdmin):
+class TeamsDefenseDashboardLt6Admin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1487,7 +1488,7 @@ class TeamsDefenseDashboardLt6Admin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboardLt10)
-class TeamsDefenseDashboardLt10Admin(admin.ModelAdmin):
+class TeamsDefenseDashboardLt10Admin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1514,7 +1515,7 @@ class TeamsDefenseDashboardLt10Admin(admin.ModelAdmin):
 
 
 @admin.register(TeamsDefenseDashboardGt15)
-class TeamsDefenseDashboardGt15Admin(admin.ModelAdmin):
+class TeamsDefenseDashboardGt15Admin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1541,7 +1542,7 @@ class TeamsDefenseDashboardGt15Admin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardGeneral)
-class TeamsShotDashboardGeneralAdmin(admin.ModelAdmin):
+class TeamsShotDashboardGeneralAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1568,7 +1569,7 @@ class TeamsShotDashboardGeneralAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardShotClock)
-class TeamsShotDashboardShotClockAdmin(admin.ModelAdmin):
+class TeamsShotDashboardShotClockAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1595,7 +1596,7 @@ class TeamsShotDashboardShotClockAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardDribbles)
-class TeamsShotDashboardDribblesAdmin(admin.ModelAdmin):
+class TeamsShotDashboardDribblesAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1622,7 +1623,7 @@ class TeamsShotDashboardDribblesAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardTouchTime)
-class TeamsShotDashboardTouchTimeAdmin(admin.ModelAdmin):
+class TeamsShotDashboardTouchTimeAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1649,7 +1650,7 @@ class TeamsShotDashboardTouchTimeAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardClosestDefender)
-class TeamsShotDashboardClosestDefenderAdmin(admin.ModelAdmin):
+class TeamsShotDashboardClosestDefenderAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1676,7 +1677,7 @@ class TeamsShotDashboardClosestDefenderAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShotDashboardClosestDefender10)
-class TeamsShotDashboardClosestDefender10Admin(admin.ModelAdmin):
+class TeamsShotDashboardClosestDefender10Admin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1703,7 +1704,7 @@ class TeamsShotDashboardClosestDefender10Admin(admin.ModelAdmin):
 
 
 @admin.register(TeamsAdvancedBoxScores)
-class TeamsAdvancedBoxScoresAdmin(admin.ModelAdmin):
+class TeamsAdvancedBoxScoresAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1730,7 +1731,7 @@ class TeamsAdvancedBoxScoresAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsAdvancedBoxScoresAdvanced)
-class TeamsAdvancedBoxScoresAdvancedAdmin(admin.ModelAdmin):
+class TeamsAdvancedBoxScoresAdvancedAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1757,7 +1758,7 @@ class TeamsAdvancedBoxScoresAdvancedAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsAdvancedBoxScoresFourFactors)
-class TeamsAdvancedBoxScoresFourFactorsAdmin(admin.ModelAdmin):
+class TeamsAdvancedBoxScoresFourFactorsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1784,7 +1785,7 @@ class TeamsAdvancedBoxScoresFourFactorsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsAdvancedBoxScoresMisc)
-class TeamsAdvancedBoxScoresMiscAdmin(admin.ModelAdmin):
+class TeamsAdvancedBoxScoresMiscAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1811,7 +1812,7 @@ class TeamsAdvancedBoxScoresMiscAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsAdvancedBoxScoresScoring)
-class TeamsAdvancedBoxScoresScoringAdmin(admin.ModelAdmin):
+class TeamsAdvancedBoxScoresScoringAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1838,7 +1839,7 @@ class TeamsAdvancedBoxScoresScoringAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsShooting)
-class TeamsShootingAdmin(admin.ModelAdmin):
+class TeamsShootingAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1865,7 +1866,7 @@ class TeamsShootingAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShootingOverall)
-class TeamsOpponentShootingOverallAdmin(admin.ModelAdmin):
+class TeamsOpponentShootingOverallAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1892,7 +1893,7 @@ class TeamsOpponentShootingOverallAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsGeneral)
-class TeamsOpponentShotsGeneralAdmin(admin.ModelAdmin):
+class TeamsOpponentShotsGeneralAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1919,7 +1920,7 @@ class TeamsOpponentShotsGeneralAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsShotclock)
-class TeamsOpponentShotsShotclockAdmin(admin.ModelAdmin):
+class TeamsOpponentShotsShotclockAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1946,7 +1947,7 @@ class TeamsOpponentShotsShotclockAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsDribbles)
-class TeamsOpponentShotsDribblesAdmin(admin.ModelAdmin):
+class TeamsOpponentShotsDribblesAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -1973,7 +1974,7 @@ class TeamsOpponentShotsDribblesAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsTouchTime)
-class TeamsOpponentShotsTouchTimeAdmin(admin.ModelAdmin):
+class TeamsOpponentShotsTouchTimeAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -2000,7 +2001,7 @@ class TeamsOpponentShotsTouchTimeAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsClosestDefender)
-class TeamsOpponentShotsClosestDefenderAdmin(admin.ModelAdmin):
+class TeamsOpponentShotsClosestDefenderAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -2027,7 +2028,7 @@ class TeamsOpponentShotsClosestDefenderAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsOpponentShotsClosestDefender10)
-class TeamsOpponentShotsClosestDefender10Admin(admin.ModelAdmin):
+class TeamsOpponentShotsClosestDefender10Admin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -2054,7 +2055,7 @@ class TeamsOpponentShotsClosestDefender10Admin(admin.ModelAdmin):
 
 
 @admin.register(TeamsHustle)
-class TeamsHustleAdmin(admin.ModelAdmin):
+class TeamsHustleAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -2081,7 +2082,7 @@ class TeamsHustleAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsBoxOuts)
-class TeamsBoxOutsAdmin(admin.ModelAdmin):
+class TeamsBoxOutsAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb"]
     search_fields = ["team_abb"]
     list_filter = ["season", "season_type", "team_abb"]
@@ -2108,7 +2109,7 @@ class TeamsBoxOutsAdmin(admin.ModelAdmin):
 
 
 @admin.register(TeamsBoxScores)
-class TeamsBoxScoresAdmin(admin.ModelAdmin):
+class TeamsBoxScoresAdmin(ImportExportModelAdmin):
     list_display = ["season", "season_type", "team_abb", "game_id", "wl", "pts"]
     search_fields = ["team_abb", "game_id", "matchup"]
     list_filter = ["season", "season_type", "home_away", "wl"]
