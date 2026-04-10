@@ -1,0 +1,33 @@
+/* ─── Paleta de colores unificada (Material Design 3) ────────────────────── */
+/*
+ * Color primario compartido con mlb-data-manager, crypto-data-manager
+ * y evolveme. Los tokens --proj-primary-* se usan también en los tokens
+ * de Material Web para que los componentes md-* hereden la misma paleta.
+ */
+:root {
+  --proj-primary:        #3d4252;
+  --proj-primary-hover:  #50566a;
+  --proj-primary-active: #2e333f;
+  --proj-primary-text:   #FFFFFF;
+
+  /* Material Web color tokens */
+  --md-sys-color-primary:              #3d4252;
+  --md-sys-color-on-primary:           #FFFFFF;
+  --md-sys-color-primary-container:    #d8dae3;
+  --md-sys-color-on-primary-container: #0d0f14;
+}
+
+/* ─── Fuente Roboto (Material Design estándar) ───────────────────────────── */
+body,
+.unfold-main,
+[class*="unfold-"] {
+  font-family: Roboto, system-ui, sans-serif;
+}
+
+/* ─── Botón Log in en la página de login ────────────────────────────────── */
+body.login-page button[type="submit"],
+body.login-page input[type="submit"] {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em;
+}

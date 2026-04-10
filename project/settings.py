@@ -260,18 +260,18 @@ UNFOLD = {
             "950": "oklch(13% .028 261.692)",
         },
         "primary": {
-            # Colores azules más vibrantes
-            "50": "oklch(98% .02 240)",  # Azul muy claro
-            "100": "oklch(95% .04 240)",  # Azul claro
-            "200": "oklch(90% .08 240)",  # Azul medio-claro
-            "300": "oklch(82% .15 240)",  # Azul medio
-            "400": "oklch(70% .25 240)",  # Azul
-            "500": "oklch(60% .3 240)",  # Azul principal
-            "600": "oklch(50% .3 240)",  # Azul oscuro
-            "700": "oklch(42% .25 240)",  # Azul más oscuro
-            "800": "oklch(35% .2 240)",  # Azul muy oscuro
-            "900": "oklch(28% .15 240)",  # Azul casi negro
-            "950": "oklch(20% .1 240)",  # Azul negro
+            # Paleta derivada de #3d4252 (compartida con mlb/crypto/evolveme)
+            "50": "oklch(97% .01 258)",
+            "100": "oklch(93% .02 258)",
+            "200": "oklch(87% .03 258)",
+            "300": "oklch(76% .04 258)",
+            "400": "oklch(61% .05 258)",
+            "500": "oklch(45% .05 258)",
+            "600": "oklch(37% .05 258)",  # ≈ #3d4252 (color principal)
+            "700": "oklch(29% .04 258)",  # ≈ #2e333f (active)
+            "800": "oklch(22% .03 258)",
+            "900": "oklch(16% .02 258)",
+            "950": "oklch(11% .01 258)",
         },
         "font": {
             "subtle-light": "var(--color-base-500)",
@@ -282,6 +282,10 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",
         },
     },
+    # CSS compartido: variables --proj-primary-* y tokens Material Web
+    "STYLES": [
+        lambda request: "/static/admin/css/admin-overrides.css",
+    ],
 }
 
 NBA_TEAMS_INFO = {
