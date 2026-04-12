@@ -1,0 +1,174 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Prediction Hub | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="m3-page">
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+  <h1 class="mb-0 md-typescale-headline-medium"><i class="fas fa-brain me-2"></i>Prediction Hub NBA</h1>
+  <md-filled-tonal-button href="{% url 'admin:predictions_bettingrecord_changelist' %}">
+    <i class="fas fa-list me-1"></i> Ver registros de apuestas
+  </md-filled-tonal-button>
+</div>
+
+{% if accounting %}
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="md-m3-stat">
+      <div class="md-m3-stat__label">Apuestas liquidadas</div>
+      <div class="md-m3-stat__value">{{ accounting.total_bets }}</div>
+      <div class="small text-muted">{{ accounting.won }}G / {{ accounting.lost }}P / {{ accounting.void }}N</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="md-m3-stat">
+      <div class="md-m3-stat__label">Win rate</div>
+      <div class="md-m3-stat__value {% if accounting.winrate and accounting.winrate > 55 %}text-success{% elif accounting.winrate and accounting.winrate < 45 %}text-danger{% endif %}">
+        {% if accounting.winrate %}{{ accounting.winrate }}%{% else %}—{% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="md-m3-stat">
+      <div class="md-m3-stat__label">P&L total</div>
+      <div class="md-m3-stat__value {% if accounting.total_pnl > 0 %}text-success{% elif accounting.total_pnl < 0 %}text-danger{% endif %}">
+        {% if accounting.total_pnl >= 0 %}+{% endif %}{{ accounting.total_pnl }} €
+      </div>
+      <div class="small text-muted">Stake: {{ accounting.total_staked }} €</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="md-m3-stat">
+      <div class="md-m3-stat__label">ROI</div>
+      <div class="md-m3-stat__value {% if accounting.roi and accounting.roi > 0 %}text-success{% elif accounting.roi and accounting.roi < 0 %}text-danger{% endif %}">
+        {% if accounting.roi %}{% if accounting.roi >= 0 %}+{% endif %}{{ accounting.roi }}%{% else %}—{% endif %}
+      </div>
+      <div class="small text-muted">{{ accounting.pending }} pendientes</div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row g-4">
+
+  <div class="col-md-6">
+    <div class="md-m3-surface h-100 d-flex flex-column">
+      <div class="md-m3-surface__header hub-card-header">
+        <span class="md-typescale-title-medium"><i class="fas fa-calendar-alt me-1"></i> Pre-partido</span>
+      </div>
+      <div class="md-m3-surface__body flex-grow-1">
+        <p class="md-typescale-body-medium text-muted mb-3">
+          Dado un equipo local y visitante, genera los <strong>N pronósticos con mayor probabilidad o valor</strong>
+          evaluando múltiples mercados NBA. Filtra por nivel de riesgo y calcula el EV si se proporcionan cuotas.
+        </p>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="fas fa-check-circle text-success me-1"></i> Selección de equipo local y visitante</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Multi-mercado (moneyline, spread, totales…)</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Cuotas opcionales para cálculo de EV</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Nivel de riesgo (conservador / moderado / arriesgado)</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Guardar apuesta en el registro contable</li>
+        </ul>
+      </div>
+      <div class="p-3 pt-0 mt-auto">
+        <md-filled-button href="{{ prepartido_url }}" class="m3-btn-block">
+          <i class="fas fa-play me-1"></i> Abrir Pre-partido
+        </md-filled-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="md-m3-surface h-100 d-flex flex-column">
+      <div class="md-m3-surface__header hub-card-header">
+        <span class="md-typescale-title-medium"><i class="fas fa-broadcast-tower me-1"></i> En directo (Live)</span>
+        <span class="badge hub-badge ms-2 small">LIVE</span>
+      </div>
+      <div class="md-m3-surface__body flex-grow-1">
+        <p class="md-typescale-body-medium text-muted mb-3">
+          Vuelca datos de un partido en curso por lotes JSON. Con cada lote se ejecuta el flujo completo
+          <strong>Ingesta → Features → Inferencia</strong> y se actualiza la probabilidad en tiempo real.
+        </p>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="fas fa-check-circle text-success me-1"></i> Envío de lotes de datos JSON por partido</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Recalculo automático de features NBA</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Historial de actualizaciones de probabilidad</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Win probability por cuartos en tiempo real</li>
+        </ul>
+      </div>
+      <div class="p-3 pt-0 mt-auto">
+        <md-filled-button href="{{ live_url }}" class="m3-btn-block">
+          <i class="fas fa-broadcast-tower me-1"></i> Abrir En directo
+        </md-filled-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="md-m3-surface h-100 d-flex flex-column">
+      <div class="md-m3-surface__header hub-card-header">
+        <span class="md-typescale-title-medium"><i class="fas fa-search me-1"></i> Prediction Discovery</span>
+      </div>
+      <div class="md-m3-surface__body flex-grow-1">
+        <p class="md-typescale-body-medium text-muted mb-3">
+          Introduce la <strong>jornada completa de encuentros</strong> en formato JSON y obtén
+          los pronósticos con mayor probabilidad de acierto de toda la jornada, ordenados por valor.
+        </p>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="fas fa-check-circle text-success me-1"></i> Jornada completa como JSON</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Ranking de mejores pronósticos NBA</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Filtrado por riesgo y mercado</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> EV calculado si se dan cuotas</li>
+        </ul>
+      </div>
+      <div class="p-3 pt-0 mt-auto">
+        <md-filled-button href="{{ discovery_url }}" class="m3-btn-block">
+          <i class="fas fa-search me-1"></i> Abrir Discovery
+        </md-filled-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="md-m3-surface h-100 d-flex flex-column">
+      <div class="md-m3-surface__header hub-card-header">
+        <span class="md-typescale-title-medium"><i class="fas fa-layer-group me-1"></i> Apuesta Combinada (Acumulador)</span>
+      </div>
+      <div class="md-m3-surface__body flex-grow-1">
+        <p class="md-typescale-body-medium text-muted mb-3">
+          Para un conjunto de encuentros, elige las <strong>N mejores selecciones</strong> según el nivel
+          de riesgo y construye un acumulador con cuota y probabilidad combinadas.
+        </p>
+        <ul class="list-unstyled small text-muted">
+          <li><i class="fas fa-check-circle text-success me-1"></i> Selección automática de las N mejores picks</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Cuota combinada = producto de cuotas individuales</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Probabilidad combinada y EV del acumulador</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Cálculo de retorno potencial sobre stake</li>
+          <li><i class="fas fa-check-circle text-success me-1"></i> Guardar en registro contable</li>
+        </ul>
+      </div>
+      <div class="p-3 pt-0 mt-auto">
+        <md-filled-tonal-button href="{{ combinada_url }}" class="m3-btn-block">
+          <i class="fas fa-layer-group me-1"></i> Abrir Combinada
+        </md-filled-tonal-button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<style>
+.hub-card-header {
+  background: rgba(61, 66, 82, 0.07) !important;
+  border-bottom: 1px solid rgba(61, 66, 82, 0.12) !important;
+}
+.hub-badge {
+  background-color: var(--proj-primary, #3d4252);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.2em 0.55em;
+  border-radius: 4px;
+}
+</style>
+{% endblock %}

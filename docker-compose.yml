@@ -21,6 +21,30 @@ services:
     ports:
       - "5432:5432"
 
+  # Ollama (LLM local). El backend habla por HTTP: OLLAMA_BASE_URL=http://ollama:11434
+  #
+  # GPU NVIDIA (Linux/WSL2): usar docker-compose.ollama-gpu.yml override.
+  # Apple Silicon: mejor Ollama nativo en macOS (Metal). Poner en .env:
+  #   OLLAMA_BASE_URL=http://host.docker.internal:11434
+  # y quitar "ollama" de depends_on del backend si no levanta este servicio.
+  ollama:
+    image: ollama/ollama:latest
+    container_name: nba-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    environment:
+      OLLAMA_HOST: "0.0.0.0:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    shm_size: "2gb"
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
   backend:
     build:
       context: .
@@ -37,13 +61,20 @@ services:
       - DJANGO_SETTINGS_MODULE=project.settings
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
       - REDIS_URL=redis://redis:6379/0
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_DEFAULT_MODEL=llama3.1:8b
+      - OLLAMA_SECOND_MODEL=mistral:7b
       - PYTHONMALLOC=malloc
       - MALLOC_ARENA_MAX=2
     env_file:
       - .env
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+      ollama:
+        condition: service_healthy
     mem_limit: 2g
     mem_reservation: 1g
     memswap_limit: 3g
@@ -132,3 +163,4 @@ volumes:
   postgres_data:
   prometheus_data:
   grafana_data:
+  ollama_data:

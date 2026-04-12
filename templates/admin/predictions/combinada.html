@@ -1,0 +1,221 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Apuesta Combinada | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="m3-page">
+<div class="d-flex align-items-center gap-2 mb-4">
+  <md-outlined-button href="{{ hub_url }}">
+    <i class="fas fa-arrow-left"></i>
+  </md-outlined-button>
+  <h1 class="mb-0 md-typescale-headline-medium"><i class="fas fa-layer-group me-2 text-warning"></i>Apuesta Combinada (Acumulador)</h1>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header" style="background: var(--md-sys-color-secondary-container, #e8def8); border: none;">
+        <strong class="md-typescale-title-medium"><i class="fas fa-sliders-h me-1"></i> Configurar acumulador NBA</strong>
+      </div>
+      <div class="md-m3-surface__body">
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.matches_json.label }}</label>
+            {{ form.matches_json }}
+            {% if form.matches_json.help_text %}
+              <div class="form-text">{{ form.matches_json.help_text }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.market.label }}</label>
+            {{ form.market }}
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.n_selections.label }}</label>
+              {{ form.n_selections }}
+            </div>
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.risk_level.label }}</label>
+              {{ form.risk_level }}
+            </div>
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.stake_euros.label }}</label>
+            {{ form.stake_euros }}
+          </div>
+          <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
+            <input type="checkbox" class="m3-checkbox" name="save_bet" id="id_save_bet" value="on" {% if form.save_bet.value %}checked{% endif %}>
+            <label for="id_save_bet" class="md-typescale-body-medium mb-0">{{ form.save_bet.label }}</label>
+          </div>
+
+          <md-filled-tonal-button type="submit" class="m3-btn-block fw-bold">
+            <i class="fas fa-layer-group me-1"></i> Construir acumulador
+          </md-filled-tonal-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    {% if errors %}
+    <div class="m3-alert m3-alert--warning mb-3">
+      <strong>Advertencias:</strong>
+      <ul class="mb-0">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+
+    {% if result and result.selections %}
+    {% with s=result.summary %}
+    <div class="md-m3-surface mb-3">
+      <div class="md-m3-surface__header" style="background: var(--md-sys-color-secondary-container, #e8def8); border: none;">
+        <strong class="md-typescale-title-medium"><i class="fas fa-calculator me-1"></i> Resumen del acumulador</strong>
+      </div>
+      <div class="md-m3-surface__body">
+        <div class="row g-3 text-center">
+          <div class="col-6 col-md-3">
+            <div class="md-m3-stat">
+              <div class="md-m3-stat__label">Selecciones</div>
+              <div class="md-m3-stat__value text-warning">{{ s.n_selections }}</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="md-m3-stat">
+              <div class="md-m3-stat__label">Cuota combinada</div>
+              <div class="md-m3-stat__value">{{ s.combined_odds }}</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="md-m3-stat">
+              <div class="md-m3-stat__label">P(ganar todo)</div>
+              <div class="md-m3-stat__value {% if s.combined_prob_pct >= 30 %}text-success{% elif s.combined_prob_pct >= 15 %}text-warning{% else %}text-danger{% endif %}">
+                {{ s.combined_prob_pct }}%
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="md-m3-stat">
+              <div class="md-m3-stat__label">EV combinado</div>
+              <div class="md-m3-stat__value {% if s.ev_combined and s.ev_combined > 0 %}text-success{% elif s.ev_combined %}text-danger{% endif %}">
+                {% if s.ev_combined %}
+                  {% if s.ev_combined >= 0 %}+{% endif %}{{ s.ev_combined }}
+                {% else %}—{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% if s.stake_euros %}
+        <hr>
+        <div class="row g-3 text-center">
+          <div class="col-4">
+            <div class="small text-muted">Stake</div>
+            <div class="fw-bold">{{ s.stake_euros }} €</div>
+          </div>
+          <div class="col-4">
+            <div class="small text-muted">Retorno potencial</div>
+            <div class="fw-bold text-success">{{ s.potential_return }} €</div>
+          </div>
+          <div class="col-4">
+            <div class="small text-muted">Beneficio potencial</div>
+            <div class="fw-bold text-success">+{{ s.potential_profit }} €</div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endwith %}
+
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header d-flex justify-content-between align-items-center">
+        <strong class="md-typescale-title-medium"><i class="fas fa-list me-1"></i> Selecciones incluidas</strong>
+        <span class="badge bg-warning text-dark">{{ result.selections|length }} pick(s)</span>
+      </div>
+      <div class="md-m3-surface__body md-m3-surface__body--flush p-0">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Partido</th>
+              <th>Mercado</th>
+              <th>Selección</th>
+              <th class="text-end">Prob.</th>
+              <th class="text-end">Cuota</th>
+              <th class="text-end">EV</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sel in result.selections %}
+            <tr>
+              <td class="text-muted fw-bold">{{ forloop.counter }}</td>
+              <td class="small">
+                <div>{{ sel.home_team }}</div>
+                <div class="text-muted">vs {{ sel.away_team }}</div>
+              </td>
+              <td><span class="badge bg-secondary">{{ sel.market }}</span></td>
+              <td>
+                <strong>{{ sel.selection }}</strong>
+                <div class="small text-muted">
+                  {% if sel.side == "home" %}
+                    <i class="fas fa-home text-primary me-1"></i>Local
+                  {% else %}
+                    <i class="fas fa-plane text-info me-1"></i>Visitante
+                  {% endif %}
+                </div>
+              </td>
+              <td class="text-end">
+                <span class="badge {% if sel.probability >= 65 %}bg-success{% elif sel.probability >= 58 %}bg-primary{% else %}bg-warning text-dark{% endif %}">
+                  {{ sel.probability }}%
+                </span>
+              </td>
+              <td class="text-end fw-bold">
+                {% if sel.odds_decimal %}{{ sel.odds_decimal }}
+                {% elif sel.model_odds %}{{ sel.model_odds }}
+                {% else %}—{% endif %}
+              </td>
+              <td class="text-end">
+                {% if sel.ev is not None %}
+                  <span class="{% if sel.ev > 0 %}text-success fw-bold{% else %}text-danger{% endif %}">
+                    {% if sel.ev >= 0 %}+{% endif %}{{ sel.ev }}
+                  </span>
+                {% else %}
+                  <span class="text-muted">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% if saved_record %}
+    <div class="m3-alert m3-alert--success mt-3">
+      <i class="fas fa-check-circle me-1"></i>
+      Apuesta combinada guardada en el registro contable.
+      <a href="{% url 'admin:predictions_bettingrecord_changelist' %}" class="alert-link">Ver registros →</a>
+    </div>
+    {% endif %}
+
+    {% elif request.method == "POST" %}
+    <div class="m3-alert m3-alert--info">
+      <i class="fas fa-info-circle me-1"></i>
+      No se pudo construir el acumulador. Puede que no haya modelos entrenados para el mercado seleccionado
+      o que ningún partido supere el umbral de riesgo. Prueba con un nivel de riesgo más bajo.
+    </div>
+    {% else %}
+    <div class="md-m3-surface text-center py-5 text-muted">
+      <div class="md-m3-surface__body">
+        <i class="fas fa-layer-group fa-3x mb-3 opacity-25 text-warning"></i>
+        <p class="mb-2">Introduce los encuentros NBA, configura el nivel de riesgo y el número de selecciones.</p>
+        <p class="small">El sistema elegirá automáticamente las picks con mayor valor para tu acumulador.</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}

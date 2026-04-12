@@ -1,0 +1,208 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div class="m3-page parent mb-3" data-session-id="{{ session_id|default:'' }}">
+  <div class="div1">
+    <h1 class="md-typescale-headline-medium">Chat</h1>
+    <p class="md-typescale-body-medium text-muted">Conversación con el asistente (LLM vía Ollama) sobre los datos del proyecto NBA. Los mensajes se guardan en la sesión y puede seguir preguntando en la misma conversación.</p>
+  </div>
+  <div class="div2 ia-chat-container">
+    <div class="md-m3-surface ia-chat-card" style="box-shadow: var(--md-sys-elevation-level2, 0 2px 8px rgba(0,0,0,.12));">
+      <div class="md-m3-surface__body p-0" style="display:flex;flex-direction:column;min-height:0;">
+        <div class="ia-chat-model-row d-flex align-items-center flex-wrap gap-2">
+          <span class="md-typescale-label-large" style="font-weight:600;">Modelo:</span>
+          {% if ollama_models %}
+          <md-outlined-select id="ia-chat-model" label="Modelo" style="max-width: 280px; min-width: 12rem;">
+            {% for m in ollama_models %}
+            <md-select-option value="{{ m.value }}"><div slot="headline">{{ m.label }}</div></md-select-option>
+            {% endfor %}
+          </md-outlined-select>
+          {% else %}
+          <md-outlined-select id="ia-chat-model" label="Modelo" disabled style="max-width: 280px;">
+            <md-select-option value=""><div slot="headline">No hay modelos configurados</div></md-select-option>
+          </md-outlined-select>
+          {% endif %}
+        </div>
+        <div id="ia-chat-messages" class="ia-chat-messages">
+          <!-- Mensajes iniciales inyectados por JS desde messages_json -->
+        </div>
+        <div class="p-3 border-top">
+          <div id="chat-error" class="m3-alert m3-alert--error m3-d-none small py-2 mb-2" role="alert"></div>
+          <form id="ia-chat-form" class="ia-chat-input-row">
+            {% csrf_token %}
+            <input type="hidden" id="chat-session-id" name="session_id" value="{{ session_id|default:'' }}">
+            <md-outlined-text-field id="ia-chat-input" name="question" label="Mensaje" placeholder="Escribe tu mensaje..." autocomplete="off" style="flex:9 1 0%;min-width:0;"></md-outlined-text-field>
+            <md-filled-button type="submit" id="ia-chat-send" style="flex:0 0 auto;">
+              <i class="fas fa-paper-plane"></i> Enviar
+            </md-filled-button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <p class="text-muted small mt-2 mb-0">La conversación se guarda en tu sesión de chat.</p>
+  </div>
+</div>
+
+<style>
+.parent {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+.div1 { margin-bottom: 1rem; }
+.div2 { margin-bottom: 1rem; }
+.ia-chat-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ia-chat-card {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.ia-chat-card .md-m3-surface__body {
+  flex: 1;
+  min-height: 0;
+}
+.ia-chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--md-sys-color-surface-container-low, #f8f9fa);
+  border-radius: 0.25rem;
+  border: 1px solid var(--md-sys-color-outline-variant, #dee2e6);
+}
+.ia-chat-message {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  max-width: 85%;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.ia-chat-message.user {
+  margin-left: auto;
+  background: var(--md-sys-color-primary, #0d47a1);
+  color: var(--md-sys-color-on-primary, #fff);
+}
+.ia-chat-message.assistant {
+  background: var(--md-sys-color-surface-container-high, #e8eaed);
+  border: 1px solid var(--md-sys-color-outline-variant, #dee2e6);
+}
+.ia-chat-message .small {
+  opacity: 0.85;
+  font-size: 0.75rem;
+}
+.ia-chat-input-row {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.ia-chat-model-row {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant, #dee2e6);
+  background: var(--md-sys-color-surface, #fff);
+}
+</style>
+
+<script>
+(function() {
+  var form = document.getElementById('ia-chat-form');
+  var input = document.getElementById('ia-chat-input');
+  var messagesEl = document.getElementById('ia-chat-messages');
+  var errorDiv = document.getElementById('chat-error');
+  var sendBtn = document.getElementById('ia-chat-send');
+  var modelSelect = document.getElementById('ia-chat-model');
+  var sessionIdInput = document.getElementById('chat-session-id');
+  var sendDefaultHtml = sendBtn ? sendBtn.innerHTML : '';
+
+  var initialMessages = {{ messages_json|safe }};
+  if (typeof initialMessages === 'undefined') initialMessages = [];
+
+  function escapeHtml(text) {
+    var div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function appendMessage(role, content, label) {
+    var div = document.createElement('div');
+    div.className = 'ia-chat-message ' + role;
+    div.innerHTML = '<div class="small mb-1">' + escapeHtml(label) + '</div><div>' + escapeHtml(content) + '</div>';
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function showWelcomeIfEmpty() {
+    if (messagesEl && messagesEl.children.length === 0) {
+      appendMessage('assistant', 'Hola. Soy el asistente de NBA Data Manager. Puedes preguntarme sobre partidos, equipos, jugadores, métricas avanzadas y predicciones NBA. Escribe tu mensaje abajo.', 'Asistente');
+    }
+  }
+
+  initialMessages.forEach(function(m) {
+    var label = m.role === 'user' ? 'Usted' : 'Asistente';
+    appendMessage(m.role, m.content || '', label);
+  });
+  if (initialMessages.length === 0) showWelcomeIfEmpty();
+
+  if (form && input) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var question = (input.value || '').trim();
+      if (!question) return;
+      var model = modelSelect && !modelSelect.disabled ? modelSelect.value : '';
+      var sessionId = sessionIdInput ? sessionIdInput.value : '';
+      errorDiv.classList.add('m3-d-none');
+      appendMessage('user', question, 'Usted');
+      input.value = '';
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<md-circular-progress indeterminate style="width:20px;height:20px;"></md-circular-progress> Enviando…';
+
+      var body = new FormData();
+      body.append('question', question);
+      body.append('csrfmiddlewaretoken', form.querySelector('[name=csrfmiddlewaretoken]').value);
+      if (model) body.append('model', model);
+      if (sessionId) body.append('session_id', sessionId);
+
+      fetch('/ia/ask/', {
+        method: 'POST',
+        body: body,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.error) {
+            errorDiv.textContent = data.error;
+            errorDiv.classList.remove('m3-d-none');
+            appendMessage('assistant', 'Error: ' + data.error, 'Asistente');
+            return;
+          }
+          appendMessage('assistant', data.answer || '(Sin respuesta)', 'Asistente');
+          if (data.session_id && sessionIdInput) {
+            sessionIdInput.value = String(data.session_id);
+          }
+        })
+        .catch(function(err) {
+          errorDiv.textContent = 'Error: ' + (err.message || 'Conexión');
+          errorDiv.classList.remove('m3-d-none');
+          appendMessage('assistant', 'Error de conexión. Intenta de nuevo.', 'Asistente');
+        })
+        .finally(function() {
+          sendBtn.disabled = false;
+          sendBtn.innerHTML = sendDefaultHtml;
+        });
+    });
+  }
+})();
+</script>
+{% endblock %}

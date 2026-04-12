@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<p class="text-muted">
+  {% blocktranslate %}
+  Equivale a <code>ollama pull &lt;nombre&gt;</code> en el servidor elegido.
+  La descarga puede tardar varios minutos; no cierre la pestaña hasta que el navegador termine la petición.
+  {% endblocktranslate %}
+</p>
+
+{% if not servers %}
+  <p class="text-warning">{% translate "No hay servidores Ollama habilitados. Cree uno en Servidores Ollama y márquelo como habilitado." %}</p>
+  <p><a href="{% url 'admin:ia_ollamaserver_add' %}" class="btn btn-primary">{% translate "Añadir servidor" %}</a></p>
+{% else %}
+<form method="post">
+  {% csrf_token %}
+  <div class="form-row mb-3">
+    <label for="id_server_id" class="form-label">{% translate "Servidor" %}</label>
+    <select name="server_id" id="id_server_id" class="form-control" required>
+      {% for s in servers %}
+      <option value="{{ s.pk }}">{{ s.name }} — {{ s.base_url }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-row mb-3">
+    <label for="id_model_name" class="form-label">{% translate "Nombre del modelo" %}</label>
+    <input type="text" name="model_name" id="id_model_name" class="form-control" required
+           placeholder="{% translate 'ej. llama3.1:8b, mistral:7b, qwen2.5-coder' %}">
+    <small class="form-text text-muted">{% translate "Mismo identificador que usa Ollama (tag opcional, ej. llama3.1:8b)." %}</small>
+  </div>
+  <button type="submit" class="btn btn-primary">{% translate "Iniciar descarga" %}</button>
+  <a href="{% url 'admin:ia_ollamaserver_changelist' %}" class="btn btn-secondary">{% translate "Volver" %}</a>
+</form>
+{% endif %}
+{% endblock %}

@@ -28,6 +28,18 @@ class Command(BaseCommand):
                 self.style.WARNING(f"Manager user already exists ❌ ({error_manager})")
             )
 
+        ok, msg = self.setup_ollama()
+        if ok:
+            self.stdout.write(self.style.SUCCESS(f"Ollama setup: {msg} ✅"))
+        else:
+            self.stdout.write(self.style.WARNING(f"Ollama setup: {msg}"))
+
+        ok, msg = self.setup_system_prompt()
+        if ok:
+            self.stdout.write(self.style.SUCCESS(f"System prompt: {msg} ✅"))
+        else:
+            self.stdout.write(self.style.WARNING(f"System prompt: {msg}"))
+
         # if not error_groups:
         #     self.stdout.write(self.style.SUCCESS("Groups created successfully ✅"))
         # else:
@@ -92,6 +104,64 @@ class Command(BaseCommand):
             return False, "Usuario ya existe"
         except Exception as e:
             return False, str(e)
+
+    def setup_ollama(self):
+        try:
+            from ia.models import OllamaModelConfig, OllamaServer
+            from ia.ollama_defaults import get_default_ollama_model_specs
+
+            base_url = getattr(settings, "OLLAMA_BASE_URL", "http://localhost:11434")
+            server, created = OllamaServer.objects.get_or_create(
+                name="Local Ollama",
+                defaults={"base_url": base_url, "enabled": True},
+            )
+
+            specs = get_default_ollama_model_specs()
+            count = 0
+            for spec in specs:
+                _, mc = OllamaModelConfig.objects.get_or_create(
+                    server=server,
+                    model_name=spec["model_name"],
+                    defaults={
+                        "purpose": spec.get("purpose", "general"),
+                        "context_tokens": spec.get("context_tokens", 4096),
+                        "is_default": spec.get("is_default", False),
+                        "enabled": True,
+                    },
+                )
+                if mc:
+                    count += 1
+
+            return True, f"{'creado' if created else 'existente'}, {count} modelos configurados"
+        except Exception as exc:
+            return False, str(exc)
+
+    def setup_system_prompt(self):
+        try:
+            from ia.models import SystemPrompt
+
+            nba_prompt = (
+                "Eres un asistente experto en análisis de baloncesto NBA. "
+                "Tienes acceso a estadísticas de equipos y jugadores, métricas avanzadas "
+                "(eFG%, TS%, PER, ORTG, DRTG), y modelos de predicción para mercados de "
+                "apuestas (moneyline, totales, spreads). "
+                "Ayuda a analizar partidos, interpretar features del modelo XGBoost, "
+                "identificar valor en cuotas y evaluar el rendimiento histórico del modelo. "
+                "Responde siempre en español y de forma concisa. "
+                "Cuando des probabilidades o picks, indica siempre el nivel de confianza "
+                "y el contexto (forma reciente, H2H, lesiones si las conoces)."
+            )
+
+            _, created = SystemPrompt.objects.get_or_create(
+                name="NBA Assistant",
+                defaults={
+                    "content": nba_prompt,
+                    "is_active": True,
+                },
+            )
+            return True, "creado" if created else "ya existía"
+        except Exception as exc:
+            return False, str(exc)
 
     def create_groups_and_permissions(self):
         try:

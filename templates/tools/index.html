@@ -1,0 +1,390 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div class="m3-page parent command-runner-page mb-3">
+  <div id="command-runner-result"></div>
+
+  <div class="mb-3">
+    <h3 class="md-typescale-title-large mb-1">Ejecución de comandos</h3>
+    <p class="md-typescale-body-small text-muted mb-0">Solo se muestran comandos definidos en <code>project_commands</code>.</p>
+  </div>
+  {% for group in command_groups %}
+  <div class="md-m3-surface mb-4">
+  <div class="md-m3-surface__header">
+    <h3 class="md-typescale-title-medium mb-0">{{ group.title }}</h3>
+  </div>
+  <div class="md-m3-surface__body md-m3-surface__body--flush p-0">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped mb-0 align-middle command-runner-grid">
+        <colgroup>
+          <col class="col-command">
+          <col class="col-arg">
+          <col class="col-arg">
+          <col class="col-arg">
+          <col class="col-arg">
+          <col class="col-arg">
+          <col class="col-arg">
+          <col class="col-button">
+        </colgroup>
+        <tbody>
+          {% for cmd in group.commands %}
+          <tr data-command="{{ cmd.name }}">
+            <td class="align-top py-3 ps-3 col-command">
+              <form id="form-{{ cmd.name }}" method="post" action="" class="command-form d-none" aria-hidden="true">{% csrf_token %}<input type="hidden" name="command" value="{{ cmd.name }}"></form>
+              <strong>{{ cmd.display_name }}</strong>
+              <p class="text-muted small mb-0 mt-1">{{ cmd.help }}</p>
+              {% if cmd.help_detail %}
+              <ul class="text-muted small mb-0 mt-2 ps-3" style="line-height: 1.45; max-width: 42rem;">
+                {% for step in cmd.help_detail %}
+                <li class="mb-1">{{ step }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </td>
+            {% for arg in cmd.args_padded %}
+            <td class="align-top py-3 px-2 col-arg">
+              {% if arg %}
+                {% if arg.1 == "checkbox" %}
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <input type="checkbox" class="m3-checkbox"
+                         form="form-{{ cmd.name }}" name="{{ arg.0 }}"
+                         id="id-{{ cmd.name }}-{{ arg.0 }}">
+                  <label class="small mb-0" for="id-{{ cmd.name }}-{{ arg.0 }}">{{ arg.2 }}</label>
+                </div>
+                {% elif arg.1 == "choice" and arg.3 %}
+                <md-outlined-select label="{{ arg.2 }}" form="form-{{ cmd.name }}" name="{{ arg.0 }}" id="id-{{ cmd.name }}-{{ arg.0 }}" style="width:100%;">
+                  {% for opt_val, opt_label in arg.3 %}
+                  <md-select-option value="{{ opt_val }}"><div slot="headline">{{ opt_label }}</div></md-select-option>
+                  {% endfor %}
+                </md-outlined-select>
+                {% else %}
+                <md-outlined-text-field label="{{ arg.2 }}" form="form-{{ cmd.name }}" name="{{ arg.0 }}" id="id-{{ cmd.name }}-{{ arg.0 }}" placeholder="{{ arg.0 }}" style="width:100%;"></md-outlined-text-field>
+                {% endif %}
+              {% endif %}
+            </td>
+            {% endfor %}
+            <td class="align-middle py-3 pe-3 col-button">
+              <div class="command-progress m3-d-none">
+                <small class="text-muted command-progress-desc d-block mb-1" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:9rem;"></small>
+                <md-linear-progress value="0"></md-linear-progress>
+                <small class="text-muted command-progress-pct">0%</small>
+              </div>
+              <md-filled-button type="submit" form="form-{{ cmd.name }}" class="command-submit m3-btn-block">
+                Ejecutar
+              </md-filled-button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if result %}{{ result|json_script:"initial-command-result" }}{% endif %}
+
+<style>
+.parent.command-runner-page {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.command-runner-page .md-m3-surface,
+.command-runner-page .command-result-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.command-runner-grid { table-layout: fixed; }
+.command-runner-grid .col-command { width: 22%; }
+.command-runner-grid .col-arg { width: 13%; min-width: 10rem; }
+.command-runner-grid .col-button { width: 9%; min-width: 8rem; }
+.command-progress md-linear-progress { margin-bottom: 0.25rem; }
+.command-live-card .md-m3-surface__header { gap: 0.75rem; }
+.command-live-bar { --md-linear-progress-track-height: 6px; --md-linear-progress-active-indicator-height: 6px; }
+@media (max-width: 1200px) {
+  .command-runner-grid .col-arg { min-width: 8rem; }
+}
+</style>
+
+<script>
+(function() {
+  var STREAM_URL = '/tools/stream/';
+
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function snakeToTitle(s) {
+    if (!s) return s;
+    var t = String(s).replace(/_/g, ' ');
+    return t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+  }
+
+  function elementLabel(el, row) {
+    if (el.id && row) {
+      var forAttr = (typeof CSS !== 'undefined' && CSS.escape) ? CSS.escape(el.id) : el.id.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      var labelEl = row.querySelector('label[for="' + forAttr + '"]');
+      if (labelEl) return labelEl.textContent.trim();
+    }
+    if (el.tagName === 'MD-OUTLINED-SELECT' || el.tagName === 'MD-OUTLINED-TEXT-FIELD') {
+      return el.label || el.name || '';
+    }
+    return el.name || '';
+  }
+
+  function optionDisplayText(el) {
+    if (el.tagName !== 'MD-OUTLINED-SELECT') return el.value;
+    var opts = el.querySelectorAll('md-select-option');
+    var i, o;
+    for (i = 0; i < opts.length; i++) {
+      o = opts[i];
+      if (o.value === el.value) {
+        return o.getAttribute('headline') || o.headline || o.textContent.trim() || o.value;
+      }
+    }
+    return el.value;
+  }
+
+  function buildConfigFromForm(form, row) {
+    var config = [];
+    var i, el, labelText, val;
+    for (i = 0; i < form.elements.length; i++) {
+      el = form.elements[i];
+      if (!el.name || el.name === 'csrfmiddlewaretoken' || el.name === 'command') continue;
+      labelText = elementLabel(el, row);
+      if (el.tagName === 'MD-CHECKBOX') {
+        val = el.checked ? 'Sí' : 'No';
+      } else if (el.type === 'checkbox') {
+        val = el.checked ? 'Sí' : 'No';
+      } else if (el.tagName === 'MD-OUTLINED-SELECT' || el.tagName === 'SELECT') {
+        val = optionDisplayText(el);
+      } else if (el.tagName === 'MD-OUTLINED-TEXT-FIELD' || el.tagName === 'MD-FILLED-TEXT-FIELD') {
+        val = (el.value || '').trim() || '(vacío)';
+      } else if (el.tagName === 'SELECT') {
+        val = el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : el.value;
+      } else {
+        val = (el.value || '').trim() || '(vacío)';
+      }
+      config.push({ label: labelText, value: val });
+    }
+    return config;
+  }
+
+  function renderConfigHtml(config) {
+    if (!config || config.length === 0) return '<p class="text-muted mb-0">—</p>';
+    var parts = [];
+    var i, item;
+    for (i = 0; i < config.length; i++) {
+      item = config[i];
+      if (item.label !== undefined && item.value !== undefined) {
+        parts.push(escapeHtml(item.label) + ': <span class="text-muted">' + escapeHtml(String(item.value)) + '</span>');
+      } else if (Array.isArray(item)) {
+        parts.push(escapeHtml(String(item[0])) + ': <span class="text-muted">' + escapeHtml(String(item[1] || '')) + '</span>');
+      }
+    }
+    return '<ul class="list-unstyled mb-0">' + parts.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
+  }
+
+  function getGroupCardForCommand(cmdName) {
+    var row = document.querySelector('tr[data-command="' + (cmdName || '').replace(/"/g, '\\"') + '"]');
+    return row ? row.closest('.md-m3-surface') : null;
+  }
+
+  function removeLiveCard(groupCard) {
+    if (!groupCard) return;
+    var sib = groupCard.nextElementSibling;
+    if (sib && sib.classList.contains('command-live-card')) sib.remove();
+  }
+
+  function insertResultCardAfterGroupCard(groupCard, command, config, output, success) {
+    if (!groupCard) return;
+    removeLiveCard(groupCard);
+    var existing = groupCard.nextElementSibling;
+    if (existing && existing.classList.contains('command-result-card')) existing.remove();
+    var edgeClass = success === true ? 'md-m3-result-ok' : 'md-m3-result-fail';
+    var headerTitle = success === true ? 'Comando ejecutado correctamente' : 'Error al ejecutar el comando';
+    var configHtml = renderConfigHtml(config);
+    var outputEscaped = output != null ? escapeHtml(String(output)) : '';
+    var cardHtml =
+      '<div class="md-m3-surface mb-4 command-result-card ' + edgeClass + '">' +
+      '<div class="md-m3-surface__header"><span class="md-typescale-title-small"><strong>' + escapeHtml(headerTitle) + '</strong></span></div>' +
+      '<div class="md-m3-surface__body">' +
+      '<p class="mb-1 md-typescale-body-medium"><strong>Comando ejecutado</strong></p>' +
+      '<p class="text-muted small mb-3">' + escapeHtml(snakeToTitle(command) || '—') + '</p>' +
+      '<p class="mb-1 md-typescale-body-medium"><strong>Configuración elegida</strong></p>' +
+      '<div class="small mb-3">' + configHtml + '</div>' +
+      '<p class="mb-1 md-typescale-body-medium"><strong>Resultado de la ejecución</strong></p>' +
+      '<pre class="p-3 rounded overflow-auto mb-0 small" style="max-height: 18rem; white-space: pre-wrap; background: var(--md-sys-color-surface-container-high, #f5f5f5);">' + outputEscaped + '</pre>' +
+      '</div></div>';
+    groupCard.insertAdjacentHTML('afterend', cardHtml);
+  }
+
+  function createLiveCard(groupCard, cmdName) {
+    removeLiveCard(groupCard);
+    var card = document.createElement('div');
+    card.className = 'md-m3-surface mb-4 command-live-card';
+    card.innerHTML =
+      '<div class="md-m3-surface__header d-flex align-items-center gap-3">' +
+        '<div class="spinner-border spinner-border-sm text-secondary flex-shrink-0" role="status"><span class="visually-hidden">Ejecutando…</span></div>' +
+        '<span class="md-typescale-title-small">Ejecutando <strong>' + escapeHtml(snakeToTitle(cmdName)) + '</strong>…</span>' +
+      '</div>' +
+      '<div class="md-m3-surface__body">' +
+        '<div class="d-flex align-items-center gap-2 mb-1">' +
+          '<md-linear-progress class="command-live-bar flex-grow-1" value="0"></md-linear-progress>' +
+          '<small class="text-muted command-live-pct text-nowrap" style="min-width:2.5rem;text-align:right;">0%</small>' +
+        '</div>' +
+        '<small class="text-muted command-live-desc d-block mb-2" style="min-height:1.2em;"></small>' +
+        '<pre class="command-live-log p-2 rounded small overflow-auto mb-0" ' +
+          'style="max-height:14rem;min-height:3rem;white-space:pre-wrap;background:var(--md-sys-color-surface-container-high,#f5f5f5);font-size:.78rem;"></pre>' +
+      '</div>';
+    if (groupCard) {
+      var next = groupCard.nextElementSibling;
+      if (next && next.classList.contains('command-result-card')) next.remove();
+      groupCard.insertAdjacentElement('afterend', card);
+    }
+    return card;
+  }
+
+  document.querySelectorAll('.command-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var cmdName = form.querySelector('input[name="command"]').value;
+      var row = form.closest('tr');
+      var groupCard = row ? row.closest('.md-m3-surface') : null;
+      var progressDiv = row ? row.querySelector('.command-progress') : null;
+      var progressDesc = progressDiv ? progressDiv.querySelector('.command-progress-desc') : null;
+      var progressBar = progressDiv ? progressDiv.querySelector('md-linear-progress') : null;
+      var progressPct = progressDiv ? progressDiv.querySelector('.command-progress-pct') : null;
+      var btn = row ? row.querySelector('.command-submit') : null;
+
+      if (progressDiv) progressDiv.classList.remove('m3-d-none');
+      if (btn) btn.disabled = true;
+
+      function setInlineProgress(val, desc) {
+        val = Math.min(Math.max(val || 0, 0), 100);
+        if (progressBar) progressBar.value = val / 100;
+        if (progressPct) progressPct.textContent = Math.round(val) + '%';
+        if (progressDesc && desc !== undefined) progressDesc.textContent = desc || '';
+      }
+      setInlineProgress(0);
+
+      var liveCard = createLiveCard(groupCard, cmdName);
+      var liveBar = liveCard.querySelector('.command-live-bar');
+      var livePct = liveCard.querySelector('.command-live-pct');
+      var liveDesc = liveCard.querySelector('.command-live-desc');
+      var liveLog = liveCard.querySelector('.command-live-log');
+
+      function setLiveProgress(val, desc) {
+        val = Math.min(Math.max(val || 0, 0), 100);
+        setInlineProgress(val, desc);
+        if (liveBar) liveBar.value = val / 100;
+        if (livePct) livePct.textContent = Math.round(val) + '%';
+        if (desc !== undefined && liveDesc) liveDesc.textContent = desc || '';
+      }
+
+      function appendLog(text) {
+        if (!liveLog) return;
+        liveLog.textContent += text + '\n';
+        liveLog.scrollTop = liveLog.scrollHeight;
+      }
+
+      var configForCard = buildConfigFromForm(form, row);
+      var body = new FormData(form);
+
+      function finish(success, output) {
+        setLiveProgress(100);
+        setTimeout(function() {
+          insertResultCardAfterGroupCard(groupCard, cmdName, configForCard, output || '', success);
+        }, 300);
+        setTimeout(function() {
+          if (progressDiv) progressDiv.classList.add('m3-d-none');
+          setInlineProgress(0, '');
+          if (btn) btn.disabled = false;
+        }, 400);
+      }
+
+      fetch(STREAM_URL, {
+        method: 'POST',
+        body: body,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      }).then(function(response) {
+        if (!response.body) {
+          // Fallback: navegador sin soporte ReadableStream
+          return response.json().then(function(data) {
+            finish(data.success, data.output || '');
+          });
+        }
+        var reader = response.body.getReader();
+        var decoder = new TextDecoder();
+        var buf = '';
+
+        function processBuffer() {
+          // SSE: bloques separados por \n\n
+          var blocks = buf.split('\n\n');
+          buf = blocks.pop();
+          blocks.forEach(function(block) {
+            block.split('\n').forEach(function(line) {
+              if (!line.startsWith('data: ')) return;
+              try {
+                var evt = JSON.parse(line.slice(6));
+                if (evt.type === 'progress') {
+                  setLiveProgress(evt.pct, evt.desc || '');
+                } else if (evt.type === 'output') {
+                  appendLog(evt.text || '');
+                } else if (evt.type === 'done') {
+                  finish(evt.success, evt.output || '');
+                }
+              } catch (_) {}
+            });
+          });
+        }
+
+        function read() {
+          return reader.read().then(function(result) {
+            if (result.done) return;
+            buf += decoder.decode(result.value, { stream: true });
+            processBuffer();
+            return read();
+          });
+        }
+        return read();
+      }).catch(function(err) {
+        if (liveCard && liveCard.parentNode) liveCard.remove();
+        insertResultCardAfterGroupCard(groupCard, cmdName, configForCard, 'Error de conexión: ' + (err.message || ''), false);
+        if (progressDiv) progressDiv.classList.add('m3-d-none');
+        setInlineProgress(0, '');
+        if (btn) btn.disabled = false;
+      });
+    });
+  });
+
+  var initialScript = document.getElementById('initial-command-result');
+  if (initialScript) {
+    try {
+      var initialResult = JSON.parse(initialScript.textContent);
+      if (initialResult) {
+        var groupCard = getGroupCardForCommand(initialResult.command);
+        insertResultCardAfterGroupCard(
+          groupCard,
+          initialResult.command || '',
+          initialResult.config || [],
+          initialResult.output != null ? initialResult.output : '',
+          initialResult.success
+        );
+      }
+    } catch (e) {}
+  }
+})();
+</script>
+{% endblock %}

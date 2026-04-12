@@ -1,0 +1,194 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}Pre-partido | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="m3-page">
+<div class="d-flex align-items-center gap-2 mb-4">
+  <md-outlined-button href="{{ hub_url }}">
+    <i class="fas fa-arrow-left"></i>
+  </md-outlined-button>
+  <h1 class="mb-0 md-typescale-headline-medium"><i class="fas fa-calendar-alt me-2 text-primary"></i>Pre-partido NBA</h1>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header" style="background: var(--md-sys-color-primary-container, #d3e3fd); border: none;">
+        <strong class="md-typescale-title-medium"><i class="fas fa-sliders-h me-1"></i> Parámetros del pronóstico</strong>
+      </div>
+      <div class="md-m3-surface__body">
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.home_team.label }}</label>
+            {{ form.home_team }}
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.away_team.label }}</label>
+            {{ form.away_team }}
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.match_date.label }}</label>
+            {{ form.match_date }}
+            {% if form.match_date.help_text %}
+              <div class="form-text">{{ form.match_date.help_text }}</div>
+            {% endif %}
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.market.label }}</label>
+            {{ form.market }}
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.n_predictions.label }}</label>
+            {{ form.n_predictions }}
+          </div>
+
+          <hr>
+          <p class="text-muted small mb-2">Cuotas (opcional, para cálculo de EV)</p>
+          <div class="row g-2 mb-3">
+            <div class="col-6 m3-field">
+              <label class="form-label small">{{ form.odds_home.label }}</label>
+              {{ form.odds_home }}
+            </div>
+            <div class="col-6 m3-field">
+              <label class="form-label small">{{ form.odds_away.label }}</label>
+              {{ form.odds_away }}
+            </div>
+          </div>
+
+          <hr>
+          <div class="mb-3 m3-field">
+            <label class="form-label fw-semibold">{{ form.risk_level.label }}</label>
+            {{ form.risk_level }}
+          </div>
+
+          <hr>
+          <div class="mb-2 d-flex align-items-center gap-2 flex-wrap">
+            <input type="checkbox" class="m3-checkbox" name="save_bet" id="id_save_bet" value="on" {% if form.save_bet.value %}checked{% endif %}>
+            <label for="id_save_bet" class="md-typescale-body-medium mb-0">{{ form.save_bet.label }}</label>
+          </div>
+          <div class="mb-3 m3-field {% if not form.save_bet.value %}m3-d-none{% endif %}" id="stake-group">
+            <label class="form-label small">{{ form.stake_euros.label }}</label>
+            {{ form.stake_euros }}
+          </div>
+
+          <md-filled-button type="submit" class="m3-btn-block mt-2">
+            <i class="fas fa-brain me-1"></i> Generar pronósticos
+          </md-filled-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    {% if errors %}
+    <div class="m3-alert m3-alert--warning mb-3">
+      <strong>Advertencias:</strong>
+      <ul class="mb-0">
+        {% for e in errors %}<li>{{ e }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if predictions %}
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header d-flex justify-content-between align-items-center">
+        <strong class="md-typescale-title-medium"><i class="fas fa-chart-bar me-1"></i> Top {{ predictions|length }} pronósticos</strong>
+        <span class="badge bg-primary">{{ predictions|length }} resultado(s)</span>
+      </div>
+      <div class="md-m3-surface__body md-m3-surface__body--flush p-0">
+        <table class="table table-hover mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Mercado</th>
+              <th>Selección</th>
+              <th class="text-end">Prob.</th>
+              <th class="text-end">Cuota modelo</th>
+              <th class="text-end">Cuota casa</th>
+              <th class="text-end">EV</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in predictions %}
+            <tr>
+              <td class="text-muted">{{ forloop.counter }}</td>
+              <td><span class="badge bg-secondary">{{ p.market }}</span></td>
+              <td>
+                <strong>{{ p.selection }}</strong><br>
+                <small class="text-muted">
+                  {% if p.side == "home" %}
+                    <i class="fas fa-home text-primary me-1"></i>Local
+                  {% else %}
+                    <i class="fas fa-plane text-info me-1"></i>Visitante
+                  {% endif %}
+                </small>
+              </td>
+              <td class="text-end">
+                <span class="badge {% if p.probability >= 65 %}bg-success{% elif p.probability >= 58 %}bg-primary{% else %}bg-warning text-dark{% endif %}">
+                  {{ p.probability }}%
+                </span>
+              </td>
+              <td class="text-end fw-bold">
+                {% if p.model_odds %}{{ p.model_odds }}{% else %}—{% endif %}
+              </td>
+              <td class="text-end">
+                {% if p.odds_decimal %}{{ p.odds_decimal }}{% else %}<span class="text-muted">—</span>{% endif %}
+              </td>
+              <td class="text-end">
+                {% if p.ev is not None %}
+                  <span class="{% if p.ev > 0 %}text-success fw-bold{% else %}text-danger{% endif %}">
+                    {% if p.ev >= 0 %}+{% endif %}{{ p.ev }}
+                  </span>
+                {% else %}
+                  <span class="text-muted">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {% if saved_records %}
+    <div class="m3-alert m3-alert--success mt-3">
+      <i class="fas fa-check-circle me-1"></i>
+      {{ saved_records|length }} apuesta(s) guardadas en el registro contable.
+      <a href="{% url 'admin:predictions_bettingrecord_changelist' %}" class="alert-link">Ver registros ��</a>
+    </div>
+    {% endif %}
+
+    {% elif request.method == "POST" %}
+    <div class="m3-alert m3-alert--info">
+      <i class="fas fa-info-circle me-1"></i>
+      No se encontraron pronósticos que superen el umbral de riesgo seleccionado.
+      Prueba con un nivel de riesgo más bajo o un mercado diferente.
+    </div>
+    {% else %}
+    <div class="md-m3-surface text-center py-5 text-muted">
+      <div class="md-m3-surface__body">
+        <i class="fas fa-chart-line fa-3x mb-3 opacity-25"></i>
+        <p>Completa el formulario y pulsa <strong>Generar pronósticos</strong> para ver los resultados aquí.</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var saveBetCheck = document.querySelector('#id_save_bet');
+  var stakeGroup = document.querySelector('#stake-group');
+  if (saveBetCheck && stakeGroup) {
+    saveBetCheck.addEventListener('change', function() {
+      stakeGroup.classList.toggle('m3-d-none', !this.checked);
+    });
+  }
+});
+</script>
+{% endblock %}

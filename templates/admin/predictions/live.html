@@ -1,0 +1,230 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}En directo | {{ site_title }}{% endblock %}
+
+{% block content %}
+<div class="m3-page">
+<div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+  <md-outlined-button href="{{ hub_url }}">
+    <i class="fas fa-arrow-left"></i>
+  </md-outlined-button>
+  <h1 class="mb-0 md-typescale-headline-medium">
+    <i class="fas fa-broadcast-tower me-2 text-danger"></i>En directo
+    <span class="badge bg-danger fs-6 ms-2 align-middle">LIVE</span>
+  </h1>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header" style="background: var(--md-sys-color-error-container, #fce8e6); border: none;">
+        <strong class="md-typescale-title-medium"><i class="fas fa-paper-plane me-1"></i> Volcar lote de datos</strong>
+      </div>
+      <div class="md-m3-surface__body">
+        <p class="text-muted small mb-3">
+          Cada envío ejecuta: <strong>Parseo → Features → Inferencia</strong>.
+          Puedes enviar múltiples lotes para ver la evolución de la probabilidad por cuartos.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+
+          <div class="row g-2 mb-3">
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.home_team.label }}</label>
+              {{ form.home_team }}
+            </div>
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.away_team.label }}</label>
+              {{ form.away_team }}
+            </div>
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label small fw-semibold">{{ form.game_id.label }}</label>
+            {{ form.game_id }}
+            {% if form.game_id.help_text %}
+              <div class="form-text">{{ form.game_id.help_text }}</div>
+            {% endif %}
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.market.label }}</label>
+              {{ form.market }}
+            </div>
+            <div class="col-6 m3-field">
+              <label class="form-label small fw-semibold">{{ form.risk_level.label }}</label>
+              {{ form.risk_level }}
+            </div>
+          </div>
+          <div class="mb-3 m3-field">
+            <label class="form-label small fw-semibold">{{ form.live_data_json.label }}</label>
+            {{ form.live_data_json }}
+            {% if form.live_data_json.help_text %}
+              <div class="form-text">{{ form.live_data_json.help_text }}</div>
+            {% endif %}
+          </div>
+
+          <md-filled-button type="submit" class="m3-btn-block" style="--md-filled-button-container-color: var(--md-sys-color-error);">
+            <i class="fas fa-upload me-1"></i> Procesar lote
+          </md-filled-button>
+        </form>
+      </div>
+    </div>
+
+    <div class="md-m3-surface mt-3">
+      <div class="md-m3-surface__header">
+        <small class="fw-semibold text-muted md-typescale-label-large"><i class="fas fa-code me-1"></i> Schema JSON admitido</small>
+      </div>
+      <div class="md-m3-surface__body p-2">
+        <pre class="small mb-0 text-muted" style="font-size:0.75rem">{
+  "home_team_id": "1610612738",
+  "away_team_id": "1610612747",
+  "quarter": 3,
+  "time_remaining": "5:32",
+  "home_score": 87,
+  "away_score": 82,
+  "win_probability_home": 0.64,
+  "play_events": [
+    {
+      "play_id": "p1",
+      "home_win_pct": 0.64,
+      "team_to_win": "Home"
+    }
+  ]
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    {% if errors %}
+    <div class="m3-alert m3-alert--warning mb-3">
+      <strong>Errores:</strong>
+      <ul class="mb-0">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+
+    {% if result %}
+    <div class="md-m3-surface mb-3">
+      <div class="md-m3-surface__header d-flex justify-content-between align-items-center" style="background: var(--md-sys-color-error-container, #fce8e6); border: none;">
+        <strong class="md-typescale-title-medium"><i class="fas fa-chart-pie me-1"></i> Pronóstico actual</strong>
+        <span class="badge bg-light text-danger">{{ result.market }}</span>
+      </div>
+      <div class="md-m3-surface__body">
+        <div class="row text-center g-3">
+          <div class="col-5">
+            <div class="p-3 rounded {% if result.prob_home >= 50 %}bg-success bg-opacity-10 border border-success{% else %}bg-light{% endif %}">
+              <div class="small text-muted mb-1">
+                <i class="fas fa-home me-1"></i>{{ result.home_team }}
+              </div>
+              <div class="fs-2 fw-bold {% if result.prob_home >= 50 %}text-success{% else %}text-secondary{% endif %}">
+                {{ result.prob_home }}%
+              </div>
+              <div class="small text-muted">
+                Cuota modelo: <strong>{{ result.model_odds_home|default:"—" }}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 d-flex align-items-center justify-content-center">
+            <span class="fw-bold text-muted fs-5">VS</span>
+          </div>
+          <div class="col-5">
+            <div class="p-3 rounded {% if result.prob_away >= 50 %}bg-primary bg-opacity-10 border border-primary{% else %}bg-light{% endif %}">
+              <div class="small text-muted mb-1">
+                <i class="fas fa-plane me-1"></i>{{ result.away_team }}
+              </div>
+              <div class="fs-2 fw-bold {% if result.prob_away >= 50 %}text-primary{% else %}text-secondary{% endif %}">
+                {{ result.prob_away }}%
+              </div>
+              <div class="small text-muted">
+                Cuota modelo: <strong>{{ result.model_odds_away|default:"—" }}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3 text-center border-top pt-3">
+          <div class="col-3">
+            <div class="small text-muted">Cuarto</div>
+            <div class="fw-bold">Q{{ result.quarter|default:"—" }}</div>
+          </div>
+          <div class="col-3">
+            <div class="small text-muted">Marcador</div>
+            <div class="fw-bold">{{ result.home_score }} – {{ result.away_score }}</div>
+          </div>
+          <div class="col-3">
+            <div class="small text-muted">Favorito</div>
+            <div class="fw-bold">{{ result.favored }}</div>
+          </div>
+          <div class="col-3">
+            <div class="small text-muted">Confianza</div>
+            <div class="fw-bold {% if result.favored_prob >= 65 %}text-success{% elif result.favored_prob >= 58 %}text-warning{% else %}text-secondary{% endif %}">
+              {{ result.favored_prob }}%
+            </div>
+          </div>
+        </div>
+
+        {% if result.above_threshold %}
+        <div class="m3-alert m3-alert--success mt-3 mb-0 py-2">
+          <i class="fas fa-check-circle me-1"></i>
+          Este pronóstico supera el umbral de riesgo seleccionado.
+        </div>
+        {% else %}
+        <div class="m3-alert m3-alert--warning mt-3 mb-0 py-2">
+          <i class="fas fa-exclamation-triangle me-1"></i>
+          Pronóstico por debajo del umbral de riesgo. Baja confianza.
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if history %}
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header d-flex justify-content-between align-items-center">
+        <strong class="md-typescale-title-medium"><i class="fas fa-history me-1"></i> Historial de lotes</strong>
+        <md-outlined-button href="?clear_history=1">
+          <i class="fas fa-trash me-1"></i> Limpiar
+        </md-outlined-button>
+      </div>
+      <div class="md-m3-surface__body md-m3-surface__body--flush p-0">
+        <table class="table table-sm mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Partido</th>
+              <th>Cuarto</th>
+              <th>Marcador</th>
+              <th class="text-end">P(Local)</th>
+              <th class="text-end">P(Visit.)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for h in history %}
+            <tr>
+              <td class="small">{{ h.home_team }} vs {{ h.away_team }}</td>
+              <td class="text-center">Q{{ h.quarter }}</td>
+              <td class="text-center">{{ h.home_score }} – {{ h.away_score }}</td>
+              <td class="text-end">
+                <span class="{% if h.prob_home >= 58 %}text-success fw-bold{% endif %}">{{ h.prob_home }}%</span>
+              </td>
+              <td class="text-end">
+                <span class="{% if h.prob_away >= 58 %}text-primary fw-bold{% endif %}">{{ h.prob_away }}%</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% elif not result %}
+    <div class="md-m3-surface text-center py-5 text-muted">
+      <div class="md-m3-surface__body">
+        <i class="fas fa-broadcast-tower fa-3x mb-3 opacity-25 text-danger"></i>
+        <p>Vuelca el primer lote de datos para ver el pronóstico en tiempo real.</p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}

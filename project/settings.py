@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     # Project apps
+    "core",
     "dashboard",
+    "features",
     "game",
     "game_boxscore",
     "ia",
@@ -1150,3 +1152,24 @@ TEAMS_GLOSSARY = {
     "DEF_GLTND": "Goaltending Defensivo",
     "DEF_GOALTENDING": "Goaltending Defensivo",
 }
+
+# ---------------------------------------------------------------------------
+# ML / Features / IA settings
+# ---------------------------------------------------------------------------
+
+# Ollama LLM
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434")
+
+# Default Ollama models
+OLLAMA_DEFAULT_MODEL = os.getenv("OLLAMA_DEFAULT_MODEL", "llama3.1:8b")
+OLLAMA_SECOND_MODEL = os.getenv("OLLAMA_SECOND_MODEL", "mistral:7b")
+
+# Model storage path (joblib serialized models)
+MODEL_STORAGE_PATH = os.getenv("MODEL_STORAGE_PATH", str(BASE_DIR / "models"))
+
+# Feature cache prefix and TTL (seconds) for Redis
+FEATURES_CACHE_PREFIX = os.getenv("FEATURES_CACHE_PREFIX", "nba_features")
+FEATURES_CACHE_TTL = int(os.getenv("FEATURES_CACHE_TTL", "3600"))
+
+# MLflow (optional)
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "")

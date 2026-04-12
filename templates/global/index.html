@@ -1,0 +1,189 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div class="m3-page parent mb-3">
+  <div class="div1">
+    <h1 class="md-typescale-headline-medium">{{ title }}</h1>
+    <p class="md-typescale-body-medium text-muted">
+      Para cada métrica NBA se muestra el equipo que más destaca (valor máximo),
+      a partir del historial disponible. Seleccione la temporada de referencia.
+    </p>
+  </div>
+
+  <div class="div2">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header">
+        <h3 class="md-typescale-title-medium mb-0">Selección</h3>
+      </div>
+      <div class="md-m3-surface__body">
+        <form id="form-global" class="m3-form-row">
+          {% csrf_token %}
+          <md-outlined-select label="Temporada" name="season" id="id_season" style="min-width:14rem;max-width:100%;">
+            {% for val, label in season_choices %}
+            <md-select-option value="{{ val }}"><div slot="headline">{{ label }}</div></md-select-option>
+            {% endfor %}
+          </md-outlined-select>
+          <div style="flex:1;min-width:0"></div>
+          <md-filled-button type="submit" id="btn-global" style="min-width:12rem;">
+            <i class="fas fa-chart-bar"></i> Generar resumen
+          </md-filled-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="div3">
+    <div id="global-error" class="m3-alert m3-alert--error m3-d-none" role="alert"></div>
+    <div id="global-charts" class="m3-d-none">
+      <div class="md-m3-surface">
+        <div class="md-m3-surface__header">
+          <h3 class="md-typescale-title-medium mb-0">Equipos que más destacan por métrica NBA</h3>
+          <p class="md-typescale-body-small text-muted mb-0 mt-1">
+            Barra por métrica (PTS, REB, AST, FG%, Win%, PTS concedidos), con el equipo correspondiente indicado.
+          </p>
+        </div>
+        <div class="md-m3-surface__body md-m3-surface__body--flush">
+          <div class="p-3">
+            <div class="chart-container mb-4" style="position: relative; height: 320px;">
+              <canvas id="chart-global"></canvas>
+            </div>
+          </div>
+          <div class="table-responsive px-3 pb-3">
+            <table class="table table-sm table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>Métrica</th>
+                  <th>Equipo</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody id="global-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var form = document.getElementById('form-global');
+  var btn = document.getElementById('btn-global');
+  var chartsDiv = document.getElementById('global-charts');
+  var errorDiv = document.getElementById('global-error');
+  var tableBody = document.getElementById('global-table-body');
+  var chartInstance = null;
+  var btnDefaultHtml = btn ? btn.innerHTML : '';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var seasonEl = document.getElementById('id_season');
+    var season = seasonEl ? seasonEl.value : '';
+    errorDiv.classList.add('m3-d-none');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<md-circular-progress indeterminate style="width:22px;height:22px;vertical-align:middle;"></md-circular-progress> <span class="md-typescale-label-large">Cargando…</span>';
+    }
+
+    var url = '/global/' + (season ? ('?season=' + encodeURIComponent(season)) : '');
+    fetch(url, { method: 'GET', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.error) {
+          errorDiv.textContent = data.error;
+          errorDiv.classList.remove('m3-d-none');
+          chartsDiv.classList.add('m3-d-none');
+          return;
+        }
+        if (!data.metrics || data.metrics.length === 0) {
+          errorDiv.textContent = 'No hay datos globales para mostrar (revisar historial).';
+          errorDiv.classList.remove('m3-d-none');
+          chartsDiv.classList.add('m3-d-none');
+          return;
+        }
+        errorDiv.classList.add('m3-d-none');
+        chartsDiv.classList.remove('m3-d-none');
+        renderChartAndTable(data);
+      })
+      .catch(function(err) {
+        errorDiv.textContent = 'Error: ' + err.message;
+        errorDiv.classList.remove('m3-d-none');
+        chartsDiv.classList.add('m3-d-none');
+      })
+      .finally(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = btnDefaultHtml;
+        }
+      });
+  });
+
+  function renderChartAndTable(data) {
+    var labels = [];
+    var values = data.values || [];
+    var teams = data.teams || [];
+    var metrics = data.metrics || [];
+
+    labels = metrics.map(function(m, idx) {
+      var team = teams[idx] || '';
+      return team ? (m + ' (' + team + ')') : m;
+    });
+
+    var ctx = document.getElementById('chart-global').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Valor',
+            data: values,
+            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+            borderColor: 'rgb(75, 192, 192)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } },
+        plugins: { legend: { position: 'top' } }
+      }
+    });
+
+    tableBody.innerHTML = '';
+    metrics.forEach(function(metric, idx) {
+      var tr = document.createElement('tr');
+      var tdMetric = document.createElement('td');
+      var tdTeam = document.createElement('td');
+      var tdValue = document.createElement('td');
+      tdMetric.textContent = metric;
+      tdTeam.textContent = teams[idx] || '';
+      tdValue.textContent = (values[idx] != null ? values[idx].toFixed(2) : '');
+      tr.appendChild(tdMetric);
+      tr.appendChild(tdTeam);
+      tr.appendChild(tdValue);
+      tableBody.appendChild(tr);
+    });
+  }
+})();
+</script>
+
+<style>
+.parent {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+.div1 { margin-bottom: 1rem; }
+.div2 { margin-bottom: 1rem; }
+.div3 { margin-bottom: 1rem; }
+</style>
+{% endblock %}

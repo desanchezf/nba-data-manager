@@ -1,0 +1,216 @@
+"""
+Sincroniza los modelos crudos NBA (game, game_boxscore, teams, players, roster)
+hacia los modelos normalizados de core (Game, Team, Player, GamePlayerLine, GameTeamLine).
+"""
+
+from django.core.management.base import BaseCommand
+
+
+class Command(BaseCommand):
+    help = "Sincroniza datos crudos → modelos normalizados core"
+
+    def add_arguments(self, parser):
+        parser.add_argument("--clear", action="store_true", help="Vaciar modelos core antes")
+        parser.add_argument("--season", type=str, default="", help="Filtrar por temporada (ej. 2025)")
+        parser.add_argument("--season-type", type=str, default="", help="Tipo temporada (Regular Season, Playoffs)")
+        parser.add_argument("--batch", type=int, default=1000, help="Tamaño de lote")
+
+    def handle(self, *args, **options):
+        clear = options["clear"]
+        season = options["season"]
+        season_type = options["season_type"]
+        batch_size = options["batch"]
+
+        if clear:
+            self.stdout.write("Vaciando modelos core...")
+            from core.models import Game, Player, Team, GamePlayerLine, GameTeamLine, WinProbabilitySnapshot
+            WinProbabilitySnapshot.objects.all().delete()
+            GameTeamLine.objects.all().delete()
+            GamePlayerLine.objects.all().delete()
+            Game.objects.all().delete()
+            Player.objects.all().delete()
+            Team.objects.all().delete()
+            self.stdout.write(self.style.WARNING("Modelos core vaciados."))
+
+        # 1. Sincronizar Teams desde roster.Teams
+        self._sync_teams()
+
+        # 2. Sincronizar Players desde roster.Players
+        self._sync_players()
+
+        # 3. Sincronizar Games desde game.GameBoxscoreTraditional
+        self._sync_games(season, season_type, batch_size)
+
+        # 4. Sincronizar GamePlayerLine desde game_boxscore.GameBoxscoreTraditional
+        self._sync_player_lines(season, season_type, batch_size)
+
+        self.stdout.write(self.style.SUCCESS("✅ Sincronización core completada."))
+
+    def _sync_teams(self):
+        self.stdout.write("Sincronizando equipos...")
+        try:
+            from roster.models import Teams as RosterTeam
+            from core.models import Team
+
+            count = 0
+            for rt in RosterTeam.objects.all():
+                team_id = str(rt.team_id) if hasattr(rt, "team_id") else str(rt.pk)
+                Team.objects.update_or_create(
+                    team_id=team_id,
+                    defaults={
+                        "name": getattr(rt, "name", "") or "",
+                        "abbreviation": getattr(rt, "abb", "") or "",
+                        "conference": getattr(rt, "conference", "") or "",
+                        "division": getattr(rt, "division", "") or "",
+                    },
+                )
+                count += 1
+            self.stdout.write(f"  Equipos: {count}")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Equipos: {exc}"))
+
+    def _sync_players(self):
+        self.stdout.write("Sincronizando jugadores...")
+        try:
+            from roster.models import Players as RosterPlayer
+            from core.models import Player, Team
+
+            count = 0
+            for rp in RosterPlayer.objects.select_related().all():
+                player_id = str(rp.player_id) if hasattr(rp, "player_id") else str(rp.pk)
+                team_obj = None
+                if hasattr(rp, "team_id") and rp.team_id:
+                    team_obj = Team.objects.filter(team_id=str(rp.team_id)).first()
+                Player.objects.update_or_create(
+                    player_id=player_id,
+                    defaults={
+                        "name": getattr(rp, "full_name", getattr(rp, "name", "")) or "",
+                        "team": team_obj,
+                    },
+                )
+                count += 1
+            self.stdout.write(f"  Jugadores: {count}")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Jugadores: {exc}"))
+
+    def _sync_games(self, season, season_type, batch_size):
+        self.stdout.write("Sincronizando partidos...")
+        try:
+            from game.models import GameBoxscoreTraditional
+            from core.models import Game, Team
+
+            qs = GameBoxscoreTraditional.objects.all()
+            if season:
+                qs = qs.filter(season=season)
+            if season_type:
+                qs = qs.filter(season_type__icontains=season_type)
+
+            # Obtener partidos únicos
+            game_ids_seen = set()
+            count = 0
+            batch = []
+
+            for row in qs.iterator(chunk_size=batch_size):
+                gid = str(getattr(row, "game_id", ""))
+                if not gid or gid in game_ids_seen:
+                    continue
+                game_ids_seen.add(gid)
+
+                home_team_id = str(getattr(row, "home_team_id", "") or "")
+                away_team_id = str(getattr(row, "away_team_id", "") or getattr(row, "visitor_team_id", "") or "")
+                home_team = Team.objects.filter(team_id=home_team_id).first() if home_team_id else None
+                away_team = Team.objects.filter(team_id=away_team_id).first() if away_team_id else None
+
+                Game.objects.update_or_create(
+                    game_id=gid,
+                    defaults={
+                        "league": "NBA",
+                        "season": str(getattr(row, "season", "") or ""),
+                        "season_type": str(getattr(row, "season_type", "") or ""),
+                        "date": getattr(row, "game_date", None),
+                        "home_team": home_team,
+                        "away_team": away_team,
+                    },
+                )
+                count += 1
+
+            self.stdout.write(f"  Partidos: {count}")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Partidos: {exc}"))
+
+    def _sync_player_lines(self, season, season_type, batch_size):
+        self.stdout.write("Sincronizando estadísticas de jugadores...")
+        try:
+            from game_boxscore.models import GameBoxscoreTraditional
+            from core.models import Game, Player, Team, GamePlayerLine
+
+            qs = GameBoxscoreTraditional.objects.all()
+            if season:
+                qs = qs.filter(season=season)
+            if season_type:
+                qs = qs.filter(season_type__icontains=season_type)
+
+            count = 0
+            for row in qs.iterator(chunk_size=batch_size):
+                gid = str(getattr(row, "game_id", ""))
+                pid = str(getattr(row, "player_id", "") or "")
+                if not gid or not pid:
+                    continue
+
+                game = Game.objects.filter(game_id=gid).first()
+                if not game:
+                    continue
+
+                player = Player.objects.filter(player_id=pid).first()
+                team_id = str(getattr(row, "team_id", "") or "")
+                team = Team.objects.filter(team_id=team_id).first() if team_id else None
+
+                GamePlayerLine.objects.update_or_create(
+                    game=game,
+                    player=player,
+                    team=team,
+                    period=str(getattr(row, "period", "ALL") or "ALL"),
+                    defaults={
+                        "home_away": str(getattr(row, "home_away", "") or ""),
+                        "position": str(getattr(row, "position", "") or ""),
+                        "min_played": _safe_float(getattr(row, "min", None)),
+                        "fgm": _safe_int(getattr(row, "fgm", 0)),
+                        "fga": _safe_int(getattr(row, "fga", 0)),
+                        "fg_pct": _safe_float(getattr(row, "fg_pct", None)),
+                        "fg3m": _safe_int(getattr(row, "fg3m", 0)),
+                        "fg3a": _safe_int(getattr(row, "fg3a", 0)),
+                        "fg3_pct": _safe_float(getattr(row, "fg3_pct", None)),
+                        "ftm": _safe_int(getattr(row, "ftm", 0)),
+                        "fta": _safe_int(getattr(row, "fta", 0)),
+                        "ft_pct": _safe_float(getattr(row, "ft_pct", None)),
+                        "oreb": _safe_int(getattr(row, "oreb", 0)),
+                        "dreb": _safe_int(getattr(row, "dreb", 0)),
+                        "reb": _safe_int(getattr(row, "reb", 0)),
+                        "ast": _safe_int(getattr(row, "ast", 0)),
+                        "stl": _safe_int(getattr(row, "stl", 0)),
+                        "blk": _safe_int(getattr(row, "blk", 0)),
+                        "tov": _safe_int(getattr(row, "tov", 0)),
+                        "pf": _safe_int(getattr(row, "pf", 0)),
+                        "pts": _safe_int(getattr(row, "pts", 0)),
+                        "plus_minus": _safe_int(getattr(row, "plus_minus", None)),
+                    },
+                )
+                count += 1
+
+            self.stdout.write(f"  Estadísticas jugadores: {count}")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Estadísticas jugadores: {exc}"))
+
+
+def _safe_int(v, default=0):
+    try:
+        return int(v) if v is not None else default
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_float(v, default=None):
+    try:
+        return float(v) if v is not None else default
+    except (TypeError, ValueError):
+        return default

@@ -1,0 +1,170 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div class="m3-page parent mb-3">
+  <div class="div1">
+    <h1 class="md-typescale-headline-medium">{{ title }}</h1>
+    <p class="md-typescale-body-medium text-muted">Compare equipo local y visitante mediante gráficos. Todos los selectores son opciones predefinidas.</p>
+  </div>
+
+  <div class="div2">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header">
+        <h3 class="md-typescale-title-medium mb-0">Selección</h3>
+      </div>
+      <div class="md-m3-surface__body">
+        <form id="form-comp" class="m3-form-row">
+          {% csrf_token %}
+          <md-outlined-select label="Equipo local" name="home_team" id="id_home_team" required style="min-width:11rem;max-width:100%;">
+            <md-select-option value=""><div slot="headline">-- Seleccione --</div></md-select-option>
+            {% for t in teams %}
+            <md-select-option value="{{ t.team_id }}"><div slot="headline">{{ t.name|default:t.team_id }}</div></md-select-option>
+            {% endfor %}
+          </md-outlined-select>
+          <md-outlined-select label="Equipo visitante" name="away_team" id="id_away_team" required style="min-width:11rem;max-width:100%;">
+            <md-select-option value=""><div slot="headline">-- Seleccione --</div></md-select-option>
+            {% for t in teams %}
+            <md-select-option value="{{ t.team_id }}"><div slot="headline">{{ t.name|default:t.team_id }}</div></md-select-option>
+            {% endfor %}
+          </md-outlined-select>
+          <md-outlined-select label="Temporada" name="season" id="id_season" style="min-width:9rem;max-width:100%;">
+            {% for val, label in season_choices %}
+            <md-select-option value="{{ val }}"><div slot="headline">{{ label }}</div></md-select-option>
+            {% endfor %}
+          </md-outlined-select>
+          <div style="flex:1;min-width:0"></div>
+          <md-filled-button type="submit" id="btn-comp" style="min-width:12rem;">
+            <i class="fas fa-chart-bar"></i> Generar gráficos
+          </md-filled-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="div3">
+    <div id="comp-error" class="m3-alert m3-alert--error m3-d-none" role="alert"></div>
+    <div id="comp-charts" class="m3-d-none">
+      <div class="md-m3-surface">
+        <div class="md-m3-surface__header">
+          <h3 class="md-typescale-title-medium mb-0">Comparativa local vs visitante</h3>
+          <p class="md-typescale-body-small text-muted mb-0 mt-1">Métricas NBA: PTS, REB, AST, Win%, FG%, PTS concedidos.</p>
+        </div>
+        <div class="md-m3-surface__body">
+          <div class="chart-container" style="position: relative; height: 320px;">
+            <canvas id="chart-comparison"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var form = document.getElementById('form-comp');
+  var btn = document.getElementById('btn-comp');
+  var chartsDiv = document.getElementById('comp-charts');
+  var errorDiv = document.getElementById('comp-error');
+  var chartInstance = null;
+  var btnDefaultHtml = btn ? btn.innerHTML : '';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var home = document.getElementById('id_home_team').value;
+    var away = document.getElementById('id_away_team').value;
+    var season = document.getElementById('id_season').value;
+    if (!home || !away) {
+      errorDiv.textContent = 'Seleccione equipo local y visitante.';
+      errorDiv.classList.remove('m3-d-none');
+      chartsDiv.classList.add('m3-d-none');
+      return;
+    }
+    errorDiv.classList.add('m3-d-none');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<md-circular-progress indeterminate style="width:22px;height:22px;vertical-align:middle;"></md-circular-progress> Cargando…';
+    }
+
+    var url = '/comparison/?home_team=' + encodeURIComponent(home) +
+      '&away_team=' + encodeURIComponent(away) + (season ? '&season=' + encodeURIComponent(season) : '');
+    fetch(url, { method: 'GET', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.error) {
+          errorDiv.textContent = data.error;
+          errorDiv.classList.remove('m3-d-none');
+          chartsDiv.classList.add('m3-d-none');
+          return;
+        }
+        if (!data.labels || data.labels.length === 0) {
+          errorDiv.textContent = 'No hay datos para mostrar (revisar historial de los equipos).';
+          errorDiv.classList.remove('m3-d-none');
+          chartsDiv.classList.add('m3-d-none');
+          return;
+        }
+        errorDiv.classList.add('m3-d-none');
+        chartsDiv.classList.remove('m3-d-none');
+        renderChart(data);
+      })
+      .catch(function(err) {
+        errorDiv.textContent = 'Error: ' + err.message;
+        errorDiv.classList.remove('m3-d-none');
+        chartsDiv.classList.add('m3-d-none');
+      })
+      .finally(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = btnDefaultHtml;
+        }
+      });
+  });
+
+  function renderChart(data) {
+    var ctx = document.getElementById('chart-comparison').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [
+          {
+            label: 'Local',
+            data: data.home,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1
+          },
+          {
+            label: 'Visitante',
+            data: data.away,
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } },
+        plugins: { legend: { position: 'top' } }
+      }
+    });
+  }
+})();
+</script>
+<style>
+.parent {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+.div1 { margin-bottom: 1rem; }
+.div2 { margin-bottom: 1rem; }
+.div3 { margin-bottom: 1rem; }
+</style>
+{% endblock %}

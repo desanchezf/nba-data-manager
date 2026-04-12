@@ -1,0 +1,133 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div class="m3-page parent mb-3">
+  <div class="div1">
+    <h1 class="md-typescale-headline-medium">{{ title }}</h1>
+    <p class="md-typescale-body-medium text-muted">Pronóstico NBA por mercado. Indique únicamente el equipo local y el visitante en cada mercado.</p>
+  </div>
+
+  <div class="div2">
+    <div class="md-m3-surface">
+      <div class="md-m3-surface__header" style="background: var(--md-sys-color-primary-container, #e8f5e9); border-bottom: none;">
+        <h3 class="md-typescale-title-medium mb-0">Pronóstico por mercado</h3>
+      </div>
+      <div class="md-m3-surface__body md-m3-surface__body--flush p-0">
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-0 align-middle command-runner-grid">
+            <colgroup>
+              <col class="col-command">
+              <col class="col-arg">
+              <col class="col-arg">
+              <col class="col-button">
+            </colgroup>
+            <tbody>
+              {% for m in forecast_markets %}
+              <tr data-forecast-market="{{ m.slug }}">
+                <td class="align-top py-3 ps-3 col-command">
+                  <strong>{{ m.label }}</strong>
+                  <p class="text-muted small mb-0 mt-1">Equipos local y visitante.</p>
+                </td>
+                <td class="align-top py-3 px-2 col-arg">
+                  <form id="form-forecast-{{ m.slug }}" class="forecast-form d-none" data-market="{{ m.slug }}" aria-hidden="true">{% csrf_token %}</form>
+                  <md-outlined-select label="Equipo local" name="home_team" form="form-forecast-{{ m.slug }}" id="id-home-{{ m.slug }}" required style="width:100%;min-width:10rem;">
+                    <md-select-option value=""><div slot="headline">-- Seleccione --</div></md-select-option>
+                    {% for t in teams %}
+                    <md-select-option value="{{ t.team_id }}"><div slot="headline">{{ t.name|default:t.team_id }}</div></md-select-option>
+                    {% endfor %}
+                  </md-outlined-select>
+                </td>
+                <td class="align-top py-3 px-2 col-arg">
+                  <md-outlined-select label="Equipo visitante" name="away_team" form="form-forecast-{{ m.slug }}" id="id-away-{{ m.slug }}" required style="width:100%;min-width:10rem;">
+                    <md-select-option value=""><div slot="headline">-- Seleccione --</div></md-select-option>
+                    {% for t in teams %}
+                    <md-select-option value="{{ t.team_id }}"><div slot="headline">{{ t.name|default:t.team_id }}</div></md-select-option>
+                    {% endfor %}
+                  </md-outlined-select>
+                </td>
+                <td class="align-middle py-3 pe-3 col-button">
+                  <md-filled-button type="submit" form="form-forecast-{{ m.slug }}" class="forecast-submit m3-btn-block">
+                    <i class="fas fa-chart-line"></i> Obtener pronóstico
+                  </md-filled-button>
+                  <div class="forecast-result mt-2 small"></div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.parent {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+.div1 { margin-bottom: 1rem; }
+.div2 { margin-bottom: 1rem; }
+.command-runner-grid { table-layout: fixed; }
+.command-runner-grid .col-command { width: 22%; }
+.command-runner-grid .col-arg { width: 13%; min-width: 10rem; }
+.command-runner-grid .col-button { width: 10%; min-width: 10rem; }
+</style>
+
+<script>
+(function() {
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+  function getSelectValue(row, name) {
+    var el = row.querySelector('md-outlined-select[name="' + name + '"]');
+    return el ? el.value : '';
+  }
+  document.querySelectorAll('.forecast-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var row = form.closest('tr');
+      var market = form.dataset.market;
+      var home = getSelectValue(row, 'home_team');
+      var away = getSelectValue(row, 'away_team');
+      var resultEl = row ? row.querySelector('.forecast-result') : null;
+      var btn = row ? row.querySelector('.forecast-submit') : null;
+      if (!home || !away) {
+        if (resultEl) resultEl.innerHTML = '<span class="text-danger">Seleccione local y visitante.</span>';
+        return;
+      }
+      if (btn) { btn.disabled = true; }
+      if (resultEl) resultEl.innerHTML = '<span class="text-muted">Cargando…</span>';
+      var url = '/predict/matchup/?home_team=' + encodeURIComponent(home) +
+        '&away_team=' + encodeURIComponent(away) + '&market=' + encodeURIComponent(market);
+      fetch(url, { method: 'GET', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.error) {
+            if (resultEl) resultEl.innerHTML = '<span class="text-danger">' + escapeHtml(data.message || data.error) + '</span>';
+            return;
+          }
+          var html = 'P(gana local): <strong>' + (data.prob_home_win != null ? data.prob_home_win.toFixed(2) : '–') + '</strong> &nbsp; ' +
+            'P(gana visitante): <strong>' + (data.prob_away_win != null ? data.prob_away_win.toFixed(2) : '–') + '</strong>';
+          if (data.ev_home != null && data.ev_away != null) {
+            html += ' &nbsp; | &nbsp; EV local: ' + data.ev_home.toFixed(2) + ' &nbsp; EV visitante: ' + data.ev_away.toFixed(2);
+          }
+          if (resultEl) resultEl.innerHTML = html;
+        })
+        .catch(function(err) {
+          if (resultEl) resultEl.innerHTML = '<span class="text-danger">' + escapeHtml(err.message) + '</span>';
+        })
+        .finally(function() {
+          if (btn) { btn.disabled = false; }
+        });
+    });
+  });
+})();
+</script>
+{% endblock %}
