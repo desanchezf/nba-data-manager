@@ -1095,12 +1095,22 @@ Durante partidos en curso, el sistema actualiza predicciones considerando:
 - **Reutilización**: Carga y uso de modelos previamente entrenados
 
 ### Mercados Cubiertos
-El sistema puede generar predicciones para todos los mercados listados en la sección [Mercados de Apuestas](#-mercados-de-apuestas), incluyendo:
-- Ganador del partido
-- Hándicaps y totales
-- Estadísticas de jugadores
-- Mercados por cuartos y mitades
-- Apuestas especiales y combinadas
+
+El sistema cubre el ~80% de los mercados listados en [Mercados de Apuestas](#-mercados-de-apuestas). Los mercados marcados con ⚠️ No contemplado requieren datos intra-partido (play-by-play) que no están disponibles en el pipeline actual.
+
+| Categoría | Cobertura |
+|---|---|
+| Ganador, Hándicap, Totales | ✅ Modelos primarios entrenados |
+| Margen de victoria (bandas) | ✅ Derivado de `handicap_main` |
+| Mitades (1ª y 2ª): ganador, total, home, away | ✅ Modelos primarios entrenados |
+| Cuartos (Q1–Q4): ganador, total, home, away | ✅ Modelos primarios entrenados |
+| Totales por equipo (home/away) | ✅ Modelos primarios entrenados |
+| Overtime, Mitad con más puntos, Cuarto con más puntos | ✅ Clasificadores primarios |
+| Equipo gana todos los cuartos / ambas mitades | ✅ Clasificadores primarios |
+| Props de jugadores (PTS, REB, AST, 3PM, BLK, STL) | ✅ Modelos props_regressor |
+| Primera canasta (jugador, método, dobles) | ❌ No contemplado |
+| Eventos de primeros minutos (triples, ambos anotan) | ❌ No contemplado |
+| Lidera de inicio a fin, Apuesta triple, Especiales | ❌ No contemplado |
 
 ## 💬 Sistema RAG
 
@@ -1128,25 +1138,42 @@ El sistema utiliza una **arquitectura híbrida** que combina modelos predictivos
 
 #### 1. Modelo Predictivo (Core del Sistema)
 
-El **motor de predicción** utiliza modelos estadísticos y de Machine Learning:
+El **motor de predicción** utiliza XGBoost con calibración Platt scaling:
 
-**Modelos Disponibles:**
-- **Regresión Logística**: Para clasificación binaria (ganador/perdedor)
-- **Random Forest**: Para predicciones robustas con múltiples features
-- **XGBoost**: Para modelos de alto rendimiento
-- **Redes Neuronales**: Para patrones complejos
-- **Modelos de Rating**: ELO, Glicko para rankings de equipos
+**Modelos implementados:**
+- **XGBoost Clasificador** (`binary:logistic`): Mercados binarios — ganador, cuartos, mitades, overtime, dobles, etc.
+- **XGBoost Regresor** (`reg:squarederror`): Totales y márgenes — puntos combinados, home total, away total, spread
+- **Poisson Regressor** (fallback): Si XGBoost no está disponible
+- **Calibración Platt scaling**: Ajuste de probabilidades en el conjunto de validación para clasificadores
 
-**Features Principales:**
-- Puntos promedio (ofensivos y defensivos)
-- Pace (ritmo de juego)
-- Offensive/Defensive rating
-- Home/Away (local/visitante)
-- Back-to-back games (partidos consecutivos)
-- Lesiones y ausencias
-- Head-to-head (enfrentamientos previos)
-- Estadísticas recientes (últimos 5, 10 partidos)
-- Momentum y tendencias
+**Registry de Mercados (`predictions/registry.py`):**
+
+El sistema clasifica cada mercado en tres categorías:
+
+| Tipo | Descripción |
+|---|---|
+| `PRIMARY` | Tiene su propio modelo entrenado |
+| `DERIVED` | Se obtiene post-procesando uno o varios primarios |
+| `NOT_CONTEMPLATED` | Señal insuficiente (requiere datos play-by-play intra-partido) |
+
+**Pipeline de entrenamiento (`predictions/train.py`):**
+- Split temporal 80/10/10 (train/val/test)
+- Target extraído desde `extract_target(game_id, target)` del registry (soporta: `home_win`, `total`, `margin`, `home_score`, `away_score`, `h1_*`, `h2_*`, `q1_*`..`q4_*`, `ot`, `first_half_more`, `quarter_most`, etc.)
+- Artefacto guardado como `{prefix}_{season_type}_{market}.joblib` con modelo + platt + feature_names
+
+**Pipeline de inferencia (`predictions/inference.py`):**
+- `predict_market(market, features, season_type)`: Resuelve mercados derivados a su primario, carga modelo y retorna predicción
+- `predict_proba()`: XGBoost + calibración Platt
+- `ev_vs_odds()`: Cálculo de valor esperado en cuotas decimales
+
+**Features Principales (`features/engine/`):**
+- Rolling stats de equipo (últimos 5, 10 partidos): PTS, REB, AST, TOV, STL, BLK, FG%, 3P%, FT%
+- Puntos permitidos por partido (defensa) y diferencial ofensa–defensa
+- Win% rolling (5 y 10 partidos)
+- Head-to-head histórico entre ambos equipos
+- Rolling por cuarto (Q1–Q4): PTS, FG%, FG3%, TOV por ventana
+- Rolling por mitad (H1/H2): PTS sumando cuartos relevantes
+- Diferenciales derivados: `pts_diff_5`, `def_diff_5`, `projected_total_5`, etc.
 
 #### 2. Sistema RAG (Capa de Contexto)
 
@@ -1451,27 +1478,27 @@ El sistema genera predicciones para los siguientes mercados:
 
 #### Primera Canasta
 - **Primer equipo en anotar**: Primer equipo que anota en el partido
-- **Primera canasta**: Jugador que anota la primera canasta
-- **Método de la primera canasta**: Tipo de primera canasta (Mate, Tiro libre, Bandeja, Tiro de 3 puntos, Otro)
-- **Jugador que anota la primera canasta del equipo**: Primer anotador de cada equipo
-- **Primera Canasta/Ganador Partido (Apuesta Doble)**: Combinación de primera canasta y ganador
-- **Primera Canasta/Ganador Primer Cuarto (Apuesta Doble)**: Combinación de primera canasta y ganador primer cuarto
+- **Primera canasta**: Jugador que anota la primera canasta ⚠️ No contemplado
+- **Método de la primera canasta**: Tipo de primera canasta (Mate, Tiro libre, Bandeja, Tiro de 3 puntos, Otro) ⚠️ No contemplado
+- **Jugador que anota la primera canasta del equipo**: Primer anotador de cada equipo ⚠️ No contemplado
+- **Primera Canasta/Ganador Partido (Apuesta Doble)**: Combinación de primera canasta y ganador ⚠️ No contemplado
+- **Primera Canasta/Ganador Primer Cuarto (Apuesta Doble)**: Combinación de primera canasta y ganador primer cuarto ⚠️ No contemplado
 
 #### Carreras de Puntos
 - **Carrera a X puntos**: Primer equipo en alcanzar X puntos en el partido
   - Opciones: 8, 10, 15, 20, 25, 30, 35, 40 puntos
 
 #### Eventos Especiales
-- **Lidera de principio a fin**: Equipo que lidera durante todo el partido
-- **Ambos equipos anotan en el primer minuto**: Si ambos equipos anotan en el primer minuto
-- **2 o más tiros de 3 puntos anotados en los primeros 3 minutos**: Triples en primeros 3 minutos
+- **Lidera de principio a fin**: Equipo que lidera durante todo el partido ⚠️ No contemplado
+- **Ambos equipos anotan en el primer minuto**: Si ambos equipos anotan en el primer minuto ⚠️ No contemplado
+- **2 o más tiros de 3 puntos anotados en los primeros 3 minutos**: Triples en primeros 3 minutos ⚠️ No contemplado
 - **¿Habrá prórroga?**: Si el partido va a prórroga
 - **Mitad con más puntos**: Qué mitad (primera o segunda) tendrá más puntos
 - **Cuarto con mayor puntuación**: Qué cuarto (1º, 2º, 3º, 4º) tendrá más puntos
 
 #### Apuestas Especiales
-- **Crear Apuesta - Especiales**: Combinaciones especiales de jugadores y estadísticas
-- **Apuesta triple**: Combinación de tres resultados
+- **Crear Apuesta - Especiales**: Combinaciones especiales de jugadores y estadísticas ⚠️ No contemplado
+- **Apuesta triple**: Combinación de tres resultados ⚠️ No contemplado
 
 #### Ganar Todos los Cuartos/Mitades
 - **[Equipo] gana todos los cuartos**: Apuesta sobre si un equipo gana todos los cuartos del partido
@@ -1518,10 +1545,13 @@ El sistema genera predicciones para los siguientes mercados:
 - [x] Almacenamiento de datos NBA
 - [x] Sistema de monitoreo (Prometheus/Grafana)
 - [x] Usuarios con permisos diferenciados
-- [ ] Sistema de predicciones ML
+- [x] Feature engine (rolling, H2H, matchup, cuartos, mitades)
+- [x] Registry de mercados (`predictions/registry.py`) — PRIMARY / DERIVED / NOT_CONTEMPLATED
+- [x] Pipeline de entrenamiento XGBoost + Platt scaling (`predictions/train.py`)
+- [x] Pipeline de inferencia (`predictions/inference.py`) con soporte de mercados derivados
+- [x] Sincronización de modelos normalizados (`sync_normalized`) — `GameTeamLine`, `home_score`, `away_score`
 - [ ] Predicciones en tiempo real
 - [ ] Sistema RAG completo
-- [ ] Almacenamiento de modelos entrenados
 - [ ] API de predicciones
 - [ ] Dashboard de predicciones
 

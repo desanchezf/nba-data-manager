@@ -44,6 +44,9 @@ class Command(BaseCommand):
         # 4. Sincronizar GamePlayerLine desde game_boxscore.GameBoxscoreTraditional
         self._sync_player_lines(season, season_type, batch_size)
 
+        # 5. Sincronizar GameTeamLine (ALL + Q1-Q4) desde game.TeamBoxscoreTraditional + GameSummary
+        self._sync_team_lines(season, season_type, batch_size)
+
         self.stdout.write(self.style.SUCCESS("✅ Sincronización core completada."))
 
     def _sync_teams(self):
@@ -96,7 +99,7 @@ class Command(BaseCommand):
     def _sync_games(self, season, season_type, batch_size):
         self.stdout.write("Sincronizando partidos...")
         try:
-            from game.models import GameBoxscoreTraditional
+            from game.models import GameBoxscoreTraditional, GameSummary
             from core.models import Game, Team
 
             qs = GameBoxscoreTraditional.objects.all()
@@ -105,10 +108,8 @@ class Command(BaseCommand):
             if season_type:
                 qs = qs.filter(season_type__icontains=season_type)
 
-            # Obtener partidos únicos
             game_ids_seen = set()
             count = 0
-            batch = []
 
             for row in qs.iterator(chunk_size=batch_size):
                 gid = str(getattr(row, "game_id", ""))
@@ -116,10 +117,22 @@ class Command(BaseCommand):
                     continue
                 game_ids_seen.add(gid)
 
-                home_team_id = str(getattr(row, "home_team_id", "") or "")
-                away_team_id = str(getattr(row, "away_team_id", "") or getattr(row, "visitor_team_id", "") or "")
-                home_team = Team.objects.filter(team_id=home_team_id).first() if home_team_id else None
-                away_team = Team.objects.filter(team_id=away_team_id).first() if away_team_id else None
+                # GameBoxscoreTraditional usa home_team_abb / away_team_abb
+                home_abb = str(getattr(row, "home_team_abb", "") or "")
+                away_abb = str(getattr(row, "away_team_abb", "") or "")
+                home_team = Team.objects.filter(abbreviation=home_abb).first() if home_abb else None
+                away_team = Team.objects.filter(abbreviation=away_abb).first() if away_abb else None
+
+                # Obtener marcador final desde GameSummary
+                home_score = None
+                away_score = None
+                if home_abb and away_abb:
+                    hs = GameSummary.objects.filter(game_id=gid, team_abb=home_abb).first()
+                    as_ = GameSummary.objects.filter(game_id=gid, team_abb=away_abb).first()
+                    if hs:
+                        home_score = hs.final or None
+                    if as_:
+                        away_score = as_.final or None
 
                 Game.objects.update_or_create(
                     game_id=gid,
@@ -130,6 +143,13 @@ class Command(BaseCommand):
                         "date": getattr(row, "game_date", None),
                         "home_team": home_team,
                         "away_team": away_team,
+                        "home_score": home_score,
+                        "away_score": away_score,
+                        "n_result": (
+                            f"{home_score}-{away_score}"
+                            if home_score is not None and away_score is not None
+                            else ""
+                        ),
                     },
                 )
                 count += 1
@@ -137,6 +157,91 @@ class Command(BaseCommand):
             self.stdout.write(f"  Partidos: {count}")
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Partidos: {exc}"))
+
+    def _sync_team_lines(self, season, season_type, batch_size):
+        """
+        Crea GameTeamLine(period="ALL") desde TeamBoxscoreTraditional y
+        GameTeamLine(period="Q1".."Q4") desde GameSummary.
+        """
+        self.stdout.write("Sincronizando estadísticas de equipo...")
+        try:
+            from game.models import TeamBoxscoreTraditional, GameSummary
+            from core.models import Game, Team, GameTeamLine
+
+            qs = TeamBoxscoreTraditional.objects.all()
+            if season:
+                qs = qs.filter(season=season)
+            if season_type:
+                qs = qs.filter(season_type__icontains=season_type)
+
+            count_all = 0
+            count_q = 0
+
+            for row in qs.iterator(chunk_size=batch_size):
+                gid = str(getattr(row, "game_id", "") or "")
+                if not gid:
+                    continue
+
+                game = Game.objects.filter(game_id=gid).first()
+                if not game:
+                    continue
+
+                team_abb = str(getattr(row, "team_abb", "") or "")
+                team = Team.objects.filter(abbreviation=team_abb).first() if team_abb else None
+
+                home_away = str(getattr(row, "home_away", "") or "")
+
+                GameTeamLine.objects.update_or_create(
+                    game=game,
+                    team=team,
+                    period="ALL",
+                    defaults={
+                        "home_away": home_away,
+                        "fgm": _safe_int(getattr(row, "fgm", 0)),
+                        "fga": _safe_int(getattr(row, "fga", 0)),
+                        "fg_pct": _safe_float(getattr(row, "fg_pct", None)),
+                        "fg3m": _safe_int(getattr(row, "fg3m", 0)),
+                        "fg3a": _safe_int(getattr(row, "fg3a", 0)),
+                        "fg3_pct": _safe_float(getattr(row, "fg3_pct", None)),
+                        "ftm": _safe_int(getattr(row, "ftm", 0)),
+                        "fta": _safe_int(getattr(row, "fta", 0)),
+                        "ft_pct": _safe_float(getattr(row, "ft_pct", None)),
+                        "oreb": _safe_int(getattr(row, "oreb", 0)),
+                        "dreb": _safe_int(getattr(row, "dreb", 0)),
+                        "reb": _safe_int(getattr(row, "reb", 0)),
+                        "ast": _safe_int(getattr(row, "ast", 0)),
+                        "stl": _safe_int(getattr(row, "stl", 0)),
+                        "blk": _safe_int(getattr(row, "blk", 0)),
+                        "tov": _safe_int(getattr(row, "tov", 0)),
+                        "pf": _safe_int(getattr(row, "pf", 0)),
+                        "pts": _safe_int(getattr(row, "pts", 0)),
+                    },
+                )
+                count_all += 1
+
+                # Poblar filas por cuarto desde GameSummary
+                summary = GameSummary.objects.filter(
+                    game_id=gid, team_abb=team_abb
+                ).first()
+                if summary and team:
+                    for qtr, field in (
+                        ("Q1", "q1"), ("Q2", "q2"), ("Q3", "q3"), ("Q4", "q4"),
+                    ):
+                        pts_q = getattr(summary, field, 0) or 0
+                        GameTeamLine.objects.update_or_create(
+                            game=game,
+                            team=team,
+                            period=qtr,
+                            defaults={
+                                "home_away": home_away,
+                                "pts": pts_q,
+                            },
+                        )
+                        count_q += 1
+
+            self.stdout.write(f"  Team lines ALL: {count_all} | Cuartos: {count_q}")
+        except Exception as exc:
+            self.stdout.write(self.style.WARNING(f"  Team lines: {exc}"))
 
     def _sync_player_lines(self, season, season_type, batch_size):
         self.stdout.write("Sincronizando estadísticas de jugadores...")

@@ -132,3 +132,117 @@ def compute_win_pct_features(team_id: str, as_of_date: date, windows=(5, 10)) ->
         logger.warning("win_pct features error team=%s: %s", team_id, exc)
 
     return features
+
+
+def compute_rolling_quarter_features(
+    team_id: str,
+    as_of_date: date,
+    quarter: str = "Q1",
+    windows: tuple = (5, 10),
+) -> dict:
+    """Rolling de puntos/FG/TOV de un equipo en un cuarto específico (Q1..Q4)."""
+    features = {}
+    prefix = quarter.lower()
+    try:
+        from core.models import GameTeamLine
+
+        qs = (
+            GameTeamLine.objects.filter(
+                team__team_id=team_id,
+                game__date__lt=as_of_date,
+                period=quarter,
+            )
+            .select_related("game")
+            .order_by("-game__date")
+        )
+
+        for window in windows:
+            lines = list(qs[:window])
+            n = len(lines)
+            if n == 0:
+                continue
+
+            pts = [l.pts for l in lines]
+            fgm = [l.fgm for l in lines]
+            fga = [l.fga for l in lines]
+            fg3m = [l.fg3m for l in lines]
+            fg3a = [l.fg3a for l in lines]
+            tov = [l.tov for l in lines]
+
+            total_fga = sum(fga)
+            total_fg3a = sum(fg3a)
+
+            features[f"team_{prefix}_pts_avg_{window}"] = round(sum(pts) / n, 2)
+            features[f"team_{prefix}_tov_avg_{window}"] = round(sum(tov) / n, 2)
+            features[f"team_{prefix}_fg_pct_{window}"] = (
+                round(sum(fgm) / total_fga, 4) if total_fga else 0.0
+            )
+            features[f"team_{prefix}_fg3_pct_{window}"] = (
+                round(sum(fg3m) / total_fg3a, 4) if total_fg3a else 0.0
+            )
+
+    except Exception as exc:
+        logger.warning(
+            "quarter rolling error team=%s quarter=%s: %s", team_id, quarter, exc
+        )
+
+    return features
+
+
+def compute_rolling_half_features(
+    team_id: str,
+    as_of_date: date,
+    half: int = 1,
+    windows: tuple = (5, 10),
+) -> dict:
+    """
+    Rolling de puntos de equipo en primera (Q1+Q2) o segunda (Q3+Q4) mitad.
+    Suma las filas Q1/Q2 o Q3/Q4 de GameTeamLine por partido.
+    """
+    features = {}
+    quarters = ("Q1", "Q2") if half == 1 else ("Q3", "Q4")
+    prefix = f"h{half}"
+
+    try:
+        from django.db.models import Q as DQ
+        from core.models import GameTeamLine, Game
+
+        game_qs = (
+            Game.objects.filter(date__lt=as_of_date)
+            .filter(
+                DQ(home_team__team_id=team_id) | DQ(away_team__team_id=team_id)
+            )
+            .order_by("-date")
+        )
+
+        for window in windows:
+            recent_game_ids = list(
+                game_qs.values_list("game_id", flat=True)[:window]
+            )
+            if not recent_game_ids:
+                continue
+
+            pts_by_game: dict[str, int] = {gid: 0 for gid in recent_game_ids}
+            for qtr in quarters:
+                rows = GameTeamLine.objects.filter(
+                    game__game_id__in=recent_game_ids,
+                    team__team_id=team_id,
+                    period=qtr,
+                ).values("game__game_id", "pts")
+                for row in rows:
+                    gid = row["game__game_id"]
+                    pts_by_game[gid] = pts_by_game.get(gid, 0) + (row["pts"] or 0)
+
+            pts_list = [v for v in pts_by_game.values() if v > 0]
+            n = len(pts_list)
+            if n == 0:
+                continue
+
+            features[f"team_{prefix}_pts_avg_{window}"] = round(sum(pts_list) / n, 2)
+
+    except Exception as exc:
+        logger.warning(
+            "half rolling error team=%s half=%s: %s", team_id, half, exc
+        )
+
+    return features

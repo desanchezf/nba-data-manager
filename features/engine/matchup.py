@@ -23,35 +23,27 @@ def compute_features_for_matchup(
     - Rolling stats de ambos equipos (PTS, REB, AST, TOV, FG%, etc.)
     - Win% de ambos equipos
     - Head-to-head histórico
-    - Features específicas por mercado
+    - Features específicas por mercado (cuartos, mitades, totales, spread)
     """
     if as_of_date is None:
         as_of_date = date.today()
 
     features = {}
 
-    from features.engine.rolling import compute_rolling_team_features, compute_win_pct_features
+    from features.engine.rolling import (
+        compute_rolling_team_features,
+        compute_win_pct_features,
+    )
     from features.engine.h2h import compute_h2h_features
 
-    # Rolling stats local
-    home_rolling = compute_rolling_team_features(home_team_id, as_of_date)
-    for k, v in home_rolling.items():
-        features[f"home_{k}"] = v
+    # Rolling stats base (ALL periods)
+    for prefix, team_id in (("home", home_team_id), ("away", away_team_id)):
+        for k, v in compute_rolling_team_features(team_id, as_of_date).items():
+            features[f"{prefix}_{k}"] = v
+        for k, v in compute_win_pct_features(team_id, as_of_date).items():
+            features[f"{prefix}_{k}"] = v
 
-    # Rolling stats visitante
-    away_rolling = compute_rolling_team_features(away_team_id, as_of_date)
-    for k, v in away_rolling.items():
-        features[f"away_{k}"] = v
-
-    # Win % local y visitante
-    home_win = compute_win_pct_features(home_team_id, as_of_date)
-    away_win = compute_win_pct_features(away_team_id, as_of_date)
-    for k, v in home_win.items():
-        features[f"home_{k}"] = v
-    for k, v in away_win.items():
-        features[f"away_{k}"] = v
-
-    # Diferenciales
+    # Diferenciales derivados
     for w in (5, 10):
         h_pts = features.get(f"home_team_pts_avg_{w}", 0)
         a_pts = features.get(f"away_team_pts_avg_{w}", 0)
@@ -61,14 +53,20 @@ def compute_features_for_matchup(
         features[f"def_diff_{w}"] = round(h_def - a_def, 2)
 
     # H2H
-    h2h = compute_h2h_features(home_team_id, away_team_id, as_of_date)
-    features.update(h2h)
+    features.update(compute_h2h_features(home_team_id, away_team_id, as_of_date))
 
-    # Features de mercado
+    # Features específicas de mercado
     if market == "totals":
         features.update(_totals_features(home_team_id, away_team_id, features))
     elif market == "spread":
         features.update(_spread_features(features))
+    elif market == "first_half":
+        features.update(_half_features(home_team_id, away_team_id, as_of_date, half=1))
+    elif market == "second_half":
+        features.update(_half_features(home_team_id, away_team_id, as_of_date, half=2))
+    elif market in ("q1", "q2", "q3", "q4"):
+        qtr = market.upper()
+        features.update(_quarter_features(home_team_id, away_team_id, as_of_date, quarter=qtr))
 
     return features
 
@@ -96,4 +94,22 @@ def _spread_features(base_features) -> dict:
         diff = base_features.get(f"pts_diff_{w}")
         if diff is not None:
             f[f"spread_proj_{w}"] = diff
+    return f
+
+
+def _half_features(home_team_id, away_team_id, as_of_date, half=1) -> dict:
+    from features.engine.rolling import compute_rolling_half_features
+    f = {}
+    for prefix, team_id in (("home", home_team_id), ("away", away_team_id)):
+        for k, v in compute_rolling_half_features(team_id, as_of_date, half=half).items():
+            f[f"{prefix}_{k}"] = v
+    return f
+
+
+def _quarter_features(home_team_id, away_team_id, as_of_date, quarter="Q1") -> dict:
+    from features.engine.rolling import compute_rolling_quarter_features
+    f = {}
+    for prefix, team_id in (("home", home_team_id), ("away", away_team_id)):
+        for k, v in compute_rolling_quarter_features(team_id, as_of_date, quarter=quarter).items():
+            f[f"{prefix}_{k}"] = v
     return f

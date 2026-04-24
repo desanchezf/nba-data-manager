@@ -4,55 +4,18 @@ Split temporal: train historial, val penúltima temporada, test última temporad
 Calibración Platt scaling para clasificadores.
 """
 
-from datetime import date
 from pathlib import Path
 
 import joblib
 import numpy as np
 
 
-# Mercados binarios (clasificación: home_win)
-BINARY_MARKETS = [
-    "moneyline",
-    "spread",
-    "winner_match",
-    "handicap_main",
-]
-
-# Mercados de regresión (total puntos)
-REGRESSION_MARKETS = [
-    "totals",
-    "total_points_main",
-    "home_team_total",
-    "away_team_total",
-    "first_half_total",
-    "q1_total",
-    "q2_total",
-    "q3_total",
-    "q4_total",
-]
-
-# Mercados de props (regresión: puntos/reb/ast del jugador)
-PROPS_MARKETS = [
-    "player_pts",
-    "player_reb",
-    "player_ast",
-    "player_pra",
-    "player_points_x_plus",
-    "player_rebounds_x_plus",
-    "player_assists_x_plus",
-]
-
-
 def get_market_type(market: str) -> str:
-    """Determina el tipo de modelo para un mercado."""
-    if market in BINARY_MARKETS:
-        return "classifier"
-    if market in REGRESSION_MARKETS:
-        return "regressor"
-    if market in PROPS_MARKETS:
-        return "props_regressor"
-    # Default: clasificador
+    """Determina el tipo de modelo para un mercado según el registry."""
+    from predictions.registry import MARKET_REGISTRY, PRIMARY
+    cfg = MARKET_REGISTRY.get(market, {})
+    if cfg.get("kind") == PRIMARY:
+        return cfg.get("model_type", "classifier")
     return "classifier"
 
 
@@ -185,15 +148,24 @@ def train_and_save(
 
     log(f"[train] Mercado: {market} | Tipo temporada: {season_type}")
 
+    from predictions.registry import MARKET_REGISTRY, PRIMARY, NOT_CONTEMPLATED, extract_target
+
+    registry_cfg = MARKET_REGISTRY.get(market, {})
+    if registry_cfg.get("kind") == NOT_CONTEMPLATED:
+        return False, f"Mercado '{market}' no contemplado (señal insuficiente)"
+    if registry_cfg.get("kind") != PRIMARY:
+        return False, f"Mercado '{market}' es derivado; entrena su mercado primario"
+
     market_type = get_market_type(market)
+    target_key = registry_cfg.get("target", "home_win")
+    feature_market = registry_cfg.get("feature_market", market)
 
     # Cargar feature sets
     try:
         from features.models import GameFeatureSet
-        from core.models import Game
 
         qs = GameFeatureSet.objects.filter(
-            market=market,
+            market=feature_market,
             season_type__icontains=season_type.split("_")[0],
         ).exclude(features={})
 
@@ -201,16 +173,11 @@ def train_and_save(
         if qs.count() < 10:
             return False, f"Insuficientes datos ({qs.count()} partidos) para {market}"
 
-        # Construir dataset con target desde Game
         rows = []
         for fs in qs.iterator():
-            game = Game.objects.filter(game_id=fs.game_id).first()
-            if not game or game.home_score is None:
+            target = extract_target(fs.game_id, target_key)
+            if target is None:
                 continue
-            if market_type == "classifier":
-                target = 1 if (game.home_score or 0) > (game.away_score or 0) else 0
-            else:
-                target = float((game.home_score or 0) + (game.away_score or 0))
             rows.append({"features": fs.features, "target": target})
 
     except Exception as exc:

@@ -86,3 +86,67 @@ def ev_vs_odds(prob_home_win, odds_home, odds_away):
     ev_home = prob_home_win * (dh - 1) - (1 - prob_home_win)
     ev_away = (1 - prob_home_win) * (da - 1) - prob_home_win
     return ev_home, ev_away
+
+
+def predict_market(
+    market: str,
+    features: dict,
+    season_type: str = "Regular_Season",
+) -> dict | None:
+    """
+    Predice un mercado usando el registry para resolver el modelo primario.
+
+    Para mercados DERIVED, carga el modelo del mercado primario correspondiente.
+    Para mercados NOT_CONTEMPLATED, retorna None.
+
+    Retorna un dict con keys: market, primary_market, value, model_type.
+    """
+    from predictions.registry import (
+        MARKET_REGISTRY, PRIMARY, NOT_CONTEMPLATED, get_primary_market,
+    )
+
+    cfg = MARKET_REGISTRY.get(market)
+    if cfg is None:
+        return None
+    if cfg.get("kind") == NOT_CONTEMPLATED:
+        return None
+
+    primary = get_primary_market(market)
+    if primary is None:
+        return None
+
+    primary_cfg = MARKET_REGISTRY[primary]
+    model_type = primary_cfg.get("model_type", "classifier")
+    feature_market = primary_cfg.get("feature_market", primary)
+
+    payload = load_model(season_type=season_type, market=primary)
+    if payload is None:
+        return None
+
+    feature_names = payload.get("feature_names", [])
+
+    if model_type == "classifier":
+        value = predict_proba(features, payload, feature_names)
+    else:
+        import numpy as np
+        import xgboost as xgb
+        X = np.array(
+            [[float(features.get(k, 0.0)) for k in feature_names]],
+            dtype=np.float64,
+        )
+        try:
+            model = payload.get("model")
+            d = xgb.DMatrix(X)
+            value = float(model.predict(d)[0])
+        except Exception:
+            try:
+                value = float(payload["model"].predict(X)[0])
+            except Exception:
+                return None
+
+    return {
+        "market": market,
+        "primary_market": primary,
+        "model_type": model_type,
+        "value": value,
+    }
