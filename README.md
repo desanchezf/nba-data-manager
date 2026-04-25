@@ -1536,7 +1536,7 @@ El sistema genera predicciones para los siguientes mercados:
 
 - **PEP 8**: Estilo de código Python
 - **Type Hints**: Tipado estático cuando sea posible
-- **Docstrings**: Documentación de funciones y clases
+- **Docstrings**: Documentación de funciones y clases`
 - **Tests**: Cobertura de pruebas adecuada
 
 ## 📈 Roadmap
