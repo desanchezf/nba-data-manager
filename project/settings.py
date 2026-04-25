@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ["backend", "localhost", "127.0.0.1", "prometheus"]
 INSTALLED_APPS = [
     # Prometheus debe ir primero
     "django_prometheus",
-    # Unfold django theme
-    "unfold",
+    # Jazzmin theme (AdminLTE 3 + Bootstrap 5) - debe ir antes de django.contrib.admin
+    "jazzmin",
     "crispy_forms",
     # Django apps - usar AdminConfig personalizado
     "project.admin.NBAAdminConfig",
@@ -167,8 +167,11 @@ ROLE_PERMISSIONS = {
     "owner": [],
 }
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = ["unfold_crispy"]
-CRISPY_TEMPLATE_PACK = "unfold_crispy"
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["bootstrap5"]
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Admin redirect tras login
+LOGIN_REDIRECT_URL = "/"
 
 # Django REST Framework
 REST_FRAMEWORK = {
@@ -224,70 +227,178 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Unfold Configuration
-UNFOLD = {
-    "SITE_TITLE": "NBA Data Manager",
-    "SITE_HEADER": "NBA Data Manager",
-    "SITE_SUBHEADER": "Panel de Administración",
-    "SITE_URL": "/",
-    "SITE_ICON": {
-        "light": lambda request: "/static/ico.png",
-        "dark": lambda request: "/static/ico.png",
-    },
-    "SITE_FAVICONS": [
+# Django Jazzmin: menú superior, sidebar e iconos por app/modelo
+JAZZMIN_SETTINGS = {
+    "site_title": "NBA Data Manager",
+    "site_header": "NBA Data Manager",
+    "site_brand": "NBA Data Manager",
+    "site_logo": "logo.png",
+    "site_icon": "ico.png",
+    "site_logo_classes": "admin-logo-constrained",
+    "custom_css": "admin/css/admin-overrides.css",
+    "custom_js": "admin/js/logout-post.js",
+    "usermenu_links": [
+        {"model": "auth.user"},
+    ],
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index"},
+        {"name": "Herramientas", "url": "/tools/", "icon": "fas fa-tools"},
         {
-            "rel": "icon",
-            "sizes": "32x32",
-            "type": "image/png",
-            "href": lambda request: "/static/ico.png",
+            "name": "Visualización",
+            "url": "/visualization/",
+            "icon": "fas fa-chart-line",
+        },
+        {
+            "name": "Comparación",
+            "url": "/comparison/",
+            "icon": "fas fa-balance-scale",
+        },
+        {"name": "Global", "url": "/global/", "icon": "fas fa-globe"},
+        {"name": "ML", "url": "/ml/", "icon": "fas fa-brain"},
+        {
+            "name": "Prediction Hub",
+            "url": "/admin/predictions/bettingrecord/hub/",
+            "icon": "fas fa-coins",
+        },
+        {"name": "IA", "url": "/ia/", "icon": "fas fa-robot"},
+        {
+            "name": "Dashboard",
+            "url": "/dashboard/",
+            "icon": "fas fa-tachometer-alt",
+        },
+        {
+            "name": "Grafana",
+            "url": "http://localhost:3001",
+            "new_window": True,
+            "icon": "fas fa-chart-area",
+        },
+        {
+            "name": "Prometheus",
+            "url": "http://localhost:9091",
+            "new_window": True,
+            "icon": "fas fa-fire",
         },
     ],
-    "SHOW_HISTORY": True,
-    "SHOW_VIEW_ON_SITE": True,
-    "SHOW_BACK_BUTTON": False,
-    "BORDER_RADIUS": "8px",
-    "THEME": None,  # Permite cambio de tema (claro/oscuro)
-    "COLORS": {
-        "base": {
-            "50": "oklch(98.5% .002 247.839)",
-            "100": "oklch(96.7% .003 264.542)",
-            "200": "oklch(92.8% .006 264.531)",
-            "300": "oklch(87.2% .01 258.338)",
-            "400": "oklch(70.7% .022 261.325)",
-            "500": "oklch(55.1% .027 264.364)",
-            "600": "oklch(44.6% .03 256.802)",
-            "700": "oklch(37.3% .034 259.733)",
-            "800": "oklch(27.8% .033 256.848)",
-            "900": "oklch(21% .034 264.665)",
-            "950": "oklch(13% .028 261.692)",
-        },
-        "primary": {
-            # Paleta derivada de #3d4252 (compartida con mlb/crypto/evolveme)
-            "50": "oklch(97% .01 258)",
-            "100": "oklch(93% .02 258)",
-            "200": "oklch(87% .03 258)",
-            "300": "oklch(76% .04 258)",
-            "400": "oklch(61% .05 258)",
-            "500": "oklch(45% .05 258)",
-            "600": "oklch(37% .05 258)",  # ≈ #3d4252 (color principal)
-            "700": "oklch(29% .04 258)",  # ≈ #2e333f (active)
-            "800": "oklch(22% .03 258)",
-            "900": "oklch(16% .02 258)",
-            "950": "oklch(11% .01 258)",
-        },
-        "font": {
-            "subtle-light": "var(--color-base-500)",
-            "subtle-dark": "var(--color-base-400)",
-            "default-light": "var(--color-base-600)",
-            "default-dark": "var(--color-base-300)",
-            "important-light": "var(--color-base-900)",
-            "important-dark": "var(--color-base-100)",
-        },
+    "custom_links": {
+        "predictions": [
+            {
+                "name": "Prediction Hub",
+                "url": "/admin/predictions/bettingrecord/hub/",
+                "icon": "fas fa-brain",
+                "permissions": ["predictions.view_bettingrecord"],
+            },
+        ],
+        "auth": [
+            {"name": "Herramientas", "url": "/tools/", "icon": "fas fa-tools"},
+            {
+                "name": "Visualización",
+                "url": "/visualization/",
+                "icon": "fas fa-chart-line",
+            },
+            {
+                "name": "Comparación",
+                "url": "/comparison/",
+                "icon": "fas fa-balance-scale",
+            },
+            {"name": "Global", "url": "/global/", "icon": "fas fa-globe"},
+            {"name": "ML", "url": "/ml/", "icon": "fas fa-brain"},
+            {"name": "IA", "url": "/ia/", "icon": "fas fa-robot"},
+            {
+                "name": "Dashboard",
+                "url": "/dashboard/",
+                "icon": "fas fa-tachometer-alt",
+            },
+        ],
     },
-    # CSS compartido: variables --proj-primary-* y tokens Material Web
-    "STYLES": [
-        lambda request: "/static/admin/css/admin-overrides.css",
-    ],
+    "icons": {
+        # Auth
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.group": "fas fa-users",
+        # Core (datos normalizados)
+        "core": "fas fa-database",
+        "core.team": "fas fa-shield-alt",
+        "core.player": "fas fa-user-circle",
+        "core.game": "fas fa-basketball-ball",
+        "core.gameplayerline": "fas fa-list-alt",
+        "core.gameteamline": "fas fa-chart-bar",
+        "core.winprobabilitysnapshot": "fas fa-chart-line",
+        "core.gamemetadata": "fas fa-info-circle",
+        # Dashboard
+        "dashboard": "fas fa-tachometer-alt",
+        # Features
+        "features": "fas fa-cogs",
+        "features.gamefeatureset": "fas fa-layer-group",
+        "features.playerfeatureset": "fas fa-user-cog",
+        # Game (boxscores raw)
+        "game": "fas fa-gamepad",
+        "game.gameboxscoretraditional": "fas fa-table",
+        "game.gameplaybyplay": "fas fa-play-circle",
+        "game.gamesummary": "fas fa-clipboard",
+        "game.teamboxscoretraditional": "fas fa-users",
+        # Game Boxscore (avanzado)
+        "game_boxscore": "fas fa-chart-bar",
+        "game_boxscore.gameboxscoretraditional": "fas fa-table",
+        "game_boxscore.gameboxscoreadvanced": "fas fa-microscope",
+        # IA (chat, Ollama)
+        "ia": "fas fa-robot",
+        "ia.predictionmodel": "fas fa-brain",
+        "ia.chatsession": "fas fa-comments",
+        "ia.chatmessage": "fas fa-comment-dots",
+        "ia.systemprompt": "fas fa-scroll",
+        "ia.ollamamodelconfig": "fas fa-cube",
+        "ia.ollamaserver": "fas fa-server",
+        # Lineups
+        "lineups": "fas fa-users",
+        "lineups.lineupstraditional": "fas fa-table",
+        "lineups.lineupsadvanced": "fas fa-microscope",
+        "lineups.lineupsmisc": "fas fa-ellipsis-h",
+        "lineups.lineupsfourfactors": "fas fa-th",
+        "lineups.lineupsscoring": "fas fa-star",
+        "lineups.lineupsopponent": "fas fa-fist-raised",
+        # Players
+        "players": "fas fa-running",
+        "players.playersboxscores": "fas fa-list-ul",
+        # Predictions (ML e inferencia)
+        "predictions": "fas fa-brain",
+        "predictions.prediction": "fas fa-chart-line",
+        "predictions.predictionshistory": "fas fa-history",
+        "predictions.predictionlog": "fas fa-clipboard-check",
+        "predictions.bettingrecord": "fas fa-coins",
+        # Roster
+        "roster": "fas fa-address-book",
+        "roster.teams": "fas fa-shield-alt",
+        "roster.players": "fas fa-user-circle",
+        # Teams
+        "teams": "fas fa-users",
+        "teams.teamsboxscores": "fas fa-chart-bar",
+        # Celery Results
+        "django_celery_results": "fas fa-tasks",
+        "django_celery_results.taskresult": "fas fa-clipboard-check",
+        "django_celery_results.groupresult": "fas fa-layer-group",
+        # Celery Beat
+        "django_celery_beat": "fas fa-clock",
+        "django_celery_beat.clockedschedule": "fas fa-clock",
+        "django_celery_beat.crontabschedule": "fas fa-calendar",
+        "django_celery_beat.intervalschedule": "fas fa-hourglass-half",
+        "django_celery_beat.periodictask": "fas fa-tasks",
+        "django_celery_beat.solarschedule": "fas fa-sun",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "sidebar": "sidebar-dark-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": True,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+    "actions_sticky_top": False,
 }
 
 NBA_TEAMS_INFO = {

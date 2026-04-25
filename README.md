@@ -99,7 +99,7 @@ nba-data-manager/
 - **PostgreSQL 16** - Base de datos principal
 - **Redis 7.0.0** - Cache y broker de mensajes
 - **Celery 5.5.3** - Tareas asíncronas
-- **Django Unfold 0.68.0** - Tema moderno para admin
+- **Django Jazzmin 3.0.3** - Tema AdminLTE 3 + Bootstrap 5 para admin (con Material Design 3)
 - **Django Prometheus 2.3.1** - Métricas y monitoreo
 - **Django Redis 5.4.0** - Cache backend
 
@@ -209,13 +209,50 @@ RAG_VECTOR_DB_PATH=/path/to/vector_db
 OPENAI_API_KEY=your-openai-key  # Si usas OpenAI
 ```
 
-### Configuración de Unfold
+### Panel de Administración (Jazzmin)
 
-El proyecto incluye configuración personalizada de Unfold con:
-- Tema NBA personalizado
-- Colores azules vibrantes
-- Iconos y branding personalizado
-- Dashboard optimizado para datos deportivos
+El proyecto usa **Django Jazzmin** (AdminLTE 3 + Bootstrap 5) con tokens de **Material Design 3** como capa visual. La paleta de color primaria `#3d4252` es compartida entre proyectos vía variables CSS `--proj-primary-*` y tokens `--md-sys-color-*`.
+
+#### Menú superior
+
+| Enlace | URL | Descripción |
+|--------|-----|-------------|
+| Herramientas | `/tools/` | Runner de comandos de management con streaming SSE |
+| Visualización | `/visualization/` | Gráficas de estadísticas de equipos y jugadores |
+| Comparación | `/comparison/` | Comparativa entre equipos / jugadores |
+| Global | `/global/` | Estadísticas globales de la temporada |
+| ML | `/ml/` | Interfaz de predicciones y forecasting |
+| Prediction Hub | `/admin/predictions/bettingrecord/hub/` | Hub de apuestas y contabilidad |
+| IA | `/ia/` | Chat con modelos Ollama (LLM) |
+| Dashboard | `/dashboard/` | Panel de control principal |
+| Grafana | `http://localhost:3001` | Dashboards de métricas |
+| Prometheus | `http://localhost:9091` | Interfaz de métricas |
+
+#### Secciones del sidebar
+
+- **predictions** → enlace directo a Prediction Hub (solo usuarios con permiso `view_bettingrecord`)
+- **auth** → accesos rápidos a Herramientas, Visualización, Comparación, Global, ML, IA y Dashboard
+
+#### Prediction Hub
+
+Disponible en `/admin/predictions/bettingrecord/hub/`, incluye cinco modos de predicción:
+
+| Modo | URL | Descripción |
+|------|-----|-------------|
+| Dashboard | `/hub/` | Resumen contable (win rate, P&L, ROI) |
+| Pre-partido | `/hub/prepartido/` | Predicciones antes del partido |
+| Live | `/hub/live/` | Predicciones con datos de juego en curso |
+| Discovery | `/hub/discovery/` | Ranking de mejores predicciones del día |
+| Combinada | `/hub/combinada/` | Generador de apuestas combinadas |
+
+#### Sección IA (Ollama)
+
+Bajo la app `ia` en el admin se gestiona:
+- **Servidores Ollama**: conexión y pull de modelos desde el admin
+- **Modelos**: configuración de modelos con sincronización de estado
+- **System Prompts**: prompts de sistema activos (solo uno activo a la vez)
+- **Sesiones de Chat / Mensajes**: historial de conversaciones con el LLM
+- **Modelos de predicción**: registro de algoritmos ML disponibles
 
 ### Usuarios del Sistema
 
@@ -417,7 +454,7 @@ POST /api/rag/query
 ## ✨ Características y Datos
 
 ### 🎯 Funcionalidades Principales
-- **Dashboard Interactivo**: Panel de administración moderno con tema Unfold
+- **Dashboard Interactivo**: Panel de administración con tema Jazzmin (AdminLTE 3 + Material Design 3)
 - **API REST**: Endpoints para integración con aplicaciones externas
 - **Gestión de Datos**: Almacenamiento y organización de múltiples tipos de estadísticas
 - **Machine Learning**: Modelos entrenados para predicciones de múltiples mercados
