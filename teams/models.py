@@ -7366,9 +7366,11 @@ class TeamsBoxScores(models.Model):
         db_index=True,
     )
     team_abb = models.CharField(
-        max_length=20,
+        max_length=50,
         verbose_name="Equipo",
         db_index=True,
+        null=True,
+        blank=True,
     )
     game_id = models.CharField(
         max_length=20,
