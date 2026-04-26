@@ -17,146 +17,8 @@ from roster.models import Teams, Players
 from django.utils.dateparse import parse_datetime, parse_date
 from django.db import models as django_models
 
-# Importar modelos de teams, lineups y players
-from teams.models import (
-    TeamsGeneralTraditional,
-    TeamsGeneralAdvanced,
-    TeamsGeneralFourFactors,
-    TeamsGeneralMisc,
-    TeamsGeneralScoring,
-    TeamsGeneralOpponent,
-    TeamsGeneralDefense,
-    TeamsGeneralViolations,
-    TeamsGeneralEstimatedAdvanced,
-    TeamsClutchTraditional,
-    TeamsClutchAdvanced,
-    TeamsClutchFourFactors,
-    TeamsClutchMisc,
-    TeamsClutchScoring,
-    TeamsClutchOpponent,
-    TeamsBoxOuts,
-    TeamsHustle,
-    TeamsPlaytypeBallHandler,
-    TeamsPlaytypeCut,
-    TeamsPlaytypeHandOff,
-    TeamsPlaytypeIsolation,
-    TeamsPlaytypeMisc,
-    TeamsPlaytypeOffScreen,
-    TeamsPlaytypePostUp,
-    TeamsPlaytypePutbacks,
-    TeamsPlaytypeRollMan,
-    TeamsPlaytypeSpotUp,
-    TeamsPlaytypeTransition,
-    TeamsTrackingCatchShoot,
-    TeamsTrackingDefensiveImpact,
-    TeamsTrackingDefensiveRebounding,
-    TeamsTrackingDrives,
-    TeamsTrackingElbowTouch,
-    TeamsTrackingOffensiveRebounding,
-    TeamsTrackingPaintTouch,
-    TeamsTrackingPassing,
-    TeamsTrackingPostUps,
-    TeamsTrackingPullup,
-    TeamsTrackingRebounding,
-    TeamsTrackingShootingEfficiency,
-    TeamsTrackingSpeedDistance,
-    TeamsTrackingTouches,
-    TeamsDefenseDashboardOverall,
-    TeamsDefenseDashboard2pt,
-    TeamsDefenseDashboard3pt,
-    TeamsDefenseDashboardLt6,
-    TeamsDefenseDashboardLt10,
-    TeamsDefenseDashboardGt15,
-    TeamsShotDashboardGeneral,
-    TeamsShotDashboardShotClock,
-    TeamsShotDashboardDribbles,
-    TeamsShotDashboardTouchTime,
-    TeamsShotDashboardClosestDefender,
-    TeamsShotDashboardClosestDefender10,
-    TeamsShooting,
-    TeamsOpponentShootingOverall,
-    TeamsOpponentShotsGeneral,
-    TeamsOpponentShotsShotclock,
-    TeamsOpponentShotsDribbles,
-    TeamsOpponentShotsTouchTime,
-    TeamsOpponentShotsClosestDefender,
-    TeamsOpponentShotsClosestDefender10,
-)
-
-from lineups.models import (
-    LineupsTraditional,
-    LineupsAdvanced,
-    LineupsMisc,
-    LineupsFourFactors,
-    LineupsScoring,
-    LineupsOpponent,
-)
-
-from players.models import (
-    PlayersGeneralTraditional,
-    PlayersGeneralAdvanced,
-    PlayersGeneralMisc,
-    PlayersGeneralScoring,
-    PlayersGeneralUsage,
-    PlayersGeneralOpponent,
-    PlayersGeneralDefense,
-    PlayersGeneralViolations,
-    PlayersGeneralEstimatedAdvanced,
-    PlayersClutchTraditional,
-    PlayersClutchAdvanced,
-    PlayersClutchMisc,
-    PlayersClutchScoring,
-    PlayersClutchUsage,
-    PlayersBios,
-    PlayersBoxOuts,
-    PlayersHustle,
-    PlayersPlaytypeBallHandler,
-    PlayersPlaytypeCut,
-    PlayersPlaytypeHandOff,
-    PlayersPlaytypeIsolation,
-    PlayersPlaytypeMisc,
-    PlayersPlaytypeOffScreen,
-    PlayersPlaytypePostUp,
-    PlayersPlaytypePutbacks,
-    PlayersPlaytypeRollMan,
-    PlayersPlaytypeSpotUp,
-    PlayersPlaytypeTransition,
-    PlayersTrackingCatchShoot,
-    PlayersTrackingDefensiveImpact,
-    PlayersTrackingDefensiveRebounding,
-    PlayersTrackingDrives,
-    PlayersTrackingElbowTouch,
-    PlayersTrackingOffensiveRebounding,
-    PlayersTrackingPaintTouch,
-    PlayersTrackingPassing,
-    PlayersTrackingPostUps,
-    PlayersTrackingPullup,
-    PlayersTrackingRebounding,
-    PlayersTrackingShootingEfficiency,
-    PlayersTrackingSpeedDistance,
-    PlayersTrackingTouches,
-    PlayersDefenseDashboardOverall,
-    PlayersDefenseDashboard2pt,
-    PlayersDefenseDashboard3pt,
-    PlayersDefenseDashboardLt6,
-    PlayersDefenseDashboardLt10,
-    PlayersDefenseDashboardGt15,
-    PlayersShotDashboardGeneral,
-    PlayersShotDashboardShotClock,
-    PlayersShotDashboardDribbles,
-    PlayersShotDashboardTouchTime,
-    PlayersShotDashboardClosestDefender,
-    PlayersShotDashboardClosestDefender10,
-    PlayersBoxScores,
-    PlayersAdvancedBoxScoresTraditional,
-    PlayersAdvancedBoxScoresAdvanced,
-    PlayersAdvancedBoxScoresMisc,
-    PlayersAdvancedBoxScoresScoring,
-    PlayersAdvancedBoxScoresUsage,
-    PlayersShooting,
-    PlayersDunkScores,
-    PlayersOpponentShootingOverall,
-)
+from teams.models import TeamsGeneralTraditional, TeamsGeneralAdvanced
+from players.models import PlayersGeneralTraditional, PlayersGeneralAdvanced
 
 logger = logging.getLogger(__name__)
 
@@ -215,7 +77,6 @@ class Command(BaseCommand):
 
         # Importar datos de CSVs por app
         self.import_teams_csvs()
-        self.import_lineups_csvs()
         self.import_players_csvs()
 
         self.stdout.write("=" * 60)
@@ -1050,73 +911,13 @@ class Command(BaseCommand):
         return created_count, updated_count, errors
 
     def import_teams_csvs(self):
-        """Importa todos los CSVs que empiezan por teams_"""
+        """Importa CSVs de equipos: traditional y advanced."""
         self.stdout.write(self.style.WARNING("\n[7] Importando CSVs de teams..."))
 
         csv_dir = "./csv"
         csv_to_model = {
             "teams_general_traditional.csv": TeamsGeneralTraditional,
             "teams_general_advanced.csv": TeamsGeneralAdvanced,
-            "teams_general_four_factors.csv": TeamsGeneralFourFactors,
-            "teams_general_misc.csv": TeamsGeneralMisc,
-            "teams_general_scoring.csv": TeamsGeneralScoring,
-            "teams_general_opponent.csv": TeamsGeneralOpponent,
-            "teams_general_defense.csv": TeamsGeneralDefense,
-            "teams_general_violations.csv": TeamsGeneralViolations,
-            "teams_general_estimated_advanced.csv": TeamsGeneralEstimatedAdvanced,
-            "teams_clutch_traditional.csv": TeamsClutchTraditional,
-            "teams_clutch_advanced.csv": TeamsClutchAdvanced,
-            "teams_clutch_four_factors.csv": TeamsClutchFourFactors,
-            "teams_clutch_misc.csv": TeamsClutchMisc,
-            "teams_clutch_scoring.csv": TeamsClutchScoring,
-            "teams_clutch_opponent.csv": TeamsClutchOpponent,
-            "teams_box_outs.csv": TeamsBoxOuts,
-            "teams_hustle.csv": TeamsHustle,
-            "teams_playtype_ball_handler.csv": TeamsPlaytypeBallHandler,
-            "teams_playtype_cut.csv": TeamsPlaytypeCut,
-            "teams_playtype_hand_off.csv": TeamsPlaytypeHandOff,
-            "teams_playtype_isolation.csv": TeamsPlaytypeIsolation,
-            "teams_playtype_misc.csv": TeamsPlaytypeMisc,
-            "teams_playtype_off_screen.csv": TeamsPlaytypeOffScreen,
-            "teams_playtype_post_up.csv": TeamsPlaytypePostUp,
-            "teams_playtype_putbacks.csv": TeamsPlaytypePutbacks,
-            "teams_playtype_roll_man.csv": TeamsPlaytypeRollMan,
-            "teams_playtype_spot_up.csv": TeamsPlaytypeSpotUp,
-            "teams_playtype_transition.csv": TeamsPlaytypeTransition,
-            "teams_tracking_catch_shoot.csv": TeamsTrackingCatchShoot,
-            "teams_tracking_defensive_impact.csv": TeamsTrackingDefensiveImpact,
-            "teams_tracking_defensive_rebounding.csv": TeamsTrackingDefensiveRebounding,
-            "teams_tracking_drives.csv": TeamsTrackingDrives,
-            "teams_tracking_elbow_touch.csv": TeamsTrackingElbowTouch,
-            "teams_tracking_offensive_rebounding.csv": TeamsTrackingOffensiveRebounding,
-            "teams_tracking_paint_touch.csv": TeamsTrackingPaintTouch,
-            "teams_tracking_passing.csv": TeamsTrackingPassing,
-            "teams_tracking_post_ups.csv": TeamsTrackingPostUps,
-            "teams_tracking_pullup.csv": TeamsTrackingPullup,
-            "teams_tracking_rebounding.csv": TeamsTrackingRebounding,
-            "teams_tracking_shooting_efficiency.csv": TeamsTrackingShootingEfficiency,
-            "teams_tracking_speed_distance.csv": TeamsTrackingSpeedDistance,
-            "teams_tracking_touches.csv": TeamsTrackingTouches,
-            "teams_defense_dashboard_overall.csv": TeamsDefenseDashboardOverall,
-            "teams_defense_dashboard_2pt.csv": TeamsDefenseDashboard2pt,
-            "teams_defense_dashboard_3pt.csv": TeamsDefenseDashboard3pt,
-            "teams_defense_dashboard_lt6.csv": TeamsDefenseDashboardLt6,
-            "teams_defense_dashboard_lt10.csv": TeamsDefenseDashboardLt10,
-            "teams_defense_dashboard_gt15.csv": TeamsDefenseDashboardGt15,
-            "teams_shot_dashboard_general.csv": TeamsShotDashboardGeneral,
-            "teams_shot_dashboard_shot_clock.csv": TeamsShotDashboardShotClock,
-            "teams_shot_dashboard_dribbles.csv": TeamsShotDashboardDribbles,
-            "teams_shot_dashboard_touch_time.csv": TeamsShotDashboardTouchTime,
-            "teams_shot_dashboard_closest_defender.csv": TeamsShotDashboardClosestDefender,
-            "teams_shot_dashboard_closest_defender_10.csv": TeamsShotDashboardClosestDefender10,
-            "teams_shooting.csv": TeamsShooting,
-            "teams_opponent_shooting_overall.csv": TeamsOpponentShootingOverall,
-            "teams_opponent_shots_general.csv": TeamsOpponentShotsGeneral,
-            "teams_opponent_shots_shotclock.csv": TeamsOpponentShotsShotclock,
-            "teams_opponent_shots_dribbles.csv": TeamsOpponentShotsDribbles,
-            "teams_opponent_shots_touch_time.csv": TeamsOpponentShotsTouchTime,
-            "teams_opponent_shots_closest_defender.csv": TeamsOpponentShotsClosestDefender,
-            "teams_opponent_shots_closest_defender_10.csv": TeamsOpponentShotsClosestDefender10,
         }
 
         total_created = 0
@@ -1148,118 +949,16 @@ class Command(BaseCommand):
             )
         )
 
-    def import_lineups_csvs(self):
-        """Importa todos los CSVs que empiezan por lineups_"""
-        self.stdout.write(self.style.WARNING("\n[8] Importando CSVs de lineups..."))
-
-        csv_dir = "./csv"
-        csv_to_model = {
-            "lineups_traditional.csv": LineupsTraditional,
-            "lineups_advanced.csv": LineupsAdvanced,
-            "lineups_misc.csv": LineupsMisc,
-            "lineups_four_factors.csv": LineupsFourFactors,
-            "lineups_scoring.csv": LineupsScoring,
-            "lineups_opponent.csv": LineupsOpponent,
-        }
-
-        total_created = 0
-        total_updated = 0
-
-        for csv_file, model_class in sorted(csv_to_model.items()):
-            csv_path = os.path.join(csv_dir, csv_file)
-            created, updated, errors = self.import_csv_to_model(csv_path, model_class)
-            total_created += created
-            total_updated += updated
-
-            if errors:
-                self.stdout.write(
-                    self.style.ERROR(f"    ⚠ {csv_file}: {len(errors)} errores")
-                )
-                if len(errors) <= 5:
-                    for error in errors:
-                        self.stdout.write(self.style.ERROR(f"      {error}"))
-            else:
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        f"    ✓ {csv_file}: {created} creados, {updated} actualizados"
-                    )
-                )
-
-        self.stdout.write(
-            self.style.SUCCESS(
-                f"\n  Lineups: {total_created} registros creados, {total_updated} actualizados"
-            )
-        )
-
     def import_players_csvs(self):
-        """Importa todos los CSVs que empiezan por players_"""
-        self.stdout.write(self.style.WARNING("\n[9] Importando CSVs de players..."))
+        """Importa CSVs de jugadores: traditional y advanced."""
+        self.stdout.write(
+            self.style.WARNING("\n[8] Importando CSVs de players...")
+        )
 
         csv_dir = "./csv"
         csv_to_model = {
             "players_general_traditional.csv": PlayersGeneralTraditional,
             "players_general_advanced.csv": PlayersGeneralAdvanced,
-            "players_general_misc.csv": PlayersGeneralMisc,
-            "players_general_scoring.csv": PlayersGeneralScoring,
-            "players_general_usage.csv": PlayersGeneralUsage,
-            "players_general_opponent.csv": PlayersGeneralOpponent,
-            "players_general_defense.csv": PlayersGeneralDefense,
-            "players_general_violations.csv": PlayersGeneralViolations,
-            "players_general_estimated_advanced.csv": PlayersGeneralEstimatedAdvanced,
-            "players_clutch_traditional.csv": PlayersClutchTraditional,
-            "players_clutch_advanced.csv": PlayersClutchAdvanced,
-            "players_clutch_misc.csv": PlayersClutchMisc,
-            "players_clutch_scoring.csv": PlayersClutchScoring,
-            "players_clutch_usage.csv": PlayersClutchUsage,
-            "players_bios.csv": PlayersBios,
-            "players_box_outs.csv": PlayersBoxOuts,
-            "players_hustle.csv": PlayersHustle,
-            "players_playtype_ball_handler.csv": PlayersPlaytypeBallHandler,
-            "players_playtype_cut.csv": PlayersPlaytypeCut,
-            "players_playtype_hand_off.csv": PlayersPlaytypeHandOff,
-            "players_playtype_isolation.csv": PlayersPlaytypeIsolation,
-            "players_playtype_misc.csv": PlayersPlaytypeMisc,
-            "players_playtype_off_screen.csv": PlayersPlaytypeOffScreen,
-            "players_playtype_post_up.csv": PlayersPlaytypePostUp,
-            "players_playtype_putbacks.csv": PlayersPlaytypePutbacks,
-            "players_playtype_roll_man.csv": PlayersPlaytypeRollMan,
-            "players_playtype_spot_up.csv": PlayersPlaytypeSpotUp,
-            "players_playtype_transition.csv": PlayersPlaytypeTransition,
-            "players_tracking_catch_shoot.csv": PlayersTrackingCatchShoot,
-            "players_tracking_defensive_impact.csv": PlayersTrackingDefensiveImpact,
-            "players_tracking_defensive_rebounding.csv": PlayersTrackingDefensiveRebounding,
-            "players_tracking_drives.csv": PlayersTrackingDrives,
-            "players_tracking_elbow_touch.csv": PlayersTrackingElbowTouch,
-            "players_tracking_offensive_rebounding.csv": PlayersTrackingOffensiveRebounding,
-            "players_tracking_paint_touch.csv": PlayersTrackingPaintTouch,
-            "players_tracking_passing.csv": PlayersTrackingPassing,
-            "players_tracking_post_ups.csv": PlayersTrackingPostUps,
-            "players_tracking_pullup.csv": PlayersTrackingPullup,
-            "players_tracking_rebounding.csv": PlayersTrackingRebounding,
-            "players_tracking_shooting_efficiency.csv": PlayersTrackingShootingEfficiency,
-            "players_tracking_speed_distance.csv": PlayersTrackingSpeedDistance,
-            "players_tracking_touches.csv": PlayersTrackingTouches,
-            "players_defense_dashboard_overall.csv": PlayersDefenseDashboardOverall,
-            "players_defense_dashboard_2pt.csv": PlayersDefenseDashboard2pt,
-            "players_defense_dashboard_3pt.csv": PlayersDefenseDashboard3pt,
-            "players_defense_dashboard_lt6.csv": PlayersDefenseDashboardLt6,
-            "players_defense_dashboard_lt10.csv": PlayersDefenseDashboardLt10,
-            "players_defense_dashboard_gt15.csv": PlayersDefenseDashboardGt15,
-            "players_shot_dashboard_general.csv": PlayersShotDashboardGeneral,
-            "players_shot_dashboard_shot_clock.csv": PlayersShotDashboardShotClock,
-            "players_shot_dashboard_dribbles.csv": PlayersShotDashboardDribbles,
-            "players_shot_dashboard_touch_time.csv": PlayersShotDashboardTouchTime,
-            "players_shot_dashboard_closest_defender.csv": PlayersShotDashboardClosestDefender,
-            "players_shot_dashboard_closest_defender_10.csv": PlayersShotDashboardClosestDefender10,
-            "players_box_scores.csv": PlayersBoxScores,
-            "players_advanced_box_scores_traditional.csv": PlayersAdvancedBoxScoresTraditional,
-            "players_advanced_box_scores_advanced.csv": PlayersAdvancedBoxScoresAdvanced,
-            "players_advanced_box_scores_misc.csv": PlayersAdvancedBoxScoresMisc,
-            "players_advanced_box_scores_scoring.csv": PlayersAdvancedBoxScoresScoring,
-            "players_advanced_box_scores_usage.csv": PlayersAdvancedBoxScoresUsage,
-            "players_shooting.csv": PlayersShooting,
-            "players_dunk_scores.csv": PlayersDunkScores,
-            "players_opponent_shooting_overall.csv": PlayersOpponentShootingOverall,
         }
 
         total_created = 0

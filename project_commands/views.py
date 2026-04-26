@@ -194,11 +194,6 @@ ALERT_THRESHOLDS = [
     ("0.55", "0.55"),
     ("0.60", "0.60"),
 ]
-PIPELINE_SEASON_TYPES = [
-    ("Regular Season", "Regular Season"),
-    ("Playoffs", "Playoffs"),
-]
-
 # ---------------------------------------------------------------------------
 # Definición de grupos de comandos y sus argumentos
 # ---------------------------------------------------------------------------
@@ -212,24 +207,15 @@ COMMAND_GROUPS = [
                 "display_name": "Full Pipeline NBA",
                 "help": (
                     "ETL → sync_normalized → compute_features → train_models. "
-                    "Ejecuta todos los pasos de forma secuencial."
+                    "Cubre Regular Season + Playoffs para todos los mercados."
                 ),
                 "help_detail": [
                     "Paso 1 — import_data: importa los datos a modelos crudos.",
                     "Paso 2 — sync_normalized: normaliza los datos al modelo core.",
-                    "Paso 3 — compute_features: calcula features para entrenamiento.",
-                    "Paso 4 — train_models: entrena un modelo por mercado.",
-                    "Usa --skip-etl / --skip-sync / --skip-features / --skip-train para saltar pasos.",
+                    "Paso 3 — compute_features: features para todos los mercados × 2 tipos de temporada.",
+                    "Paso 4 — train_models: entrena todos los mercados × 2 tipos de temporada.",
                 ],
-                "args": [
-                    ("--season-type", "choice", "Tipo temporada", PIPELINE_SEASON_TYPES),
-                    ("--market", "choice", "Mercado", MARKETS_ML),
-                    ("--to-redis", "checkbox", "Escribir features en Redis"),
-                    ("--skip-etl", "checkbox", "Omitir ETL"),
-                    ("--skip-sync", "checkbox", "Omitir sync"),
-                    ("--skip-features", "checkbox", "Omitir features"),
-                    ("--skip-train", "checkbox", "Omitir entrenamiento"),
-                ],
+                "args": [],
             },
         ],
     },

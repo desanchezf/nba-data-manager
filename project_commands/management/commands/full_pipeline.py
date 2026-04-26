@@ -1,92 +1,109 @@
 """
-Pipeline completo NBA:
-ETL → sync_normalized → compute_features → train_models
-
-Equivale a ejecutar todos los pasos de forma secuencial.
+Pipeline completo NBA sin opciones:
+ETL → sync_normalized → compute_features (todos los feature markets)
+→ train_models (todos los PRIMARY markets) para Regular Season y Playoffs.
 """
 
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
+SEASON_TYPES = ["Regular Season", "Playoffs"]
+
+
+def _primary_markets():
+    from predictions.registry import MARKET_REGISTRY, PRIMARY
+    return [
+        m for m, cfg in MARKET_REGISTRY.items()
+        if cfg.get("kind") == PRIMARY
+    ]
+
+
+def _feature_markets():
+    """Unique feature_market values across all PRIMARY markets."""
+    from predictions.registry import MARKET_REGISTRY, PRIMARY
+    seen, result = set(), []
+    for cfg in MARKET_REGISTRY.values():
+        if cfg.get("kind") == PRIMARY:
+            fm = cfg.get("feature_market")
+            if fm and fm not in seen:
+                seen.add(fm)
+                result.append(fm)
+    return result
+
 
 class Command(BaseCommand):
-    help = "Pipeline completo NBA: ETL → features → entrenamiento"
+    help = "Pipeline NBA completo: ETL→features→entrenamiento"
 
-    def add_arguments(self, parser):
-        parser.add_argument("--season-type", type=str, default="Regular Season", help="Tipo temporada")
-        parser.add_argument("--skip-etl", action="store_true", help="Omitir paso ETL (import_data)")
-        parser.add_argument("--skip-sync", action="store_true", help="Omitir sync_normalized")
-        parser.add_argument("--skip-features", action="store_true", help="Omitir compute_features")
-        parser.add_argument("--skip-train", action="store_true", help="Omitir entrenamiento")
-        parser.add_argument("--market", type=str, default="moneyline", help="Mercado a entrenar")
-        parser.add_argument("--to-redis", action="store_true", help="Escribir features en Redis")
+    def _step(self, label, command, *args, **kwargs):
+        try:
+            call_command(
+                command, *args,
+                stdout=self.stdout, stderr=self.stderr,
+                **kwargs
+            )
+            self.stdout.write(self.style.SUCCESS(f"  ✅ {label}"))
+            return True
+        except Exception as exc:
+            self.stderr.write(self.style.ERROR(f"  ❌ {label}: {exc}"))
+            return False
 
     def handle(self, *args, **options):
-        season_type = options["season_type"]
-        skip_etl = options["skip_etl"]
-        skip_sync = options["skip_sync"]
-        skip_features = options["skip_features"]
-        skip_train = options["skip_train"]
-        market = options["market"]
-        to_redis = options["to_redis"]
+        sep = "=" * 60
+        self.stdout.write(f"\n{sep}")
+        self.stdout.write("  NBA Full Pipeline — Regular Season + Playoffs")
+        self.stdout.write(f"{sep}\n")
 
-        self.stdout.write(f"\n{'='*60}")
-        self.stdout.write(f"  NBA Pipeline - {season_type}")
-        self.stdout.write(f"{'='*60}\n")
+        # 1. ETL
+        self.stdout.write("\n[1/4] Importando datos...")
+        if not self._step("import_data", "import_data"):
+            return
 
-        # Paso 1: Import data
-        if not skip_etl:
-            self.stdout.write("\n[1/4] Importando datos (import_data)...")
-            try:
-                call_command("import_data", stdout=self.stdout, stderr=self.stderr)
-                self.stdout.write(self.style.SUCCESS("  ✅ import_data completado"))
-            except Exception as exc:
-                self.stderr.write(self.style.ERROR(f"  ❌ import_data falló: {exc}"))
-                return
-        else:
-            self.stdout.write("[1/4] Omitiendo import_data (--skip-etl)")
+        # 2. Sync
+        self.stdout.write("\n[2/4] Sincronizando modelos normalizados...")
+        self._step("sync_normalized", "sync_normalized")
 
-        # Paso 2: Sync normalized
-        if not skip_sync:
-            self.stdout.write("\n[2/4] Sincronizando modelos normalizados (sync_normalized)...")
-            try:
-                call_command("sync_normalized", stdout=self.stdout, stderr=self.stderr)
-                self.stdout.write(self.style.SUCCESS("  ✅ sync_normalized completado"))
-            except Exception as exc:
-                self.stderr.write(self.style.ERROR(f"  ❌ sync_normalized falló: {exc}"))
-        else:
-            self.stdout.write("[2/4] Omitiendo sync_normalized (--skip-sync)")
+        # 3. Compute features por feature_market × season_type
+        fm_list = _feature_markets()
+        total = len(fm_list) * len(SEASON_TYPES)
+        self.stdout.write(
+            f"\n[3/4] Calculando features "
+            f"({len(fm_list)} markets × {len(SEASON_TYPES)} tipos"
+            f" = {total})..."
+        )
+        done = 0
+        for stype in SEASON_TYPES:
+            for fm in fm_list:
+                ok = self._step(
+                    f"features {fm}/{stype}",
+                    "compute_features",
+                    "--market", fm,
+                    "--season-type", stype,
+                )
+                done += 1
+                if ok:
+                    self.stdout.write(f"    [{done}/{total}] {fm} / {stype}")
 
-        # Paso 3: Compute features
-        if not skip_features:
-            self.stdout.write(f"\n[3/4] Calculando features (mercado: {market})...")
-            try:
-                args = ["--market", market, "--season-type", season_type]
-                if to_redis:
-                    args.append("--to-redis")
-                call_command("compute_features", *args, stdout=self.stdout, stderr=self.stderr)
-                self.stdout.write(self.style.SUCCESS("  ✅ compute_features completado"))
-            except Exception as exc:
-                self.stderr.write(self.style.ERROR(f"  ❌ compute_features falló: {exc}"))
-        else:
-            self.stdout.write("[3/4] Omitiendo compute_features (--skip-features)")
-
-        # Paso 4: Train models
-        if not skip_train:
-            self.stdout.write(f"\n[4/4] Entrenando modelo (mercado: {market})...")
-            try:
-                call_command(
+        # 4. Train models por PRIMARY market × season_type
+        pm_list = _primary_markets()
+        total = len(pm_list) * len(SEASON_TYPES)
+        self.stdout.write(
+            f"\n[4/4] Entrenando modelos "
+            f"({len(pm_list)} markets × {len(SEASON_TYPES)} tipos"
+            f" = {total})..."
+        )
+        done = 0
+        for stype in SEASON_TYPES:
+            for market in pm_list:
+                ok = self._step(
+                    f"{market}/{stype}",
                     "train_models",
                     "--market", market,
-                    "--season-type", season_type,
-                    stdout=self.stdout, stderr=self.stderr,
+                    "--season-type", stype,
                 )
-                self.stdout.write(self.style.SUCCESS("  ✅ train_models completado"))
-            except Exception as exc:
-                self.stderr.write(self.style.ERROR(f"  ❌ train_models falló: {exc}"))
-        else:
-            self.stdout.write("[4/4] Omitiendo train_models (--skip-train)")
+                done += 1
+                if ok:
+                    self.stdout.write(f"    [{done}/{total}] {market}")
 
-        self.stdout.write(self.style.SUCCESS(
-            f"\n{'='*60}\n  ✅ Pipeline NBA completado\n{'='*60}"
-        ))
+        self.stdout.write(
+            self.style.SUCCESS(f"\n{sep}\n  ✅ Pipeline completado\n{sep}")
+        )

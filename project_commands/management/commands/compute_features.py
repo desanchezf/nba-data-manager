@@ -44,13 +44,18 @@ class Command(BaseCommand):
         count = 0
         errors = 0
 
-        for game in qs.select_related("home_team", "away_team").iterator(chunk_size=500):
+        iterator = qs.select_related("home_team", "away_team").iterator(
+            chunk_size=500
+        )
+        for game in iterator:
             try:
                 features = compute_features_for_matchup(
                     home_team_id=game.home_team.team_id,
                     away_team_id=game.away_team.team_id,
                     as_of_date=game.date,
                     market=market,
+                    season=game.season or None,
+                    season_type=game.season_type or "Regular Season",
                 )
 
                 # Añadir features específicas del mercado

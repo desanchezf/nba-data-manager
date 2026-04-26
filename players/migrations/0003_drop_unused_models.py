@@ -1,0 +1,75 @@
+from django.db import migrations
+
+
+class Migration(migrations.Migration):
+    dependencies = [
+        ("players", "0002_playersboxscores_team_id_playersboxscores_team_name_and_more"),
+    ]
+    operations = [
+        migrations.RunSQL(
+            sql=(
+                "DROP TABLE IF EXISTS players_playersgeneralmisc; "
+                "DROP TABLE IF EXISTS players_playersgeneralscoring; "
+                "DROP TABLE IF EXISTS players_playersgeneralusage; "
+                "DROP TABLE IF EXISTS players_playersgeneralopponent; "
+                "DROP TABLE IF EXISTS players_playersgeneraldefense; "
+                "DROP TABLE IF EXISTS players_playersgeneralviolations; "
+                "DROP TABLE IF EXISTS players_playersgeneralestimatedadvanced; "
+                "DROP TABLE IF EXISTS players_playersclutchtraditional; "
+                "DROP TABLE IF EXISTS players_playersclutchadvanced; "
+                "DROP TABLE IF EXISTS players_playersclutchmisc; "
+                "DROP TABLE IF EXISTS players_playersclutchscoring; "
+                "DROP TABLE IF EXISTS players_playersclutchusage; "
+                "DROP TABLE IF EXISTS players_playersplaytypeisolation; "
+                "DROP TABLE IF EXISTS players_playersplaytypetransition; "
+                "DROP TABLE IF EXISTS players_playersplaytypeballhandler; "
+                "DROP TABLE IF EXISTS players_playersplaytyperollman; "
+                "DROP TABLE IF EXISTS players_playersplaytypepostup; "
+                "DROP TABLE IF EXISTS players_playersplaytypespotup; "
+                "DROP TABLE IF EXISTS players_playersplaytypehandoff; "
+                "DROP TABLE IF EXISTS players_playersplaytypecut; "
+                "DROP TABLE IF EXISTS players_playersplaytypeoffscreen; "
+                "DROP TABLE IF EXISTS players_playersplaytypeputbacks; "
+                "DROP TABLE IF EXISTS players_playersplaytypemisc; "
+                "DROP TABLE IF EXISTS players_playerstrackingdrives; "
+                "DROP TABLE IF EXISTS players_playerstrackingdefensiveimpact; "
+                "DROP TABLE IF EXISTS players_playerstrackingcatchshoot; "
+                "DROP TABLE IF EXISTS players_playerstrackingpassing; "
+                "DROP TABLE IF EXISTS players_playerstrackingtouches; "
+                "DROP TABLE IF EXISTS players_playerstrackingpullup; "
+                "DROP TABLE IF EXISTS players_playerstrackingrebounding; "
+                "DROP TABLE IF EXISTS players_playerstrackingoffensiverebounding; "
+                "DROP TABLE IF EXISTS players_playerstrackingdefensiverebounding; "
+                "DROP TABLE IF EXISTS players_playerstrackingshootingefficiency; "
+                "DROP TABLE IF EXISTS players_playerstrackingspeeddistance; "
+                "DROP TABLE IF EXISTS players_playerstrackingelbowtouch; "
+                "DROP TABLE IF EXISTS players_playerstrackingpostups; "
+                "DROP TABLE IF EXISTS players_playerstrackingpainttouch; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboardoverall; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboard3pt; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboard2pt; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboardlt6; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboardlt10; "
+                "DROP TABLE IF EXISTS players_playersdefensedashboardgt15; "
+                "DROP TABLE IF EXISTS players_playersshotdashboardgeneral; "
+                "DROP TABLE IF EXISTS players_playersshotdashboardshotclock; "
+                "DROP TABLE IF EXISTS players_playersshotdashboarddribbles; "
+                "DROP TABLE IF EXISTS players_playersshotdashboardtouchtime; "
+                "DROP TABLE IF EXISTS players_playersshotdashboardclosestdefender; "
+                "DROP TABLE IF EXISTS players_playersshotdashboardclosestdefender10; "
+                "DROP TABLE IF EXISTS players_playersboxscores; "
+                "DROP TABLE IF EXISTS players_playersadvancedboxscorestraditional; "
+                "DROP TABLE IF EXISTS players_playersadvancedboxscoresadvanced; "
+                "DROP TABLE IF EXISTS players_playersadvancedboxscoresmisc; "
+                "DROP TABLE IF EXISTS players_playersadvancedboxscoresscoring; "
+                "DROP TABLE IF EXISTS players_playersadvancedboxscoresusage; "
+                "DROP TABLE IF EXISTS players_playersshooting; "
+                "DROP TABLE IF EXISTS players_playersdunkscores; "
+                "DROP TABLE IF EXISTS players_playersopponentshootingoverall; "
+                "DROP TABLE IF EXISTS players_playershustle; "
+                "DROP TABLE IF EXISTS players_playersboxouts; "
+                "DROP TABLE IF EXISTS players_playersbios;"
+            ),
+            reverse_sql="",
+        ),
+    ]
