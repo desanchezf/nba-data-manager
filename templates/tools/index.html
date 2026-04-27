@@ -102,15 +102,30 @@
   max-width: 100%;
   box-sizing: border-box;
 }
-.command-runner-grid { table-layout: fixed; }
-.command-runner-grid .col-command { width: 22%; }
-.command-runner-grid .col-arg { width: 13%; min-width: 10rem; }
-.command-runner-grid .col-button { width: 9%; min-width: 8rem; }
+.command-runner-grid { table-layout: fixed; width: 100%; }
+/* Suma total: 20% + 7×10% + 10% = 100% */
+.command-runner-grid .col-command { width: 20%; }
+.command-runner-grid .col-arg { width: 10%; min-width: 0; }
+.command-runner-grid .col-button { width: 10%; min-width: 0; }
 .command-progress md-linear-progress { margin-bottom: 0.25rem; }
 .command-live-card .md-m3-surface__header { gap: 0.75rem; }
 .command-live-bar { --md-linear-progress-track-height: 6px; --md-linear-progress-active-indicator-height: 6px; }
-@media (max-width: 1200px) {
-  .command-runner-grid .col-arg { min-width: 8rem; }
+/* Fuente reducida para que el texto no se recorte */
+.command-runner-grid td { font-size: 0.8rem; }
+.command-runner-grid strong { font-size: 0.8rem; }
+.command-runner-grid p.small,
+.command-runner-grid ul.small,
+.command-runner-grid ul.small li { font-size: 0.72rem !important; }
+.command-runner-grid md-outlined-select,
+.command-runner-grid md-outlined-text-field {
+  --md-outlined-field-label-text-size: 0.72rem;
+  --md-outlined-field-input-text-size: 0.78rem;
+  font-size: 0.78rem;
+  width: 100%;
+}
+.command-runner-grid .command-submit {
+  --md-filled-button-label-text-size: 0.75rem;
+  width: 100%;
 }
 </style>
 

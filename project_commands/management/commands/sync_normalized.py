@@ -4,6 +4,7 @@ hacia los modelos normalizados de core (Game, Team, Player, GamePlayerLine, Game
 """
 
 from django.core.management.base import BaseCommand
+from tqdm import tqdm
 
 
 class Command(BaseCommand):
@@ -23,7 +24,10 @@ class Command(BaseCommand):
 
         if clear:
             self.stdout.write("Vaciando modelos core...")
-            from core.models import Game, Player, Team, GamePlayerLine, GameTeamLine, WinProbabilitySnapshot
+            from core.models import (
+                Game, Player, Team,
+                GamePlayerLine, GameTeamLine, WinProbabilitySnapshot,
+            )
             WinProbabilitySnapshot.objects.all().delete()
             GameTeamLine.objects.all().delete()
             GamePlayerLine.objects.all().delete()
@@ -32,19 +36,10 @@ class Command(BaseCommand):
             Team.objects.all().delete()
             self.stdout.write(self.style.WARNING("Modelos core vaciados."))
 
-        # 1. Sincronizar Teams desde roster.Teams
         self._sync_teams()
-
-        # 2. Sincronizar Players desde roster.Players
         self._sync_players()
-
-        # 3. Sincronizar Games desde game.GameBoxscoreTraditional
         self._sync_games(season, season_type, batch_size)
-
-        # 4. Sincronizar GamePlayerLine desde game_boxscore.GameBoxscoreTraditional
         self._sync_player_lines(season, season_type, batch_size)
-
-        # 5. Sincronizar GameTeamLine (ALL + Q1-Q4) desde game.TeamBoxscoreTraditional + GameSummary
         self._sync_team_lines(season, season_type, batch_size)
 
         self.stdout.write(self.style.SUCCESS("✅ Sincronización core completada."))
@@ -55,8 +50,9 @@ class Command(BaseCommand):
             from roster.models import Teams as RosterTeam
             from core.models import Team
 
+            qs = list(RosterTeam.objects.all())
             count = 0
-            for rt in RosterTeam.objects.all():
+            for rt in tqdm(qs, desc="  Equipos", unit=" eq", ncols=80, file=self.stdout):
                 team_id = str(rt.team_id) if hasattr(rt, "team_id") else str(rt.pk)
                 Team.objects.update_or_create(
                     team_id=team_id,
@@ -68,7 +64,7 @@ class Command(BaseCommand):
                     },
                 )
                 count += 1
-            self.stdout.write(f"  Equipos: {count}")
+            self.stdout.write(f"  Equipos sincronizados: {count}")
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Equipos: {exc}"))
 
@@ -78,8 +74,9 @@ class Command(BaseCommand):
             from roster.models import Players as RosterPlayer
             from core.models import Player, Team
 
+            qs = list(RosterPlayer.objects.select_related().all())
             count = 0
-            for rp in RosterPlayer.objects.select_related().all():
+            for rp in tqdm(qs, desc="  Jugadores", unit=" jug", ncols=80, file=self.stdout):
                 player_id = str(rp.player_id) if hasattr(rp, "player_id") else str(rp.pk)
                 team_obj = None
                 if hasattr(rp, "team_id") and rp.team_id:
@@ -92,7 +89,7 @@ class Command(BaseCommand):
                     },
                 )
                 count += 1
-            self.stdout.write(f"  Jugadores: {count}")
+            self.stdout.write(f"  Jugadores sincronizados: {count}")
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Jugadores: {exc}"))
 
@@ -108,22 +105,26 @@ class Command(BaseCommand):
             if season_type:
                 qs = qs.filter(season_type__icontains=season_type)
 
+            total = qs.values("game_id").distinct().count()
             game_ids_seen = set()
             count = 0
 
+            bar = tqdm(
+                total=total, desc="  Partidos", unit=" part",
+                ncols=80, file=self.stdout,
+            )
             for row in qs.iterator(chunk_size=batch_size):
                 gid = str(getattr(row, "game_id", ""))
                 if not gid or gid in game_ids_seen:
                     continue
                 game_ids_seen.add(gid)
+                bar.update(1)
 
-                # GameBoxscoreTraditional usa home_team_abb / away_team_abb
                 home_abb = str(getattr(row, "home_team_abb", "") or "")
                 away_abb = str(getattr(row, "away_team_abb", "") or "")
                 home_team = Team.objects.filter(abbreviation=home_abb).first() if home_abb else None
                 away_team = Team.objects.filter(abbreviation=away_abb).first() if away_abb else None
 
-                # Obtener marcador final desde GameSummary
                 home_score = None
                 away_score = None
                 if home_abb and away_abb:
@@ -153,16 +154,12 @@ class Command(BaseCommand):
                     },
                 )
                 count += 1
-
-            self.stdout.write(f"  Partidos: {count}")
+            bar.close()
+            self.stdout.write(f"  Partidos sincronizados: {count}")
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Partidos: {exc}"))
 
     def _sync_team_lines(self, season, season_type, batch_size):
-        """
-        Crea GameTeamLine(period="ALL") desde TeamBoxscoreTraditional y
-        GameTeamLine(period="Q1".."Q4") desde GameSummary.
-        """
         self.stdout.write("Sincronizando estadísticas de equipo...")
         try:
             from game.models import TeamBoxscoreTraditional, GameSummary
@@ -174,10 +171,16 @@ class Command(BaseCommand):
             if season_type:
                 qs = qs.filter(season_type__icontains=season_type)
 
+            total = qs.count()
             count_all = 0
             count_q = 0
 
+            bar = tqdm(
+                total=total, desc="  Team lines", unit=" filas",
+                ncols=80, file=self.stdout,
+            )
             for row in qs.iterator(chunk_size=batch_size):
+                bar.update(1)
                 gid = str(getattr(row, "game_id", "") or "")
                 if not gid:
                     continue
@@ -188,7 +191,6 @@ class Command(BaseCommand):
 
                 team_abb = str(getattr(row, "team_abb", "") or "")
                 team = Team.objects.filter(abbreviation=team_abb).first() if team_abb else None
-
                 home_away = str(getattr(row, "home_away", "") or "")
 
                 GameTeamLine.objects.update_or_create(
@@ -219,7 +221,6 @@ class Command(BaseCommand):
                 )
                 count_all += 1
 
-                # Poblar filas por cuarto desde GameSummary
                 summary = GameSummary.objects.filter(
                     game_id=gid, team_abb=team_abb
                 ).first()
@@ -232,14 +233,13 @@ class Command(BaseCommand):
                             game=game,
                             team=team,
                             period=qtr,
-                            defaults={
-                                "home_away": home_away,
-                                "pts": pts_q,
-                            },
+                            defaults={"home_away": home_away, "pts": pts_q},
                         )
                         count_q += 1
-
-            self.stdout.write(f"  Team lines ALL: {count_all} | Cuartos: {count_q}")
+            bar.close()
+            self.stdout.write(
+                f"  Team lines ALL: {count_all} | Cuartos: {count_q}"
+            )
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Team lines: {exc}"))
 
@@ -255,8 +255,15 @@ class Command(BaseCommand):
             if season_type:
                 qs = qs.filter(season_type__icontains=season_type)
 
+            total = qs.count()
             count = 0
+
+            bar = tqdm(
+                total=total, desc="  Player lines", unit=" filas",
+                ncols=80, file=self.stdout,
+            )
             for row in qs.iterator(chunk_size=batch_size):
+                bar.update(1)
                 gid = str(getattr(row, "game_id", ""))
                 pid = str(getattr(row, "player_id", "") or "")
                 if not gid or not pid:
@@ -301,7 +308,7 @@ class Command(BaseCommand):
                     },
                 )
                 count += 1
-
+            bar.close()
             self.stdout.write(f"  Estadísticas jugadores: {count}")
         except Exception as exc:
             self.stdout.write(self.style.WARNING(f"  Estadísticas jugadores: {exc}"))

@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "django_celery_results",
     # Project apps
     "core",
-    "dashboard",
+
     "features",
     "game",
     "game_boxscore",
@@ -232,8 +232,8 @@ JAZZMIN_SETTINGS = {
     "site_title": "NBA Data Manager",
     "site_header": "NBA Data Manager",
     "site_brand": "NBA Data Manager",
-    "site_logo": "logo.png",
-    "site_icon": "ico.png",
+    "site_logo": "nba_logo.svg",
+    "site_icon": "nba_logo.svg",
     "site_logo_classes": "admin-logo-constrained",
     "custom_css": "admin/css/admin-overrides.css",
     "custom_js": "admin/js/logout-post.js",
@@ -261,11 +261,6 @@ JAZZMIN_SETTINGS = {
             "icon": "fas fa-coins",
         },
         {"name": "IA", "url": "/ia/", "icon": "fas fa-robot"},
-        {
-            "name": "Dashboard",
-            "url": "/dashboard/",
-            "icon": "fas fa-tachometer-alt",
-        },
         {
             "name": "Grafana",
             "url": "http://localhost:3001",
@@ -303,11 +298,6 @@ JAZZMIN_SETTINGS = {
             {"name": "Global", "url": "/global/", "icon": "fas fa-globe"},
             {"name": "ML", "url": "/ml/", "icon": "fas fa-brain"},
             {"name": "IA", "url": "/ia/", "icon": "fas fa-robot"},
-            {
-                "name": "Dashboard",
-                "url": "/dashboard/",
-                "icon": "fas fa-tachometer-alt",
-            },
         ],
     },
     "icons": {
@@ -324,8 +314,6 @@ JAZZMIN_SETTINGS = {
         "core.gameteamline": "fas fa-chart-bar",
         "core.winprobabilitysnapshot": "fas fa-chart-line",
         "core.gamemetadata": "fas fa-info-circle",
-        # Dashboard
-        "dashboard": "fas fa-tachometer-alt",
         # Features
         "features": "fas fa-cogs",
         "features.gamefeatureset": "fas fa-layer-group",

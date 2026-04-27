@@ -25,14 +25,9 @@ from project_commands import views as tools_views
 from predictions import views as predictions_views
 
 
-def redirect_to_dashboard(request):
-    return redirect("/dashboard/")
-
-
 urlpatterns = [
-    path("", redirect_to_dashboard, name="home"),
+    path("", lambda req: redirect("/admin/"), name="home"),
     path("admin/", admin.site.urls),
-    path("dashboard/", include("dashboard.urls")),
     path("", include("django_prometheus.urls")),
     # Herramientas (management commands runner + SSE streaming)
     path("tools/", tools_views.tools_index, name="tools_index"),
